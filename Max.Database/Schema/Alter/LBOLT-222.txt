@@ -1,0 +1,30 @@
+﻿CREATE TABLE `autobillingpayment` (
+  `AutoBillingPaymentId` int(11) NOT NULL AUTO_INCREMENT,
+  `AutoBillingDraftId` int(11) NOT NULL,
+  `PaymentTransactionId` int(11) NOT NULL,
+  `ReceiptId` int(11) NOT NULL,
+  `Status` int(11) NOT NULL,
+  PRIMARY KEY (`AutoBillingPaymentId`),
+  KEY `fk_abp_paymentTransactionId_idx` (`PaymentTransactionId`),
+  KEY `fk_abp_abd_id_idx` (`AutoBillingDraftId`),
+  KEY `fk_abp_receiptId_idx` (`ReceiptId`),
+  CONSTRAINT `fk_abp_abd_id` FOREIGN KEY (`AutoBillingDraftId`) REFERENCES `autobillingdraft` (`AutoBillingDraftId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_abp_paymentTransactionId` FOREIGN KEY (`PaymentTransactionId`) REFERENCES `paymenttransaction` (`PaymentTransactionId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_abp_receiptId` FOREIGN KEY (`ReceiptId`) REFERENCES `receiptheader` (`Receiptid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE `membermax`.`autobillingdraft` 
+DROP COLUMN `ReceiptId`,
+DROP COLUMN `PaymentTransactionId`,
+ADD COLUMN `InvoiceId` INT NULL AFTER `MembershipId`;
+
+ALTER TABLE `membermax`.`autobillingdraft` 
+ADD INDEX `fk_abd_invoiceId_idx` (`InvoiceId` ASC);
+;
+ALTER TABLE `membermax`.`autobillingdraft` 
+ADD CONSTRAINT `fk_abd_invoiceId`
+  FOREIGN KEY (`InvoiceId`)
+  REFERENCES `membermax`.`invoice` (`InvoiceId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+

@@ -1,0 +1,4 @@
+﻿SELECT @menuId:=menuid from menu where label='Opportunity Pipeline' and RouterURL='/setup/opportunity-pipeline';
+SELECT @groupId:=groupId from menu where label='Opportunity Pipeline' and RouterURL='/setup/opportunity-pipeline';
+
+UPDATE `menu` SET `Label` = 'Opportunities' WHERE (`MenuId` = @menuId and `GroupId`= @groupId);

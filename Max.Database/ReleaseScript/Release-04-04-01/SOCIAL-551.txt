@@ -1,0 +1,15 @@
+/*CALL MaxAddColumn( 'groupmember', 'SocialGroupMemberId', 'INT NULL DEFAULT NULL');*/
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'groupmember'
+        AND table_schema = DATABASE()
+        AND column_name = 'SocialGroupMemberId'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `groupmember` ADD COLUMN `SocialGroupMemberId` INT NULL DEFAULT NULL"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;

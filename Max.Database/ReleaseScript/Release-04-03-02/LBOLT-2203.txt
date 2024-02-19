@@ -1,0 +1,13 @@
+﻿
+CALL MaxAddColumn( 'person', 'MemberId', ' VARCHAR(100) NULL DEFAULT NULL');
+
+CALL MaxAddColumn( 'configuration', 'DisplayMemberIdFieldOnPersonalInfo', 'INT NULL DEFAULT 0');
+
+CALL MaxAddColumn( 'configuration', 'ContactMemberIdFormat', 'VARCHAR(45) NULL DEFAULT NULL');
+
+/* set DisplayMemberIdFieldOnPersonalInfo = 1 for only `cara` client */
+
+UPDATE `cara-demo`.`configuration` SET DisplayMemberIdFieldOnPersonalInfo = 1 ;
+
+UPDATE `cara-demo`.`configuration` SET `ContactMemberIdFormat` = '***-99999' ;
+

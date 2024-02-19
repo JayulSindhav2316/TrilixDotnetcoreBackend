@@ -1,0 +1,1 @@
+Update documentobject set Active=1 where Active is null;

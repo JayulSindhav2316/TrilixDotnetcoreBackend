@@ -1,0 +1,4 @@
+﻿
+CALL MaxAddColumn( 'entityrolehistory', 'IsDeleted', 'INT NULL DEFAULT NULL');
+
+ CALL MaxAddColumn( 'entityrole', 'IsDeleted', 'INT NULL DEFAULT NULL');

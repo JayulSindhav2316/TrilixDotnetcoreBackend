@@ -1,0 +1,12 @@
+﻿INSERT INTO `trilix_bishop`.`group`
+(`GroupName`,`GroupDescription`,`PreferredNumbers`,`ApplyTerm`,`OrganizationId`,`Status`,`Sync`)
+VALUES('Confidential','Confidential',1000,0,1,1,1);
+
+INSERT INTO groupmember(EntityId,GroupId,Status) 
+Select EntityId,78,1 From Entity where PersonId > 0
+
+INSERT INTO `grouprole` (`GroupRoleName`, `OrganizationId`)
+VALUES( 'Bishop', 1);
+
+INSERT INTO groupmemberrole(GroupMemberId, GroupRoleId, Status) 
+Select GroupMemberId, 24, 1 from groupmember

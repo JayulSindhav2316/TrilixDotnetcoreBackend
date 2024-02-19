@@ -1,0 +1,22 @@
+CREATE TABLE `grouphistory` (
+  `GroupHistoryId` int(11) NOT NULL AUTO_INCREMENT,
+  `GroupId` int(11) DEFAULT NULL,
+  `GroupMemberId` int(11) DEFAULT NULL,
+  `GroupRoleId` int(11) DEFAULT NULL,
+  `LinkGroupRoleId` int(11) DEFAULT NULL,
+  `ActivityType` varchar(100) DEFAULT NULL,
+  `ActivityDate` datetime DEFAULT NULL,
+  `ActivityStaffId` int(11) DEFAULT NULL,
+  `ActivityDescription` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`GroupHistoryId`),
+  KEY `fk_bgh_groupid_idx` (`GroupId`),
+  KEY `fk_bgh_groupmemberid_idx` (`GroupMemberId`),
+  KEY `fk_bgh_staffid_idx` (`ActivityStaffId`),
+  KEY `fk_gh_grouproleid_idx` (`GroupRoleId`),
+  KEY `fk_gh_linkgrouproleid_idx` (`LinkGroupRoleId`),
+  CONSTRAINT `fk_gh_groupid` FOREIGN KEY (`GroupId`) REFERENCES `group` (`GroupId`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gh_groupmemberid` FOREIGN KEY (`GroupMemberId`) REFERENCES `groupmember` (`GroupMemberId`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gh_grouproleid` FOREIGN KEY (`GroupRoleId`) REFERENCES `grouprole` (`GroupRoleId`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gh_linkgrouproleid` FOREIGN KEY (`LinkGroupRoleId`) REFERENCES `linkgrouprole` (`LinkGroupRoleId`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gh_staffid` FOREIGN KEY (`ActivityStaffId`) REFERENCES `staffuser` (`UserId`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;

@@ -1,0 +1,4 @@
+ALTER TABLE `event` 
+ADD COLUMN `DueDate` DATETIME NULL DEFAULT NULL AFTER `AllowMultipleRegistration`;
+
+update event set DueDate = FromDate

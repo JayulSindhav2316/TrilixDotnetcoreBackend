@@ -1,0 +1,14 @@
+﻿ALTER TABLE `paymentprofile` 
+ADD COLUMN `UseForAutobilling` INT NOT NULL DEFAULT 0 AFTER `CardType`;
+
+ALTER TABLE `paymentprofile` 
+ADD COLUMN `AccountType` VARCHAR(45) NULL AFTER `ExpirationDate`,
+ADD COLUMN `RoutingNumber` VARCHAR(45) NULL AFTER `AccountType`,
+ADD COLUMN `AccountNumber` VARCHAR(45) NULL AFTER `RoutingNumber`,
+ADD COLUMN `NameOnAccount` VARCHAR(100) NULL AFTER `AccountNumber`,
+CHANGE COLUMN `CardType` `CardType` VARCHAR(45) NULL DEFAULT NULL AFTER `AuthNetPaymentProfileId`,
+CHANGE COLUMN `PreferredPaymentMethod` `PreferredPaymentMethod` INT(11) NULL DEFAULT NULL AFTER `UseForAutobilling`,
+CHANGE COLUMN `Status` `Status` INT(11) NOT NULL AFTER `PreferredPaymentMethod`;
+
+ALTER TABLE `paymentprofile` 
+ADD COLUMN `CardHolderName` VARCHAR(100) NULL AFTER `AuthNetPaymentProfileId`;

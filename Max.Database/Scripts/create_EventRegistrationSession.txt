@@ -1,0 +1,9 @@
+CREATE TABLE eventregistersession (
+	EventRegisterSessionId int NOT NULL AUTO_INCREMENT,
+    EventRegisterId int NOT NULL,
+    SessionId int NOT NULL,
+    Price decimal(13,2),
+    PRIMARY KEY (EventRegisterSessionId),
+    CONSTRAINT FK_EventRegister FOREIGN KEY (EventRegisterId) REFERENCES eventregister(EventRegisterId),
+    CONSTRAINT FK_Session FOREIGN KEY (SessionId) REFERENCES session(SessionId)
+);

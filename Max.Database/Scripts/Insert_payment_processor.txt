@@ -1,0 +1,3 @@
+﻿INSERT INTO `paymentprocessor`
+(`Name`,`MerchantId`,`LiveURL`,`TestURL`,`LoginId`,`ApiKey`,`TransactionKey`,`TransactionMode`,`OrganizationId`)
+VALUES ('Authorize.Net','MemberMax','https://api.authorize.net/xml/v1/request.api','https://apitest.authorize.net/xml/v1/request.api','8Py3eJ5k9z','9M664m4Wj63vcJ74utCZenrDP5pd6PHKDUe9fmvBNJ6NmwGd6CK8jX3pZY7TbP5a','5QP823EumBWPf39n',0,1);

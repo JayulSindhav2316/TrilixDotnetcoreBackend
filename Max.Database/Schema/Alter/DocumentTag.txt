@@ -1,0 +1,11 @@
+﻿CREATE TABLE `documenttag` (
+  `DocumentTagId` int(11) NOT NULL AUTO_INCREMENT,
+  `DocumentObjectId` int(11) DEFAULT NULL,
+  `TagId` int(11) DEFAULT NULL,
+  `TagValue` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`DocumentTagId`),
+  KEY `fk_tag_id_idx` (`TagId`),
+  KEY `fk_tag_documentobject_id_idx` (`DocumentObjectId`),
+  CONSTRAINT `fk_tag_documentobject_id` FOREIGN KEY (`DocumentObjectId`) REFERENCES `documentobject` (`DocumentObjectId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tag_id` FOREIGN KEY (`TagId`) REFERENCES `tag` (`TagId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;

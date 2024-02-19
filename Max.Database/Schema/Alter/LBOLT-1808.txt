@@ -1,0 +1,3 @@
+ALTER TABLE maxtenant.tenant ADD COLUMN ReportConnectionString VARCHAR(500) AFTER ConnectionString;
+
+update tenant set ReportConnectionString='server=localhost;port=3306;database=nbma-report;uid=root;password=Anit1066';

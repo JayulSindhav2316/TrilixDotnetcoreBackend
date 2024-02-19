@@ -1,0 +1,9 @@
+﻿CREATE TABLE `staffusersearchhistory` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `StaffUserId` int DEFAULT NULL,
+  `SearchText` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+ALTER TABLE `staffusersearchhistory`
+ADD COLUMN `UpdatedAt` datetime NULL
+;

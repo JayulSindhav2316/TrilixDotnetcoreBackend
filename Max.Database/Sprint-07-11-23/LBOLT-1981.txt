@@ -1,0 +1,14 @@
+ALTER TABLE `contactactivity` 
+ADD COLUMN `IsHistoricalDelete` BIT(1) NULL DEFAULT NULL AFTER `DeleteActivityFor`;
+
+ALTER TABLE `contactactivity` 
+DROP COLUMN `DeleteActivityFor`,
+ADD COLUMN `IsDeleteforPerson` BIT(1) NULL DEFAULT NULL AFTER `IsHistoricalDelete`,
+ADD COLUMN `IsDeleteForAccount` BIT(1) NULL DEFAULT NULL AFTER `IsDeleteforPerson`,
+ADD COLUMN `IsDeleteForRole` BIT(1) NULL DEFAULT NULL AFTER `IsDeleteForAccount`;
+
+ALTER TABLE `ncacc_qa`.`contactactivity` 
+CHANGE COLUMN `IsHistoricalDelete` `IsHistoricalDelete` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `IsDeleteforPerson` `IsDeleteforPerson` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `IsDeleteForAccount` `IsDeleteForAccount` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `IsDeleteForRole` `IsDeleteForRole` INT NULL DEFAULT NULL ;

@@ -1,0 +1,51 @@
+CREATE TABLE `contactactivity` (
+  `ContactActivityId` INT NOT NULL AUTO_INCREMENT,
+  `EntityId` INT NULL,
+  `AccountId` INT NULL,
+  `InteractionAccountId` INT NULL,
+  `InteractionEntityId` INT NULL,
+  `ActivityDate` DATETIME NULL,
+  `InteractionType` INT NULL,
+  `ActivityConnection` INT NULL,
+  `Subject` VARCHAR(250) NULL,
+  `Description` VARCHAR(2500) NULL,
+  INDEX `fk_activity_entityId_idx` (`EntityId` ASC),
+  INDEX `fk_activity_accountId_idx` (`AccountId` ASC),
+  INDEX `fk_activity_interaction_Account_id_idx` (`InteractionAccountId` ASC),
+  INDEX `fk_activity_interaction_entuity_id_idx` (`InteractionEntityId` ASC),
+  PRIMARY KEY (`ContactActivityId`),
+  CONSTRAINT `fk_activity_entityId`
+    FOREIGN KEY (`EntityId`)
+    REFERENCES `entity` (`EntityId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activity_accountId`
+    FOREIGN KEY (`AccountId`)
+    REFERENCES `company` (`CompanyId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activity_interaction_entuity_id`
+    FOREIGN KEY (`InteractionEntityId`)
+    REFERENCES `entity` (`EntityId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activity_interaction_Account_id`
+    FOREIGN KEY (`InteractionAccountId`)
+    REFERENCES `company` (`CompanyId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+ALTER TABLE `contactactivity` 
+ADD COLUMN `StaffUserId` INT NULL AFTER `Description`,
+ADD INDEX `fk_activity_staff_user_id_idx` (`StaffUserId` ASC);
+;
+ALTER TABLE `contactactivity` 
+ADD CONSTRAINT `fk_activity_staff_user_id`
+  FOREIGN KEY (`StaffUserId`)
+  REFERENCES `staffuser` (`UserId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

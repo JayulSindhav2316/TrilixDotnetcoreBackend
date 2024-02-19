@@ -1,0 +1,12 @@
+ALTER TABLE `membermax`.`accountingsetup` 
+DROP FOREIGN KEY `fk_as_salesreturnglid`,
+DROP FOREIGN KEY `fk_as_processingfeeglid`,
+DROP FOREIGN KEY `fk_as_onlinecreditglid`,
+DROP FOREIGN KEY `fk_as_offlinepaymentglid`;
+
+ALTER TABLE `membermax`.`accountingsetup` 
+DROP INDEX `fk_as_salesreturnglid_idx` ,
+DROP INDEX `fk_as_offlinepaymentglid_idx` ,
+DROP INDEX `gf_as_onlinecreditglid_idx` ,
+DROP INDEX `fk_as_processingfeeglid_idx` ;
+;

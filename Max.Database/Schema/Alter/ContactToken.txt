@@ -1,0 +1,9 @@
+CREATE TABLE `contacttoken` (
+  `ContactTokenId` INT NOT NULL AUTO_INCREMENT,
+  `Token` VARCHAR(1000) NULL,
+  `Email` VARCHAR(255) NULL,
+  `Create` DATETIME NULL,
+  `Expire` DATETIME NULL,
+  `Status` INT NULL,
+  `IpAddress` VARCHAR(45) NULL,
+  PRIMARY KEY (`ContactTokenId`));

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup Label="Globals">
+	</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		
+		<PackageReference Include="MailKit" Version="4.0.0" />
+		
+		<PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+		
+		<PackageReference Include="Polly" Version="6.1.0" />
+		
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		
+		
+		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="17.0.23.315" />
+		<PackageReference Include="Telerik.WebReportDesigner.Services" Version="17.0.23.315" />
+		
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Resources\" />
+		<Folder Include="Reports\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Max.Reporting.Application\Max.Reporting.Application.csproj" />
+	  <ProjectReference Include="..\Max.Reporting.Infrastructure\Max.Reporting.Infrastructure.csproj" />
+	</ItemGroup>
+</Project>

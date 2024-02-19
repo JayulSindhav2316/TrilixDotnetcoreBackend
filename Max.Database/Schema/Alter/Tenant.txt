@@ -1,0 +1,36 @@
+﻿ALTER TABLE `tenant` 
+ADD COLUMN `BaseUrl` VARCHAR(100) NULL AFTER `SecretKey`;
+
+ALTER TABLE `maxtenant`.`tenant` 
+ADD COLUMN `SenderEmailAddress` VARCHAR(255) NULL AFTER `BaseUrl`,
+ADD COLUMN `EmailServer` VARCHAR(255) NULL AFTER `SenderEmailAddress`,
+ADD COLUMN `EmailSenderUserName` VARCHAR(100) NULL AFTER `EmailServer`,
+ADD COLUMN `EmailSenderPassword` VARCHAR(100) NULL AFTER `EmailSenderUserName`,
+ADD COLUMN `EmailServerPort` VARCHAR(45) NULL AFTER `EmailSenderPassword`,
+ADD COLUMN `EmailServerNeedsAuthentication` INT NULL AFTER `EmailServerPort`;
+
+ALTER TABLE `tenant` 
+ADD COLUMN `SolrUrl` VARCHAR(255) NULL AFTER `StorageConnectionString`;
+
+ALTER TABLE `maxtenant`.`tenant` 
+ADD COLUMN `SociableBaseUrl` VARCHAR(255) NULL AFTER `SolrUrl`,
+ADD COLUMN `SociableAdminUserName` VARCHAR(50) NULL AFTER `SociableBaseUrl`,
+ADD COLUMN `SociableAdminPassword` VARCHAR(255) NULL AFTER `SociableAdminUserName`;
+
+ALTER TABLE `tenant` 
+ADD COLUMN `VerificationMinutes` DOUBLE NULL DEFAULT 5 AFTER `SociableAdminPassword`;
+
+ALTER TABLE `maxtenant`.`tenant` 
+ADD COLUMN `TwilioAccountSid` VARCHAR(100) NULL AFTER `VerificationMinutes`,
+ADD COLUMN `TwilioAuthToken` VARCHAR(100) NULL AFTER `TwilioAccountSid`;
+
+ALTER TABLE `maxtenant`.`tenant` 
+ADD COLUMN `TwilioSenderPhoneNumber` VARCHAR(45) NULL AFTER `TwilioAuthToken`;
+
+
+update maxtenant.tenant set TwilioAccountSid='ACcdfbb79e194f437b5e9ca03e83f1d372', TwilioAuthToken='09b230a6ba258438bb1f8c21c045a6b7', TwilioSenderPhoneNumber='+13612644648'
+
+ALTER TABLE maxtenant.tenant ADD COLUMN ReportConnectionString VARCHAR(500) AFTER ConnectionString;
+
+update tenant set ReportConnectionString='server=localhost;port=3306;database=nbma-report;uid=root;password=Anit1066';
+

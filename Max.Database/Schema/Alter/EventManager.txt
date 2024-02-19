@@ -1,0 +1,374 @@
+DROP TABLE IF EXISTS  `linkeventfeetype`;
+DROP TABLE IF EXISTS  `linkregistrationgroupfee`;
+DROP TABLE IF EXISTS  `linkeventgroup`;
+DROP TABLE IF EXISTS  `sessionregistrationgrouppricing`;
+DROP TABLE IF EXISTS  `sessionleaderlink`;
+DROP TABLE IF EXISTS  `registrationgroupmembershiplink`;
+DROP TABLE IF EXISTS  `questionlink`;
+DROP TABLE IF EXISTS  `eventregistrationgroupsetting`; 
+DROP TABLE IF EXISTS  `registrationgroup`;
+DROP TABLE IF EXISTS  `answertoquestion`;
+DROP TABLE IF EXISTS  `answeroption`;
+DROP TABLE IF EXISTS  `questionbank`;
+DROP TABLE IF EXISTS  `answertypelookup`;
+DROP TABLE IF EXISTS  `pricingforlookup`;
+DROP TABLE IF EXISTS  `session`;
+DROP TABLE IF EXISTS  `eventregistrationsetting`; 
+DROP TABLE IF EXISTS  `event`;
+DROP TABLE IF EXISTS  `eventtype`;
+DROP TABLE IF EXISTS  `timezone`;
+DROP TABLE IF EXISTS  `registrationfeetype`;
+
+
+
+/**************************************/
+
+-- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
+--
+-- ------------------------------------------------------
+-- Server version	5.7.33-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `timezone`
+--
+
+DROP TABLE IF EXISTS `timezone`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `timezone` (
+  `TimeZoneId` int(11) NOT NULL,
+  `TimeZoneAbbreviation` varchar(10) DEFAULT NULL,
+  `TimeZoneName` varchar(100) DEFAULT NULL,
+  `TimeZoneOffset` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`TimeZoneId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `timezone`
+--
+
+LOCK TABLES `timezone` WRITE;
+/*!40000 ALTER TABLE `timezone` DISABLE KEYS */;
+INSERT INTO `timezone` VALUES (1,'UTC','Coordinated Universal Time',0.00),(2,'AZOST','Azores Summer Time',0.00),(3,'EGST','Eastern Greenland Summer Time',0.00),(4,'GMT','Greenwich Mean Time',0.00),(5,'WET','Western European Time',0.00),(6,'BST','British Summer Time',1.00),(7,'CET','Central European Time',1.00),(8,'IST','Irish Standard Time',1.00),(9,'WAT','West Africa Time',1.00),(10,'WEST','Western European Summer Time',1.00),(11,'AEST','Australian Eastern Standard Time',10.00),(12,'CHST','Chamorro Standard Time',10.00),(13,'CHUT','Chuuk Time',10.00),(14,'DDUT','Dumont d\'Urville Time',10.00),(15,'PGT','Papua New Guinea Time',10.00),(16,'VLAT','Vladivostok Time',10.00),(17,'ACDT','Australian Central Daylight Savings Time',10.30),(18,'LHST','Lord Howe Standard Time',10.30),(19,'AEDT','Australian Eastern Daylight Savings Time',11.00),(20,'BST','Bougainville Standard Time',11.00),(21,'KOST','Kosrae Time',11.00),(22,'LHDT','Lord Howe Daylight Time',11.00),(23,'MAGT','Magadan Time',11.00),(24,'MIST','Macquarie Island Station Time',11.00),(25,'NCT','New Caledonia Time',11.00),(26,'NFT','Norfolk Time',11.00),(27,'PONT','Pohnpei Standard Time',11.00),(28,'SAKT','Sakhalin Island time',11.00),(29,'SBT','Solomon Islands Time',11.00),(30,'SRET','Srednekolymsk Time',11.00),(31,'VUT','Vanuatu Time',11.00),(32,'FJT','Fiji Time',12.00),(33,'GILT','Gilbert Island Time',12.00),(34,'MHT','Marshall Islands',12.00),(35,'NRT','Nauru Time',12.00),(36,'NZST','New Zealand Standard Time',12.00),(37,'PETT','Kamchatka Time',12.00),(38,'TVT','Tuvalu Time',12.00),(39,'WAKT','Wake Island Time',12.00),(40,'WFT','Wallis and Futuna Time',12.00),(41,'CHAST','Chatham Standard Time',12.45),(42,'NZDT','New Zealand Daylight Time',13.00),(43,'PHOT','Phoenix Island Time',13.00),(44,'TKT','Tokelau Time',13.00),(45,'TOT','Tonga Time',13.00),(46,'CHADT','Chatham Daylight Time',1.45),(47,'LINT','Line Islands Time',14.00),(48,'CAT','Central Africa Time',2.00),(49,'CEST','Central European Summer Time',2.00),(50,'EET','Eastern European Time',2.00),(51,'IST','Israel Standard Time',2.00),(52,'SAST','South African Standard Time',2.00),(53,'USZ1','Kaliningrad Time',2.00),(54,'WAST','West Africa Summer Time',2.00),(55,'AST','Arabia Standard Time',3.00),(56,'EAT','East Africa Time',3.00),(57,'EEST','Eastern European Summer Time',3.00),(58,'FET','Further-eastern European Time',3.00),(59,'IDT','Israel Daylight Time',3.00),(60,'MSK','Moscow Time',3.00),(61,'SYOT','Showa Station Time',3.00),(62,'TRT','Turkey Time',3.00),(63,'IRST','Iran Standard Time',3.00),(64,'AMT','Armenia Time',4.00),(65,'AZT','Azerbaijan Time',4.00),(66,'GET','Georgia Standard Time',4.00),(67,'GST','Gulf Standard Time',4.00),(68,'MUT','Mauritius Time',4.00),(69,'RET','RÃ©union Time',4.00),(70,'SAMT','Samara Time',4.00),(71,'SCT','Seychelles Time',4.00),(72,'VOLT','Volgograd Time',4.00),(73,'AFT','Afghanistan Time',4.30),(74,'IRDT','Iran Daylight Time',4.30),(75,'HMT','Heard and McDonald Islands Time',5.00),(76,'MAWT','Mawson Station Time',5.00),(77,'MVT','Maldives Time',5.00),(78,'ORAT','Oral Time',5.00),(79,'PKT','Pakistan Standard Time',5.00),(80,'TFT','French Southern and Antarctic Time',5.00),(81,'TJT','Tajikistan Time',5.00),(82,'TMT','Turkmenistan Time',5.00),(83,'UZT','Uzbekistan Time',5.00),(84,'YEKT','Yekaterinburg Time',5.00),(85,'IST','Indian Standard Time',5.30),(86,'SLST','Sri Lanka Standard Time',5.30),(87,'NPT','Nepal Time',5.45),(88,'BST','Bangladesh Standard Time',6.00),(89,'BTT','Bhutan Time',6.00),(90,'IOT','Indian Chagos Time',6.00),(91,'KGT','Kyrgyzstan time',6.00),(92,'OMST','Omsk Time',6.00),(93,'VOST','Vostok Station Time',6.00),(94,'CCT','Cocos Islands Time',6.30),(95,'MMT','Myanmar Standard Time',6.30),(96,'CXT','Christmas Island Time',7.00),(97,'DAVT','Davis Time',7.00),(98,'HOVT','Khovd Standard Time',7.00),(99,'ICT','Indochina Time',7.00),(100,'KRAT','Krasnoyarsk Time',7.00),(101,'THA','Thailand Standard Time',7.00),(102,'WIB','Western Indonesia Time',7.00),(103,'AWST','Australian Western Standard Time',8.00),(104,'BDT','Brunei Time',8.00),(105,'BNT','Brunei Darussalam Time',8.00),(106,'CHOT','Choibalsan Standard Time',8.00),(107,'CIT','Central Indonesia Time',8.00),(108,'CST','China Standard Time',8.00),(109,'HKT','Hong Kong Time',8.00),(110,'HOVST','Khovd Summer Time',8.00),(111,'IRKT','Irkutsk Time',8.00),(112,'MST','Malaysia Standard Time',8.00),(113,'MYT','Malaysia Time',8.00),(114,'PhST','Philippine Standard Time',8.00),(115,'PHT','Philippine Time',8.00),(116,'SGT','Singapore Time',8.00),(117,'ULAT','Ulaanbaatar Standard Time',8.00),(118,'WST','Western Standard Time',8.00),(119,'ACWST','Australian Central Western Standard Time',8.45),(120,'CWST','Central Western Standard Time',8.45),(121,'CHOST','Choibalsan Summer Time',9.00),(122,'EIT','Eastern Indonesian Time',9.00),(123,'JST','Japan Standard Time',9.00),(124,'KST','Korea Standard Time',9.00),(125,'PWT','Palau Time',9.00),(126,'TLT','Timor Leste Time',9.00),(127,'ULAST','Ulaanbaatar Summer Time',9.00),(128,'WIT','Eastern Indonesia Time',9.00),(129,'YAKT','Yakutsk Time',9.00),(130,'ACST','Australian Central Standard Time',9.30),(131,'AZOT','Azores Standard Time',-1.00),(132,'CVT','Cape Verde Time',-1.00),(133,'EGT','Eastern Greenland Time',-1.00),(134,'CKT','Cook Island Time',-10.00),(135,'HAST','Hawaii-Aleutian Standard Time',-10.00),(136,'TAHT','Tahiti Time',-10.00),(137,'NUT','Niue Time',-11.00),(138,'SST','Samoa Standard Time',-11.00),(139,'BIT','Baker Island Time',-12.00),(140,'BRST','Brasilia Summer Time',-2.00),(141,'FNT','Fernando de Noronha Time',-2.00),(142,'GST','South Georgia Time',-2.00),(143,'PMDT','Saint Pierre and Miquelon Daylight time',-2.00),(144,'UYST','Uruguay Summer Time',-2.00),(145,'WGST','West Greenland Summer Time',-2.00),(146,'NDT','Newfoundland Daylight Time',-2.30),(147,'ADT','Atlantic Daylight Time',-3.00),(148,'AMST','Amazon Summer Time',-3.00),(149,'ART','Argentina Time',-3.00),(150,'BRT','Brasilia Time',-3.00),(151,'CLST','Chile Summer Time',-3.00),(152,'FKST','Falkland Islands Summer Time',-3.00),(153,'GFT','French Guiana Time',-3.00),(154,'PMST','Saint Pierre and Miquelon Standard Time',-3.00),(155,'PYST','Paraguay Summer Time',-3.00),(156,'ROTT','Rothera Research Station Time',-3.00),(157,'SRT','Suriname Time',-3.00),(158,'UYT','Uruguay Standard Time',-3.00),(159,'WGST','West Greenland Time',-3.00),(160,'NST','Newfoundland Standard Time',-3.30),(161,'NT','Newfoundland Time',-3.30),(162,'AMT','Amazon Time',-4.00),(163,'AST','Atlantic Standard Time',-4.00),(164,'BOT','Bolivia Time',-4.00),(165,'CDT','Cuba Daylight Time',-4.00),(166,'CLT','Chile Standard Time',-4.00),(167,'COST','Colombia Summer Time',-4.00),(168,'EDT','Eastern Daylight Time',-4.00),(169,'FKT','Falkland Islands Time',-4.00),(170,'GYT','Guyana Time',-4.00),(171,'PYT','Paraguay Time',-4.00),(172,'VET','Venezuelan Standard Time',-4.00),(173,'AT','Atlantic Time',-4.00),(174,'ACT','Acre Time',-5.00),(175,'CDT','Central Daylight Time',-5.00),(176,'COT','Colombia Time',-5.00),(177,'CST','Cuba Standard Time',-5.00),(178,'EASST','Easter Island Summer Time',-5.00),(179,'ECT','Ecuador Time',-5.00),(180,'EST','Eastern Standard Time',-5.00),(181,'PET','Peru Time',-5.00),(182,'ET','Eastern Time',-5.00),(183,'CST','Central Standard Time',-6.00),(184,'EAST','Easter Island Standard Time',-6.00),(185,'GALT','Galapagos Time',-6.00),(186,'MDT','Mountain Daylight Time',-6.00),(187,'CT','Central Time',-6.00),(188,'MST','Mountain Standard Time',-7.00),(189,'PDT','Pacific Daylight Time',-7.00),(190,'MT','Mountain Time',-7.00),(191,'AKDT','Alaska Daylight Time',-8.00),(192,'CIST','Clipperton Island Standard Time',-8.00),(193,'PST','Pacific Standard Time',-8.00),(194,'PT','Pacific Time',-8.00),(195,'AKST','Alaska Standard Time',-9.00),(196,'GAMT','Gambier Islands',-9.00),(197,'GIT','Gambier Island Time',-9.00),(198,'HADT','Hawaii-Aleutian Daylight Time',-9.00),(199,'MART','Marquesas Islands Time',-9.30),(200,'MIT','Marquesas Islands Time',-9.30);
+/*!40000 ALTER TABLE `timezone` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-09-15 17:54:18
+
+/**************************************/
+
+CREATE TABLE `eventtype` (
+  `EventTypeId` int(11) NOT NULL,
+  `EventType` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`EventTypeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `eventtype` (`EventTypeId`, `EventType`) VALUES ('1', 'In-Person');
+INSERT INTO `eventtype` (`EventTypeId`, `EventType`) VALUES ('2', 'Virtual');
+INSERT INTO `eventtype` (`EventTypeId`, `EventType`) VALUES ('3', 'Pre Recorded');
+
+/**************************************/
+
+CREATE TABLE `event` (
+  `EventId` int(11) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(10) DEFAULT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `EventTypeId` int(11) DEFAULT NULL,
+  `FromDate` datetime DEFAULT NULL,
+  `ToDate` datetime DEFAULT NULL,
+  `TimeZoneId` int(11) DEFAULT NULL,
+  `OrganizationId` int(11) DEFAULT NULL,
+  `Location` varchar(100) DEFAULT NULL,
+  `Area` varchar(100) DEFAULT NULL,
+  `City` varchar(100) DEFAULT NULL,
+  `State` varchar(2) DEFAULT NULL,
+  `Zip` varchar(45) DEFAULT NULL,
+  `ContactPersonEntityId` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  `Summary` varchar(200) DEFAULT NULL,
+  `Description` varchar(1000) DEFAULT NULL,
+  `EventImageId` int(11) DEFAULT NULL,
+  `WebinarLiveLink` varchar(255) DEFAULT NULL,
+  `WebinarRecordedLink` varchar(255) DEFAULT NULL,
+  `MaxCapacity` int(11) DEFAULT NULL,
+  `ShowEventCode` int(11) DEFAULT NULL,
+  `AllowNonMember` int(11) DEFAULT NULL,
+  `AllowWaitlist` int(11) DEFAULT NULL,
+  `AllowMultipleRegistration` int(11) DEFAULT NULL,
+  PRIMARY KEY (`EventId`),
+  KEY `fk_timezone_id_idx` (`TimeZoneId`),
+  KEY `fk_contactentityid_idx` (`ContactPersonEntityId`),
+  KEY `fk_organization_id_idx` (`OrganizationId`),
+  KEY `fk_eventtype_id_idx` (`EventTypeId`),
+  CONSTRAINT `fk_contactentity_id` FOREIGN KEY (`ContactPersonEntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eventtype_id` FOREIGN KEY (`EventTypeId`) REFERENCES `eventtype` (`EventTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_organization_id` FOREIGN KEY (`OrganizationId`) REFERENCES `organization` (`OrganizationId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_timezone_id` FOREIGN KEY (`TimeZoneId`) REFERENCES `timezone` (`TimeZoneId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+/**************************************/
+CREATE TABLE `session` (
+  `SessionId` int(11) NOT NULL AUTO_INCREMENT,
+  `EventId` int(11) DEFAULT NULL,
+  `Code` varchar(20) DEFAULT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `StartDatetime` datetime DEFAULT NULL,
+  `EndDateTime` datetime DEFAULT NULL,
+  `Location` varchar(100) DEFAULT NULL,
+  `EnableMaxCapacity` int(11) DEFAULT NULL,
+  `MaxCapacity` int(11) DEFAULT NULL,
+  `GlAccountID` int(11) DEFAULT NULL,
+  `EnableSamePrice` int(11) DEFAULT NULL,
+  `EnableTax` int(11) DEFAULT NULL,
+  `Tax` decimal(13,2) DEFAULT NULL,
+  `EnableCEU` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  `MemberPrice` decimal(13,2) DEFAULT NULL,
+  `NonMemberPrice` decimal(13,2) DEFAULT NULL,
+  PRIMARY KEY (`SessionId`),
+  KEY `fk_event_id_idx` (`EventId`),
+  KEY `fk_glaccount_id_idx` (`GlAccountID`),
+  CONSTRAINT `fk_event_id` FOREIGN KEY (`EventId`) REFERENCES `event` (`EventId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_glaccount_id` FOREIGN KEY (`GlAccountID`) REFERENCES `glaccount` (`GlAccountId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+/**************************************/
+
+CREATE TABLE `pricingforlookup` (
+  `PricingForLookUpId` int(11) NOT NULL,
+  `PricingFor` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`PricingForLookUpId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `pricingforlookup` (`PricingForLookUpId`, `PricingFor`) VALUES ('1', 'Member');
+INSERT INTO `pricingforlookup` (`PricingForLookUpId`, `PricingFor`) VALUES ('2', 'Non-Member');
+INSERT INTO `pricingforlookup` (`PricingForLookUpId`, `PricingFor`) VALUES ('3', 'Group');
+
+/**************************************/
+
+CREATE TABLE `answertypelookup` (
+  `AnswerTypeLookUpId` int(11) NOT NULL,
+  `AnswerType` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`AnswerTypeLookUpId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `answertypelookup` (`AnswerTypeLookUpId`, `AnswerType`) VALUES ('1', 'Short Description');
+INSERT INTO `answertypelookup` (`AnswerTypeLookUpId`, `AnswerType`) VALUES ('2', 'Long Description');
+INSERT INTO `answertypelookup` (`AnswerTypeLookUpId`, `AnswerType`) VALUES ('3', 'Dropdown');
+INSERT INTO `answertypelookup` (`AnswerTypeLookUpId`, `AnswerType`) VALUES ('4', 'Multi-Select Dropdown');
+INSERT INTO `answertypelookup` (`AnswerTypeLookUpId`, `AnswerType`) VALUES ('5', 'Date');
+INSERT INTO `answertypelookup` (`AnswerTypeLookUpId`, `AnswerType`) VALUES ('6', 'Time');
+INSERT INTO `answertypelookup` (`AnswerTypeLookUpId`, `AnswerType`) VALUES ('7', 'Date-Time');
+
+/**************************************/
+
+CREATE TABLE `questionbank` (
+  `QuestionBankId` int(11) NOT NULL AUTO_INCREMENT,
+  `Question` varchar(100) DEFAULT NULL,
+  `AnswerTypeLookUpId` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT '1',
+  PRIMARY KEY (`QuestionBankId`),
+  KEY `fk_qb_answertype_lookup_id_idx` (`AnswerTypeLookUpId`),
+  CONSTRAINT `fk_qb_answertype_lookup_id` FOREIGN KEY (`AnswerTypeLookUpId`) REFERENCES `answertypelookup` (`AnswerTypeLookUpId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/**************************************/
+
+CREATE TABLE `answeroption` (
+  `AnswerOptionId` int(11) NOT NULL AUTO_INCREMENT,
+  `QuestionBankId` int(11) DEFAULT NULL,
+  `Option` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`AnswerOptionId`),
+  KEY `fk_ao_questionbank_id_idx` (`QuestionBankId`),
+  CONSTRAINT `fk_ao_questionbank_id` FOREIGN KEY (`QuestionBankId`) REFERENCES `questionbank` (`QuestionBankId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/**************************************/
+
+CREATE TABLE `answertoquestion` (
+  `AnswerToQuestionId` int(11) NOT NULL AUTO_INCREMENT,
+  `QuestionBankId` int(11) DEFAULT NULL,
+  `Answer` varchar(500) DEFAULT NULL,
+  `EventId` int(11) DEFAULT NULL,
+  `SessionId` int(11) DEFAULT NULL,
+  `EntityId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`AnswerToQuestionId`),
+  KEY `fk_atq_questionbank_id_idx` (`QuestionBankId`),
+  KEY `fk_atq_event_id_idx` (`EventId`),
+  KEY `fk_atq_session_id_idx` (`SessionId`),
+  KEY `fk_atq_entity_id_idx` (`EntityId`),
+  CONSTRAINT `fk_atq_entity_id` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_atq_event_id` FOREIGN KEY (`EventId`) REFERENCES `event` (`EventId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_atq_questionbank_id` FOREIGN KEY (`QuestionBankId`) REFERENCES `questionbank` (`QuestionBankId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_atq_session_id` FOREIGN KEY (`SessionId`) REFERENCES `session` (`SessionId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/**************************************/
+
+CREATE TABLE `registrationgroup` (
+  `RegistrationGroupId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  `Type` varchar(200) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`RegistrationGroupId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+Insert into `registrationgroup` (`Name`, `Status`) Values('Member', 1);
+Insert into `registrationgroup` (`Name`, `Status`) Values('Non-Member', 1);
+
+/**************************************/
+
+CREATE TABLE `questionlink` (
+  `QuestionLinkId` int(11) NOT NULL AUTO_INCREMENT,
+  `EventId` int(11) DEFAULT NULL,
+  `SessionId` int(11) DEFAULT NULL,
+  `QuestionBankId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`QuestionLinkId`),
+  KEY `fk_ql_event_id_idx` (`EventId`),
+  KEY `fk_el_session_id_idx` (`SessionId`),
+  KEY `fk_el_questionbank_id_idx` (`QuestionBankId`),
+  CONSTRAINT `fk_el_questionbank_id` FOREIGN KEY (`QuestionBankId`) REFERENCES `questionbank` (`QuestionBankId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_el_session_id` FOREIGN KEY (`SessionId`) REFERENCES `session` (`SessionId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ql_event_id` FOREIGN KEY (`EventId`) REFERENCES `event` (`EventId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/**************************************/
+
+CREATE TABLE `registrationgroupmembershiplink` (
+  `RegistrationGroupMembershipLinkId` int(11) NOT NULL AUTO_INCREMENT,
+  `RegistrationGroupId` int(11) DEFAULT NULL,
+  `MembershipId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`RegistrationGroupMembershipLinkId`),
+  KEY `fk_reggroupmem_registration_id_idx` (`RegistrationGroupId`),
+  KEY `fk_reggroupmem_membership_id_idx` (`MembershipId`),
+  CONSTRAINT `fk_reggroupmem_membership_id` FOREIGN KEY (`MembershipId`) REFERENCES `membershiptype` (`MembershipTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_reggroupmem_registration_id` FOREIGN KEY (`RegistrationGroupId`) REFERENCES `registrationgroup` (`RegistrationGroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/**************************************/
+
+
+CREATE TABLE `sessionleaderlink` (
+  `SessionLeaderLinkId` int(11) NOT NULL AUTO_INCREMENT,
+  `SessionId` int(11) DEFAULT NULL,
+  `EntityId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`SessionLeaderLinkId`),
+  KEY `fk_session_id_idx` (`SessionId`),
+  KEY `fk_entity_id_idx` (`EntityId`),
+  CONSTRAINT `fk_entity_id` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_session_id` FOREIGN KEY (`SessionId`) REFERENCES `session` (`SessionId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/**************************************/
+
+CREATE TABLE `registrationfeetype` (
+  `RegistrationFeeTypeId` INT NOT NULL AUTO_INCREMENT,
+  `RegistrationFeeTypeName` VARCHAR(45) NULL,
+  PRIMARY KEY (`RegistrationFeeTypeId`));
+  
+INSERT INTO `registrationfeetype`(`RegistrationFeeTypeName`) VALUES ('Regular');
+INSERT INTO `registrationfeetype`(`RegistrationFeeTypeName`) VALUES ('Early');
+INSERT INTO `registrationfeetype`(`RegistrationFeeTypeName`) VALUES ('Late');
+INSERT INTO `registrationfeetype`(`RegistrationFeeTypeName`) VALUES ('Thanks Giving');
+INSERT INTO `registrationfeetype`(`RegistrationFeeTypeName`) VALUES ('Sale');
+
+/**************************************/
+
+CREATE TABLE `sessionregistrationgrouppricing` (
+  `SessionRegistrationGroupPricingId` int(11) NOT NULL AUTO_INCREMENT,
+  `SessionId` int(11) DEFAULT NULL,
+  `RegistrationGroupId` int(11) DEFAULT NULL,
+  `RegistrationFeeTypeId` int(11) DEFAULT NULL,
+  `Price` decimal(13,2) DEFAULT NULL,
+  PRIMARY KEY (`SessionRegistrationGroupPricingId`),
+  KEY `fk_session_id_idx` (`SessionId`),
+  KEY `fk_registrationgroup_id_idx` (`RegistrationGroupId`),
+  KEY `fk_srgp_registrationfeetype_id_idx` (`RegistrationFeeTypeId`),
+  CONSTRAINT `fk_registrationgroup_id` FOREIGN KEY (`RegistrationGroupId`) REFERENCES `registrationgroup` (`RegistrationGroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_registrationgroup_session_id` FOREIGN KEY (`SessionId`) REFERENCES `session` (`SessionId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_srgp_registrationfeetype_id` FOREIGN KEY (`RegistrationFeeTypeId`) REFERENCES `registrationfeetype` (`RegistrationFeeTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  
+  
+/**************************************/
+
+CREATE TABLE `linkeventgroup` (
+  `LinkEventGroupId` int(11) NOT NULL AUTO_INCREMENT,
+  `EventId` int(11) DEFAULT NULL,
+  `RegistrationGroupId` int(11) DEFAULT NULL,
+  `EnableOnlineRegistration` int(11) DEFAULT NULL,
+  PRIMARY KEY (`LinkEventGroupId`),
+  KEY `fk_leg_eventid_idx` (`EventId`),
+  KEY `fk_leg_reggroupid_idx` (`RegistrationGroupId`),
+  CONSTRAINT `fk_leg_eventid` FOREIGN KEY (`EventId`) REFERENCES `event` (`EventId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_leg_reggroupid` FOREIGN KEY (`RegistrationGroupId`) REFERENCES `registrationgroup` (`RegistrationGroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+/**************************************/
+
+CREATE TABLE `linkregistrationgroupfee` (
+  `LinkRegistrationGroupFeeId` int(11) NOT NULL AUTO_INCREMENT,
+  `RegistrationFeeTypeId` int(11) DEFAULT NULL,
+  `RegistrationGroupId` int(11) DEFAULT NULL,
+  `LinkEventGroupId` int(11) DEFAULT NULL,
+  `RegistrationGroupDateTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`LinkRegistrationGroupFeeId`),
+  KEY `fk_lrgd_feeid_idx` (`RegistrationFeeTypeId`),
+  KEY `fk_lrgd_groupid_idx` (`RegistrationGroupId`),
+  KEY `fk_lrgd_linkeventgroupid_idx` (`LinkEventGroupId`),
+  CONSTRAINT `fk_lrgd_feeid` FOREIGN KEY (`RegistrationFeeTypeId`) REFERENCES `registrationfeetype` (`RegistrationFeeTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lrgd_groupid` FOREIGN KEY (`RegistrationGroupId`) REFERENCES `registrationgroup` (`RegistrationGroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lrgd_linkeventgroupid` FOREIGN KEY (`LinkEventGroupId`) REFERENCES `linkeventgroup` (`LinkEventGroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+
+
+/**************************************/
+
+CREATE TABLE `linkeventfeetype` (
+  `LinkEventFeeTypeId` INT(11) NOT NULL AUTO_INCREMENT,
+  `RegistrationFeeTypeId` INT(11) NULL,
+  `EventId` INT(11) NULL,
+  PRIMARY KEY (`LinkEventFeeTypeId`),
+  INDEX `fk_left_eventid_idx` (`EventId` ASC),
+  INDEX `fk_left_regfeetypeid_idx` (`RegistrationFeeTypeId` ASC),
+  CONSTRAINT `fk_left_eventid`
+    FOREIGN KEY (`EventId`)
+    REFERENCES `event` (`EventId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_left_regfeetypeid`
+    FOREIGN KEY (`RegistrationFeeTypeId`)
+    REFERENCES `registrationfeetype` (`RegistrationFeeTypeId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+/*********************************************************/

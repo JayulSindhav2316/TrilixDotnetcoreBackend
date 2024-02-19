@@ -1,0 +1,44 @@
+CREATE TABLE `membermax`.`report` (
+  `ReportId` INT(11) NOT NULL AUTO_INCREMENT,
+  `OrganizationId` INT(11) NOT NULL,
+  `Title` VARCHAR(200) NULL DEFAULT NULL,
+  `Name` VARCHAR(100) NOT NULL,
+  `UserId` INT(11) NULL DEFAULT NULL,
+  `Shared` TINYINT(4) NOT NULL,
+  INDEX `fk_report_organizationId_idx` (`OrganizationId` ASC),
+  INDEX `fk_report_userId_idx` (`UserId` ASC),
+  PRIMARY KEY (`ReportId`),
+  CONSTRAINT `fk_report_organizationId`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `membermax`.`organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_report_userId`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+
+CREATE TABLE `membermax`.`reportargument` (
+  `ReportArgumentId` INT NOT NULL AUTO_INCREMENT,
+  `ReportId` INT NOT NULL,
+  `Label` VARCHAR(100) NULL,
+  `Name` VARCHAR(100) NOT NULL,
+  `DataType` VARCHAR(50) NOT NULL,
+  `FieldType` VARCHAR(50) NOT NULL,
+  `Required` TINYINT(4) NOT NULL,
+  INDEX `fk_reportargument_reportId_idx` (`ReportId` ASC),
+  PRIMARY KEY (`ReportArgumentId`),
+  CONSTRAINT `fk_reportargument_reportId`
+    FOREIGN KEY (`ReportId`)
+    REFERENCES `membermax`.`report` (`ReportId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;

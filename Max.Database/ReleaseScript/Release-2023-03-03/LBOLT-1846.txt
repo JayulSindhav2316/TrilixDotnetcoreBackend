@@ -1,0 +1,6 @@
+UPDATE Person set companyid=Null
+where companyid in(select companyid from company where companyname is null or companyname='');
+
+DELETE from email where companyid in (select companyid from company where companyname is null or companyname='');
+
+Delete from company where companyname is null or companyname='';

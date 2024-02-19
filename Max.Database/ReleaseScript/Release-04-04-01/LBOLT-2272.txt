@@ -1,0 +1,262 @@
+UPDATE `menu` SET `DisplayOrder` = '230' WHERE (`Label` = 'Deposit');
+
+CREATE TABLE IF NOT EXISTS `eventreport` (
+  `EventReportId` INT NOT NULL AUTO_INCREMENT,
+  `Event` VARCHAR(45) NULL DEFAULT NULL,
+  `Sessions` VARCHAR(250) NULL DEFAULT NULL,
+  `ReportId` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`EventReportId`),
+  INDEX `fk_eventreport_report_id_idx` (`ReportId` ASC) ,
+  CONSTRAINT `fk_eventreport_report_id`
+    FOREIGN KEY (`ReportId`)
+    REFERENCES `report` (`ReportId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+CREATE TABLE IF NOT EXISTS `opportunityreport` (
+  `OpportunityReportId` INT NOT NULL AUTO_INCREMENT,
+  `ReportId` INT NULL DEFAULT NULL,
+  `Pipeline` VARCHAR(45) NULL DEFAULT NULL,
+  `Stages` VARCHAR(200) NULL DEFAULT NULL,
+  `Products` VARCHAR(200) NULL DEFAULT NULL,
+  PRIMARY KEY (`OpportunityReportId`),
+  INDEX `fk_opportunityreport_report_id_idx` (`ReportId` ASC) ,
+  CONSTRAINT `fk_opportunityreport_report_id`
+    FOREIGN KEY (`ReportId`)
+    REFERENCES `report` (`ReportId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+SELECT @parentMenuId:=menuid from menu where label='Reports' and RouterURL='/report';
+SELECT @groupId:=groupId from menu where label='Reports' and RouterURL='/report';
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,Tooltip,Title,DisplayOrder,Display)
+SELECT @parentMenuId,@groupId,'Opportunities', 'pi pi-fw pi-list','/report/opportunity',0,0,'','Opportunities',104,1
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `menu`
+  WHERE `Label` = 'Opportunities'
+  AND `RouterURL` = '/report/opportunity'
+);
+
+INSERT IGNORE INTO `reportcategory` (`ReportCategoryId`, `Title`, `Description`) VALUES ('4','Opportunities', 'Opportunities Reports');
+
+
+/* insert fields for reportfield */
+
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'FirstName', 'person', 'Personal Info', 'First Name', 'String', '1', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'FirstName'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'LastName', 'person', 'Personal Info', 'Last Name', 'String', '1', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'LastName'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Prefix', 'person', 'Personal Info', 'Prefix', 'String', '1', 'Dropdown'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Prefix'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Gender', 'person', 'Personal Info', 'Gender', 'String', '1', 'Dropdown'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Gender'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'DOB', 'person', 'Personal Info', 'Date Of Birth', 'Date', '1', 'Calendar'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'DOB'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Designation', 'person', 'Personal Info', 'Designation', 'String', '1', 'Dropdown'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Designation'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'PrimaryPhone', 'person', 'Personal Info', 'Primary Phone', 'String', '1', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'PrimaryPhone'
+   AND `TableName` = 'person'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'PrimaryEmail', 'person', 'Personal Info', 'Primary Email', 'String', '1', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'PrimaryEmail'
+   AND `TableName` = 'person'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'CompanyName', 'company', 'Company Info', 'Company Name', 'String', '2', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'CompanyName'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Website', 'company', 'Company Info', 'Website', 'String', '2', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Website'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'PrimaryPhone', 'company', 'Company Info', 'Primary Phone', 'String', '2', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'PrimaryPhone'
+   AND `TableName` = 'company'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'PrimaryEmail', 'company', 'Company Info', 'Primary Email', 'String', '2', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'PrimaryEmail'
+   AND `TableName` = 'company'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Address', 'company', 'Company Info', 'Address', 'String', '2', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Address'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'City', 'company', 'Company Info', 'City', 'String', '2', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'City'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'State', 'company', 'Company Info', 'State', 'String', '2', 'Dropdown'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'State'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Zip', 'company', 'Company Info', 'Zip', 'String', '2', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Zip'
+);
+
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'EstimatedCloseDate', 'opportunity', 'Opportunities Info', 'Estimated Close', 'Date', '3', 'Calendar'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'EstimatedCloseDate'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Potential', 'opportunity', 'Opportunities Info', 'Potential', 'Currency', '3', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Potential'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Owner', 'opportunity', 'Opportunities Info', 'Owner', 'String', '3', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Owner'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'AccountContact', 'opportunity', 'Opportunities Info', 'Account Contact', 'String', '3', 'Text'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'AccountContact'
+);
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '4', 'Probability', 'opportunity', 'Opportunities Info', 'Probability', 'Int', '3', 'Number'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '4'
+    AND `FieldName` = 'Probability'
+);

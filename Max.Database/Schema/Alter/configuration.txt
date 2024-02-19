@@ -1,0 +1,55 @@
+﻿CREATE TABLE `configuration` (
+  `ConfigurationId` INT NOT NULL AUTO_INCREMENT,
+  `OrganizationId` INT NULL,
+  `DocumentAccessControl` VARCHAR(45) NULL,
+  PRIMARY KEY (`ConfigurationId`),
+  INDEX `fk_configuration_organization_idx` (`OrganizationId` ASC),
+  CONSTRAINT `fk_configuration_organization`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+ALTER TABLE `configuration` 
+ADD COLUMN `ContactDisplayTabs` VARCHAR(500) NULL AFTER `DocumentAccessControl`,
+ADD COLUMN `ContactDisplayMembership` INT NULL AFTER `ContactDisplayTabs`;
+
+
+update configuration set ContactDIsplayTabs='Overview,Details,RelatedContacts,Membership,InvoicePayments,Wallet,WebInfo,BoardsGroups,Encounters,Notes'
+update configuration set ContactDisplayMembership=1
+
+ALTER TABLE `membermax`.`configuration` 
+ADD COLUMN `DashboardType` VARCHAR(45) NULL AFTER `ContactDisplayMembership`;
+
+
+
+insert into configuration ('ontactDIsplayTabs',OrganizationId,DocumentAccessControl,ContactDIsplayMemberShip,DashboardType) Values ('Overview,Details,RelatedContacts,Membership,InvoicePayments,Wallet,WebInfo,BoardsGroups,Encounters,Notes',1,'Membership',1,''Membership'))
+update configuration set ContactDisplayMembership=1
+
+ALTER TABLE `configuration` 
+ADD COLUMN `SociableSyncEnabled` INT NULL AFTER `DashboardType`;
+update configuration set SociableSyncEnabled=1
+
+ALTER TABLE `configuration` 
+ADD COLUMN `DisplayCodes` INT NULL DEFAULT 0 AFTER `SociableSyncEnabled`;
+
+ALTER TABLE `configuration` 
+ADD COLUMN `SociableBaseUrl` VARCHAR(255) NULL AFTER `DisplayCodes`;
+
+
+update configuration set sociablebaseurl='https://trilix-social.membermax.com/';
+
+ALTER TABLE `configuration` 
+ADD COLUMN `DisplayRoles` INT NULL AFTER `SociableBaseUrl`;
+
+/* FOR NCACC this should be 1 otherwise it should be zero */
+
+Update configuration set DisplayRoles=0 ;
+
+ALTER TABLE configuration ADD DataViewLayout VARCHAR(20)  NULL after DisplayRoles;
+
+update configuration set DataViewLayout='grid' where OrganizationId=1;
+
+insert into configuration ('contactDIsplayTabs',OrganizationId,DocumentAccessControl,ContactDIsplayMemberShip,DashboardType) Values ('Overview,Details,RelatedContacts,Membership,InvoicePayments,Wallet,WebInfo,BoardsGroups,Encounters,Notes',1,'Membership',1,''Membership'))
+update configuration set ContactDisplayMembership=1

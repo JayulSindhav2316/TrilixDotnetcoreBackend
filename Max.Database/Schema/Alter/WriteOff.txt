@@ -1,0 +1,34 @@
+﻿CREATE TABLE `writeoff` (
+  `WriteOffId` int(11) NOT NULL AUTO_INCREMENT,
+  `Date` datetime DEFAULT NULL,
+  `InvoiceDetailId` int(11) DEFAULT NULL,
+  `Reason` varchar(250) DEFAULT NULL,
+  `Amount` decimal(13,2) DEFAULT NULL,
+  `UserId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`WriteOffId`),
+  KEY `fk_writeoff_invoicedetailid_idx` (`InvoiceDetailId`),
+  KEY `fk_writeoff_userid_idx` (`UserId`),
+  CONSTRAINT `fk_writeoff_invoicedetailid` FOREIGN KEY (`InvoiceDetailId`) REFERENCES `invoicedetail` (`InvoiceDetailId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_writeoff_userid` FOREIGN KEY (`UserId`) REFERENCES `staffuser` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `journalentryheader` 
+DROP FOREIGN KEY `fk_journalentryheader_receipt_Id`;
+ALTER TABLE `journalentryheader` 
+CHANGE COLUMN `ReceiptHeaderId` `ReceiptHeaderId` INT(11) NULL ;
+ALTER TABLE `journalentryheader` 
+ADD CONSTRAINT `fk_journalentryheader_receipt_Id`
+  FOREIGN KEY (`ReceiptHeaderId`)
+  REFERENCES `receiptheader` (`Receiptid`)
+  ON DELETE CASCADE ON UPDATE CASCADE
+
+ALTER TABLE `journalentrydetail` 
+DROP FOREIGN KEY `fk_journalentrydetail_receiptdetail_id_`;
+ALTER TABLE `journalentrydetail` 
+CHANGE COLUMN `ReceiptDetailId` `ReceiptDetailId` INT(11) NULL ;
+ALTER TABLE `journalentrydetail` 
+ADD CONSTRAINT `fk_journalentrydetail_receiptdetail_id_`
+  FOREIGN KEY (`ReceiptDetailId`)
+  REFERENCES `receiptdetail` (`ReceiptDetailId`)
+  ON DELETE CASCADE ON UPDATE CASCADE

@@ -1,0 +1,13 @@
+﻿CREATE TABLE `documentaccess` (
+  `DocumentAccessId` int(11) NOT NULL AUTO_INCREMENT,
+  `DocumentObjectId` int(11) DEFAULT NULL,
+  `MembershipTypeId` int(11) DEFAULT NULL,
+  `GroupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`DocumentAccessId`),
+  KEY `fk_documentaccess_documentObject_id_idx` (`DocumentObjectId`),
+  KEY `fk_documentmembership_type_id_idx` (`MembershipTypeId`),
+  KEY `fk_documentaccess_group_id_idx` (`GroupId`),
+  CONSTRAINT `fk_access_documentObject_id` FOREIGN KEY (`DocumentObjectId`) REFERENCES `documentobject` (`DocumentObjectId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_documentobject_group_id` FOREIGN KEY (`GroupId`) REFERENCES `group` (`GroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_documentobject_membership_type_id` FOREIGN KEY (`MembershipTypeId`) REFERENCES `membershiptype` (`MembershipTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

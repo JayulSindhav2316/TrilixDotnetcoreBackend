@@ -1,0 +1,2 @@
+﻿INSERT INTO `membermax`.`membershiphistory` (`MembershipId`,`StatusDate`,`Status`,`ChangedBy`,`Reason`,`PreviousMembershipId`)
+VALUES(2, '2020-12-01', 2, 7, 'Test  change', 0);

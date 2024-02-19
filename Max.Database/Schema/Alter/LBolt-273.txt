@@ -1,0 +1,4 @@
+﻿ALTER TABLE `userdevice` 
+ADD COLUMN `Created` DATETIME NULL AFTER `DeviceName`,
+ADD COLUMN `LastValidated` DATETIME NULL AFTER `LastAccessed`,
+ADD COLUMN `RemberDevice` INT NULL AFTER `Locked`;

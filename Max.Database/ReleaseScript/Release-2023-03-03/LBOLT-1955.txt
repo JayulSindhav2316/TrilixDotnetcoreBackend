@@ -1,0 +1,5 @@
+ALTER TABLE `contactactivity` 
+ADD COLUMN `Status` INT NULL AFTER `StaffUserId`;
+
+ALTER TABLE `contactactivity` 
+ADD COLUMN `DeleteActivityFor` INT NULL DEFAULT NULL AFTER `Status`;

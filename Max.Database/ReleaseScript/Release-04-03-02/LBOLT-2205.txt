@@ -1,0 +1,6 @@
+﻿
+CALL MaxAddColumn( 'configuration', 'DisplayBillableContactFieldOnSearch', 'INT NULL DEFAULT 1');
+
+/* upate DisplayBillableContactFieldOnSearch = 0 only for `ncacc` */
+
+UPDATE `configuration` SET `DisplayBillableContactFieldOnSearch` = 0;

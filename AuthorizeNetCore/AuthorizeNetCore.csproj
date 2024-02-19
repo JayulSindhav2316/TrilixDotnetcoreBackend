@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netcoreapp2.0</TargetFrameworks>
+		<PackageId>AuthorizeNetCore</PackageId>
+		<PackageVersion>1.0.10</PackageVersion>
+		<Authors>jasongaylord</Authors>
+		<Description>A .NET Standard package for Authorize.NET APIs, specifically using AcceptJS.</Description>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReleaseNotes>Pre-release</PackageReleaseNotes>
+		<Copyright></Copyright>
+		<PackageTags>authorize.net netstandard creditcard</PackageTags>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Company>biBERK</Company>
+		<Version>1.0.10</Version>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/biBERK/AuthorizeNet-dotnetcore/master/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/biBERK/AuthorizeNet-dotnetcore</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/biBERK/AuthorizeNet-dotnetcore</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<AssemblyVersion>1.0.10.0</AssemblyVersion>
+		<FileVersion>1.0.10.0</FileVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="ProfileTransactionResponse\**" />
+	  <Compile Remove="ProfileTransaction\**" />
+	  <EmbeddedResource Remove="ProfileTransactionResponse\**" />
+	  <EmbeddedResource Remove="ProfileTransaction\**" />
+	  <None Remove="ProfileTransactionResponse\**" />
+	  <None Remove="ProfileTransaction\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+	</ItemGroup>
+</Project>

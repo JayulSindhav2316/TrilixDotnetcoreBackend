@@ -1,0 +1,6 @@
+﻿ALTER TABLE `membershipreport` 
+ADD COLUMN `ReportId` INT NULL DEFAULT NULL AFTER `PreviewMode`;
+
+ALTER TABLE `membershipreport` 
+ADD COLUMN `isMyReport` INT NULL DEFAULT '0' AFTER `ReportId`,
+ADD COLUMN `isCommunity` INT NULL DEFAULT '0' AFTER `isMyReport`;

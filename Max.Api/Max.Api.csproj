@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <Compile Remove="Controllers\AuditHistoryController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Scaffold-comand.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AuthorizeNetCore\AuthorizeNetCore.csproj" />
+    <ProjectReference Include="..\Max.Core\Max.Core.csproj" />
+    <ProjectReference Include="..\Max.Services\Max.Services.csproj" />
+    <ProjectReference Include="..\Max.Data\Max.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.15" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Serilog.Settings.AppSettings" Version="2.2.2" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Graylog" Version="2.3.0" />
+    <PackageReference Include="Serilog.Sinks.RollingFile.Extension" Version="2.0.2" />
+    <PackageReference Include="SolrNet" Version="1.1.1" />
+    <PackageReference Include="SolrNet.Microsoft.DependencyInjection" Version="1.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
+    <PackageReference Include="Twilio" Version="6.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Documents\d3930c2d-4ac4-11ed-8023-38f3ab158646\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <StartupObject>Max.Api.Program</StartupObject>
+    <UserSecretsId>62446caa-66d1-4a28-ac01-21b4f0ff681a</UserSecretsId>
+  </PropertyGroup>
+
+
+</Project>

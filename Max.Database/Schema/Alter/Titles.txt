@@ -1,0 +1,5 @@
+﻿
+insert into lookup values(null,"Title","['Auxiliary Bishop','Bishop-designate','Bishop','Archbishop','Bishop-elect','Cardinal','Coadjutor Bishop','Eparch','Ordinary']",1)
+
+insert into lookup values(null,"Title","['Member','Vendor','Other']",1)
+

@@ -1,0 +1,52 @@
+﻿INSERT INTO reportcategory (Title,Description) VALUES('Membership','Membership Reports');
+
+INSERT INTO reportparameter(CategoryId,Parameter,Type) VALUES (1,'Membership Start Date','Date')
+INSERT INTO reportparameter(CategoryId,Parameter,Type) VALUES (1,'Membership End Date','Date')
+INSERT INTO reportparameter(CategoryId,Parameter,Type) VALUES (1,'Membership Termination Date','Date')
+INSERT INTO reportparameter(CategoryId,Parameter,Type) VALUES (1,'Balance Due','Currency')
+
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membershipcategory','membershipCategoryId','Membership Category Id','Int',1,'membership.membershipcategory.membershipCategoryId');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membershipcategory','Name','Membership Category Name','String',1,'membership.membershipcategory.Name');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membershipcategory','Status','Membership Category Status','Int',1,'membership.membershipcategory.Status');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membershiptype','membershipTypeId','Membership Type Id','Int',1,'membership.membershiptype.membershipTypeId');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membershiptype','Name','Membership Type Name','String',1,'membership.membershiptype.Name');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membershiptype','Description','Membership Type Description','String',1,'membership.membershiptype.Description');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membershiptype','Status','Membership Type Status','Int',1,'membership.membershiptype.Status');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','MembershipId','Membership Id','Int',1,'membership.MembershipId');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','StartDate','Membership Start Date','Date',1,'membership.StartDate');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','EndDate','Membership End Date','Date',1,'membership.EndDate');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','NextBillDate','Next Bill Date','Date',1,'membership.NextBillDate');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','RenewDate','Renew Date','Date',1,'membership.RenewDate');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','Status','Membership Status','Int',1,'membership.Status');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','BillableEntityId','Billable Entity','Int',1,'membership.BillableEntityId');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'entity','Name','Billable Entity Name','String',1,'membership.entity.Name');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'person','Prefix','Prefix','String',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'person','FirstName','First Name','String',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'person','LastName','Last Name','String',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'person','Gender','Gender','String',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'person','DOB','Date Of Birth','Date',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'person','PrimaryPhone','Primary Phone','String',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'person','PrimaryEmail','Primary Email','String',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','BillingFee','Fee Charged','Currency',1,'membership.billingfee.Fee');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','MembershipFee','Fee','Currency',1,'membership.membershipfee.FeeAmount');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'receipt','ReceiptId','Receipt Id','Int',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'receipt','Date','Receipt Date','Date',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'receipt','PaymentMode','Payment Mode','String',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'receipt','Amount','Payment Amount','Currency',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','BalanceDue','Balance Due','Currency',0,'');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'membership','TerminationDate','Termination Date','Date',1,'membership.TerminationDate');
+INSERT INTO reportfield (ReportCategoryId,TableName,FieldName,FieldTitle,DataType,Sortable,FieldPathName) Values (1,'receipt','Portal','Portal','Int',0,'');
+
+
+
+
+
+
+
+
+
+
+
+
+
+

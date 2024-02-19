@@ -1,0 +1,7 @@
+﻿ALTER TABLE `staffuser` 
+ADD COLUMN `IsDisplayUser` INT NULL DEFAULT 1 AFTER `SociableProfileId`;
+
+ALTER TABLE `staffuser` 
+CHANGE COLUMN `IsDisplayUser` `IsDisplayUser` INT(11) NULL DEFAULT 1 ;
+
+update `staffuser` set IsDisplayUser=1;

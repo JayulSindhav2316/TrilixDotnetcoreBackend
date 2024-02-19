@@ -1,0 +1,113 @@
+﻿
+CREATE TABLE IF NOT EXISTS `contactsaccountsreport` (
+  `ContactsAccountsReportId` INT NOT NULL,
+  `Title` VARCHAR(45) NULL DEFAULT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  `UserId` INT NULL DEFAULT NULL,
+  `Type` VARCHAR(45) NULL DEFAULT NULL,
+  `Fields` VARCHAR(500) NULL DEFAULT NULL,
+  `PreviewMode` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`ContactsAccountsReportId`));
+
+ALTER TABLE `contactsaccountsreport` 
+CHANGE COLUMN `ContactsAccountsReportId` `ContactsAccountsReportId` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `contactsaccountsreport` 
+ADD INDEX `fk_contactsaccountsreport_staff_userId_idx` (`UserId` ASC);
+;
+ALTER TABLE `contactsaccountsreport` 
+ADD CONSTRAINT `fk_contactsaccountsreport_staff_userId`
+  FOREIGN KEY (`UserId`)
+  REFERENCES `staffuser` (`UserId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+ALTER TABLE `contactsaccountsreport` 
+ADD COLUMN `ReportId` INT NULL DEFAULT NULL AFTER `PreviewMode`;
+
+
+ALTER TABLE `report` 
+ADD COLUMN `ReportType` VARCHAR(45) NULL DEFAULT NULL AFTER `Shared`,
+ADD COLUMN `isMyReport` INT NULL DEFAULT '0' AFTER `ReportType`,
+ADD COLUMN `isCommunity` INT NULL DEFAULT '0' AFTER `isMyReport`,
+CHANGE COLUMN `Name` `Name` VARCHAR(100) CHARACTER SET 'utf8mb3' NULL ,
+CHANGE COLUMN `Shared` `Shared` TINYINT NULL ;
+
+
+ALTER TABLE `contactsaccountsreport` 
+ADD INDEX `fk_contactsaccountsreport_report_id_idx` (`ReportId` ASC);
+;
+ALTER TABLE `contactsaccountsreport` 
+ADD CONSTRAINT `fk_contactsaccountsreport_report_id`
+  FOREIGN KEY (`ReportId`)
+  REFERENCES `report` (`ReportId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+
+ALTER TABLE `reportshare` 
+ADD COLUMN `tReportId` INT NULL DEFAULT NULL AFTER `SharedToUserId`,
+ADD INDEX `fk_report_share_tReportId_idx` (`tReportId` ASC);
+;
+ALTER TABLE `reportshare` 
+ADD CONSTRAINT `fk_report_share_tReportId`
+  FOREIGN KEY (`tReportId`)
+  REFERENCES `contactsaccountsreport` (`ContactsAccountsReportId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+ALTER TABLE `reportsortorder` 
+ADD COLUMN `tReportId` INT NULL DEFAULT NULL AFTER `DataType`,
+ADD INDEX `fk_reportsortorder_tReportId_idx` (`tReportId` ASC);
+;
+ALTER TABLE `reportsortorder` 
+ADD CONSTRAINT `fk_reportsortorder_tReportId`
+  FOREIGN KEY (`tReportId`)
+  REFERENCES `contactsaccountsreport` (`ContactsAccountsReportId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+ALTER TABLE `reportfilter`
+ADD COLUMN `tReportId` INT NULL DEFAULT NULL AFTER `Value`,
+ADD INDEX `fk_reportfilter_tReportId_idx` (`tReportId` ASC);
+;
+ALTER TABLE `reportfilter` 
+ADD CONSTRAINT `fk_reportfilter_tReportId`
+  FOREIGN KEY (`tReportId`)
+  REFERENCES `contactsaccountsreport` (`ContactsAccountsReportId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+
+UPDATE `reportfield` SET `FieldPathName` = 'CompanyName' WHERE (`ReportFieldId` = '230');
+UPDATE `reportfield` SET `FieldPathName` = 'Website' WHERE (`ReportFieldId` = '231');
+UPDATE `reportfield` SET `FieldPathName` = 'Website' WHERE (`ReportFieldId` = '229');
+UPDATE `reportfield` SET `FieldPathName` = 'LinkedinName' WHERE (`ReportFieldId` = '228');
+UPDATE `reportfield` SET `FieldPathName` = 'TwitterName' WHERE (`ReportFieldId` = '227');
+UPDATE `reportfield` SET `FieldPathName` = 'FacebookName' WHERE (`ReportFieldId` = '226');
+UPDATE `reportfield` SET `FieldPathName` = 'Title' WHERE (`ReportFieldId` = '225');
+UPDATE `reportfield` SET `FieldPathName` = 'Prefix' WHERE (`ReportFieldId` = '204');
+UPDATE `reportfield` SET `FieldPathName` = 'FirstName' WHERE (`ReportFieldId` = '205');
+UPDATE `reportfield` SET `FieldPathName` = 'MiddleName' WHERE (`ReportFieldId` = '206');
+UPDATE `reportfield` SET `FieldPathName` = 'LastName' WHERE (`ReportFieldId` = '207');
+UPDATE `reportfield` SET `FieldPathName` = 'CasualName' WHERE (`ReportFieldId` = '208');
+UPDATE `reportfield` SET `FieldPathName` = 'Suffix' WHERE (`ReportFieldId` = '209');
+UPDATE `reportfield` SET `FieldPathName` = 'DateOfBirth' WHERE (`ReportFieldId` = '210');
+UPDATE `reportfield` SET `FieldPathName` = 'Gender' WHERE (`ReportFieldId` = '211');
+UPDATE `reportfield` SET `FieldPathName` = 'PreferredContact' WHERE (`ReportFieldId` = '212');
+UPDATE `reportfield` SET `FieldPathName` = 'Designation' WHERE (`ReportFieldId` = '213');
+UPDATE `reportfield` SET `FieldPathName` = 'Company.CompanyName' WHERE (`ReportFieldId` = '224');
+
+
+ALTER TABLE `reportfilter` 
+DROP FOREIGN KEY `fk_reportfilter_reportId`;
+ALTER TABLE `reportfilter` 
+CHANGE COLUMN `ReportId` `ReportId` INT NULL DEFAULT NULL ;
+ALTER TABLE `reportfilter` 
+ADD CONSTRAINT `fk_reportfilter_reportId`
+  FOREIGN KEY (`ReportId`)
+  REFERENCES `membershipreport` (`MembershipReportId`);
+
+ALTER TABLE `contactsaccountsreport` 
+ADD COLUMN `isMyreport` INT NULL DEFAULT '0' AFTER `ReportId`,
+ADD COLUMN `isCommunity` INT NULL DEFAULT '0' AFTER `isMyreport`;

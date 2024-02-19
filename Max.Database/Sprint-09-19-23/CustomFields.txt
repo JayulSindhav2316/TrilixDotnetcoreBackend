@@ -1,0 +1,27 @@
+﻿delete from customfielddata;
+delete from customfieldoption;
+delete from customfieldlookup;
+delete from customfield;
+
+CREATE TABLE `customFieldBlock` (
+  `BlockId` int PRIMARY KEY AUTO_INCREMENT,
+  `Name` varchar(255),
+  `IsExisting` int,
+  `ShowBlock` int,
+  `BlockFor` int,
+  `ModuleId` int,	
+  `TabId` int
+);
+ALTER TABLE `customfieldblock` ADD FOREIGN KEY (`ModuleId`) REFERENCES `moduleinfo` (`ModuleId`);
+ALTER TABLE `customfieldblock` ADD FOREIGN KEY (`TabId`) REFERENCES `tabinfo` (`TabId`);
+
+ALTER TABLE `customfieldlookup` ADD COLUMN `BlockId` INT NULL DEFAULT 0;
+ALTER TABLE `customFieldLookup` ADD FOREIGN KEY (`BlockId`) REFERENCES `customFieldBlock` (`BlockId`);
+
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+VALUES ('Personal Info',1,1,1,1,2),
+       ('Accounts Info',1,1,1,1,2),
+       ('Social Network',1,1,1,1,2),
+	
+       ('Account Info',1,1,2,1,2),
+       ('Billable Contact Info',1,1,2,1,2)

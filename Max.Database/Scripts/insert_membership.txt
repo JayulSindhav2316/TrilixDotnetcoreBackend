@@ -1,0 +1,5 @@
+﻿INSERT INTO `membermax`.`membership` (`MembershipTypeId`,`StartDate`,`EndDate`,`ReviewDate`,`BillablePersonId`,`NextBillDate`,`MaxDraftAmount`,`CreateDate`,`RenewalDate`,`TerminationDate`,`Status`)
+VALUES (4,'2020-01-01','2020-12-01','2021-12-01',5,'2021-01-01',100.00,'2020-01-01','1000-01-01','1000-01-01',1);
+INSERT INTO `membermax`.`membership` (`MembershipTypeId`,`StartDate`,`EndDate`,`ReviewDate`,`BillablePersonId`,`NextBillDate`,`MaxDraftAmount`,`CreateDate`,`RenewalDate`,`TerminationDate`,`Status`)
+VALUES (4,'2021-01-01','2022-01-01','2021-12-01',5,'2021-05-01',100.00,'2021-01-01','1000-01-01','1000-01-01',1);
+

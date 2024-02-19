@@ -1,0 +1,1 @@
+Update configuration set contactDisplayTabs='Overview,Details,AccountContacts,Activities,Roles,RoleHistory,Opportunities,BoardsGroups';

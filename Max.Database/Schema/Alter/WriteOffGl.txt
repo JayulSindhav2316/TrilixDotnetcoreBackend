@@ -1,0 +1,10 @@
+﻿ALTER TABLE `accountingsetup` 
+ADD COLUMN `WriteOffGlAccount` INT NULL AFTER `SalesReturnGlAccount`,
+ADD INDEX `fk_as_writeoffglaccount_idx` (`WriteOffGlAccount` ASC);
+;
+ALTER TABLE `accountingsetup` 
+ADD CONSTRAINT `fk_as_writeoffglaccount`
+  FOREIGN KEY (`WriteOffGlAccount`)
+  REFERENCES `glaccount` (`GlAccountId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

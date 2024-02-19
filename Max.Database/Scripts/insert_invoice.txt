@@ -1,0 +1,13 @@
+﻿INSERT INTO `membermax`.`invoice` (`Date`,`PersonId`,`DueDate`,`BillingType`,`InvoiceType`,`MembershipId`,`BillablePersonId`,`CreditCardTransactionId`,`BankDraftTransactionId`,`Status`)
+VALUES ('2020-12-01',5,'2020-12-01','Membership','CreditCard',2,5,0,0,1);
+INSERT INTO `membermax`.`invoice` (`Date`,`PersonId`,`DueDate`,`BillingType`,`InvoiceType`,`MembershipId`,`BillablePersonId`,`CreditCardTransactionId`,`BankDraftTransactionId`,`Status`)
+VALUES ('2021-01-01',5,'2020-01-01','Membership','CreditCard',2,5,0,0,1);
+INSERT INTO `membermax`.`invoice` (`Date`,`PersonId`,`DueDate`,`BillingType`,`InvoiceType`,`MembershipId`,`BillablePersonId`,`CreditCardTransactionId`,`BankDraftTransactionId`,`Status`)
+VALUES ('2020-02-01',5,'2020-02-01','Membership','CreditCard',2,5,0,0,1);
+INSERT INTO `membermax`.`invoice` (`Date`,`PersonId`,`DueDate`,`BillingType`,`InvoiceType`,`MembershipId`,`BillablePersonId`,`CreditCardTransactionId`,`BankDraftTransactionId`,`Status`)
+VALUES ('2020-03-01',5,'2020-03-01','Membership','CreditCard',2,5,0,0,1);
+INSERT INTO `membermax`.`invoice` (`Date`,`PersonId`,`DueDate`,`BillingType`,`InvoiceType`,`MembershipId`,`BillablePersonId`,`CreditCardTransactionId`,`BankDraftTransactionId`,`Status`)
+VALUES ('2020-04-01',5,'2020-04-01','Membership','CreditCard',2,5,0,0,1);
+
+
+

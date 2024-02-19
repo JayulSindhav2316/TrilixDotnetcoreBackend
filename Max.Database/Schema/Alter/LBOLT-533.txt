@@ -1,0 +1,11 @@
+ALTER TABLE `item` 
+ADD COLUMN `StockCount` INT(11) NULL DEFAULT 0 AFTER `Image`,
+ADD COLUMN `EnableMemberPortal` INT(11) NULL DEFAULT 0 AFTER `StockCount`;
+
+DROP TABLE `receiptitemdetail`;
+
+ALTER TABLE `item` 
+ADD COLUMN `TotalStock` INT(11) NULL DEFAULT 0 AFTER `EnableMemberPortal`;
+
+ALTER TABLE `item` 
+ADD COLUMN `EnableStock` INT(11) NULL DEFAULT 1 AFTER `TotalStock`;

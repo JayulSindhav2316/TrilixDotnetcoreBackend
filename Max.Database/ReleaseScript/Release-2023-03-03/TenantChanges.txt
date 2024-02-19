@@ -1,0 +1,3 @@
+ALTER TABLE maxtenant.tenant ADD COLUMN ReportConnectionString VARCHAR(500) AFTER ConnectionString;
+
+update tenant set ReportConnectionString='';

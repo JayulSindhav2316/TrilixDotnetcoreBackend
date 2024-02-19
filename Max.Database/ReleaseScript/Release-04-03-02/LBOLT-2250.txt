@@ -1,0 +1,14 @@
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'person'
+        AND table_schema = DATABASE()
+        AND column_name = 'InstagramName'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `person` ADD COLUMN `InstagramName` VARCHAR(100) NULL DEFAULT NULL"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;

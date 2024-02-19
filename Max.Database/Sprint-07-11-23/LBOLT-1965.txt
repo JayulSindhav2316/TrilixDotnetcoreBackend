@@ -1,0 +1,10 @@
+ALTER TABLE `contactactivity` 
+ADD COLUMN `ContactRoleId` INT NULL DEFAULT NULL AFTER `IsDeleteForRole`,
+ADD INDEX `fk_activity_contact_role_id_idx` (`ContactRoleId` ASC) VISIBLE;
+;
+ALTER TABLE `contactactivity` 
+ADD CONSTRAINT `fk_activity_contact_role_id`
+  FOREIGN KEY (`ContactRoleId`)
+  REFERENCES `contactrole` (`ContactRoleId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

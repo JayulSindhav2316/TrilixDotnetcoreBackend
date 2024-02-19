@@ -1,0 +1,45 @@
+﻿CREATE TABLE `tabinfo` (
+  `TabId` int PRIMARY KEY AUTO_INCREMENT,
+  `ModuleId` int,
+  `Name` varchar(255),
+  `Status` int
+);
+CREATE TABLE `moduleinfo` (
+  `ModuleId` int PRIMARY KEY AUTO_INCREMENT,
+  `Name` varchar(255),
+  `Status` int
+);
+CREATE TABLE `customFieldLookup` (
+  `Id` int PRIMARY KEY AUTO_INCREMENT,
+  `ModuleId` int,
+  `CustomFieldId` int,
+  `OrderOfDisplay` int,
+  `TabId` int,
+  `Status` int
+);
+ALTER TABLE `tabinfo` ADD FOREIGN KEY (`ModuleId`) REFERENCES `moduleinfo` (`ModuleId`);
+ALTER TABLE `customFieldLookup` ADD FOREIGN KEY (`CustomFieldId`) REFERENCES `customfield` (`CustomFieldId`);
+ALTER TABLE `customFieldLookup` ADD FOREIGN KEY (`ModuleId`) REFERENCES `moduleinfo` (`ModuleId`);
+
+INSERT INTO 
+	moduleinfo(name, status)
+VALUES
+	('Contact-CRM', 1);
+    
+INSERT INTO 
+	tabinfo(moduleid, name, status)
+VALUES
+	(1,'Overview', 1),
+    (1,'Details', 1);
+
+	CREATE TABLE `customfielddata` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `CustomFieldId` int DEFAULT NULL,
+  `Value` varchar(500) DEFAULT NULL,
+  `EntityId` int DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `CustomFieldId` (`CustomFieldId`),
+  KEY `EntityId` (`EntityId`),
+  CONSTRAINT `customfielddata_ibfk_1` FOREIGN KEY (`CustomFieldId`) REFERENCES `customfield` (`CustomFieldId`),
+  CONSTRAINT `customfielddata_ibfk_2` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`)
+);

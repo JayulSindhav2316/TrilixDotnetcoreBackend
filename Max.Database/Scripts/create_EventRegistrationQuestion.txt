@@ -1,0 +1,44 @@
+CREATE TABLE eventregisterquestion (
+	EventRegisterQuestionId int NOT NULL AUTO_INCREMENT,
+    EventRegisterId int NOT NULL,
+    SessionId int NOT NULL,
+	QuestionId int NOT NULL,
+    Answer longtext,
+    AnswerOptionId int,
+    PRIMARY KEY (EventRegisterQuestionId),
+    CONSTRAINT FK_EventRegisteration FOREIGN KEY (EventRegisterId) REFERENCES eventregister(EventRegisterId),
+    CONSTRAINT FK_Sessionons FOREIGN KEY (SessionId) REFERENCES session(SessionId),
+    CONSTRAINT FK_QuestionBank FOREIGN KEY (QuestionId) REFERENCES questionbank(QuestionBankId),
+    CONSTRAINT FK_AnswerOption FOREIGN KEY (AnswerOptionId) REFERENCES answeroption(AnswerOptionId)
+);
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE `eventregisterquestion` 
+ADD COLUMN `EventId` INT NULL AFTER `AnswerOptionId`,
+ADD INDEX `FK_Events_idx` (`EventId` ASC) VISIBLE;
+;
+ALTER TABLE `eventregisterquestion` 
+ADD CONSTRAINT `FK_Events`
+  FOREIGN KEY (`EventId`)
+  REFERENCES `event` (`EventId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+-------------------------------------------------------------------------------------------------------------------------------------------------------  
+  
+ALTER TABLE `eventregisterquestion` 
+DROP FOREIGN KEY `FK_Sessionons`;
+ALTER TABLE `eventregisterquestion` 
+CHANGE COLUMN `SessionId` `SessionId` INT NULL ;
+ALTER TABLE `eventregisterquestion` 
+ADD CONSTRAINT `FK_Sessionons`
+  FOREIGN KEY (`SessionId`)
+  REFERENCES `session` (`SessionId`);
+  
+------------------------------------------------------------------------------------------------------------------------------------------------------- 
+
+ALTER TABLE eventregisterquestion MODIFY Answer longtext null;
+ALTER TABLE eventregisterquestion MODIFY AnswerOptionId int null;
+ALTER TABLE eventregisterquestion MODIFY EventId int null;

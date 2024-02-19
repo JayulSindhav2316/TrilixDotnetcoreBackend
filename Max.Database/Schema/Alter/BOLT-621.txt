@@ -1,0 +1,10 @@
+﻿ALTER TABLE `receiptheader` 
+ADD COLUMN `BillableEntityId` INT NULL AFTER `Portal`,
+ADD INDEX `fk_billableEntityId_idx` (`BillableEntityId` ASC);
+;
+ALTER TABLE `receiptheader` 
+ADD CONSTRAINT `fk_billableEntityId`
+  FOREIGN KEY (`BillableEntityId`)
+  REFERENCES `entity` (`EntityId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

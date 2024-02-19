@@ -1,0 +1,3 @@
+﻿INSERT INTO reportfield (ReportCategoryId, FieldName, TableName,FieldTitle,DataType,
+Sortable,FieldPathName)
+VALUES (1, 'CompanyName','company','company name','String',0,'');

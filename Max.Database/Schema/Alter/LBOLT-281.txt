@@ -1,0 +1,35 @@
+ALTER TABLE `membermax`.`accountingsetup` 
+CHANGE COLUMN `OnlineCreditGlAccount` `OnlineCreditGlAccount` INT(11) NOT NULL ,
+CHANGE COLUMN `OffLinePaymentGlAccount` `OffLinePaymentGlAccount` INT(11) NOT NULL ,
+CHANGE COLUMN `ProcessingFeeGlAccount` `ProcessingFeeGlAccount` INT(11) NOT NULL ,
+CHANGE COLUMN `SalesReturnGlAccount` `SalesReturnGlAccount` INT(11) NOT NULL ;
+
+
+
+ALTER TABLE `membermax`.`accountingsetup` 
+ADD INDEX `fk_as_processingfeeglid_idx` (`ProcessingFeeGlAccount` ASC),
+ADD INDEX `gf_as_onlinecreditglid_idx` (`OnlineCreditGlAccount` ASC),
+ADD INDEX `fk_as_offlinepaymentglid_idx` (`OffLinePaymentGlAccount` ASC),
+ADD INDEX `fk_as_salesreturnglid_idx` (`SalesReturnGlAccount` ASC);
+;
+ALTER TABLE `membermax`.`accountingsetup` 
+ADD CONSTRAINT `fk_as_processingfeeglid`
+  FOREIGN KEY (`ProcessingFeeGlAccount`)
+  REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_as_onlinecreditglid`
+  FOREIGN KEY (`OnlineCreditGlAccount`)
+  REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_as_offlinepaymentglid`
+  FOREIGN KEY (`OffLinePaymentGlAccount`)
+  REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_as_salesreturnglid`
+  FOREIGN KEY (`SalesReturnGlAccount`)
+  REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

@@ -1,0 +1,8 @@
+﻿ALTER TABLE `membermax`.`billingfee` 
+DROP FOREIGN KEY `fk_billingfee_membership_id`;
+ALTER TABLE `membermax`.`billingfee` 
+ADD CONSTRAINT `fk_billingfee_membership_id`
+  FOREIGN KEY (`MembershipId`)
+  REFERENCES `membermax`.`membership` (`MembershipId`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION;

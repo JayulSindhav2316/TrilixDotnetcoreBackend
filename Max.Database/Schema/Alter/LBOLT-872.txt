@@ -1,0 +1,2 @@
+﻿ALTER TABLE `staffusersearchhistory`
+ADD COLUMN `UpdatedAt` datetime NULL

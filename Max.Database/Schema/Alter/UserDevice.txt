@@ -1,0 +1,2 @@
+﻿ALTER TABLE `nbma-demo`.`userdevice` 
+ADD COLUMN `EntityId` INT NULL AFTER `RemberDevice`;

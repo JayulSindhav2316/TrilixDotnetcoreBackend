@@ -1,0 +1,2 @@
+
+SELECT CONCAT('UPDATE Address set State =''', Name, ''' WHERE statecode =''',ShortName,''' WHERE countrycode='''US''';') from states where CountryId=45;

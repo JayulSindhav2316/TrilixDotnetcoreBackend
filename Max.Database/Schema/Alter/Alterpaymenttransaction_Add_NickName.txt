@@ -1,0 +1,2 @@
+ALTER TABLE paymenttransaction
+ADD NickName varchar(255);

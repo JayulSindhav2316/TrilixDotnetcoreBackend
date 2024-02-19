@@ -1,0 +1,7 @@
+﻿
+insert into lookup values(null,"Designation","['Vendor','Student','Membership']",1)
+
+insert into menu(ParentMenuId,groupid,label,Icon,RouterUrl,Expanded,
+disabled,tooltip,title,displayorder,display)
+values(17,10,'Registration Groups','pi pi-fw pi-sitemap','/group-resgistration',0,0,'Registration Groups',
+'Registration Groups',0,0)

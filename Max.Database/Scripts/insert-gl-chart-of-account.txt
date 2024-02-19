@@ -1,0 +1,13 @@
+
+
+INSERT INTO `membermax`.`glaccount`
+(`Name`,`Code`,`AccountTypeId`,`DetailType`,`Status`,`CostCenterId`)
+VALUES('Membership Fee','MEM-01-02-000009',3,'Membership Fee',1,5);
+INSERT INTO `membermax`.`glaccount`(`Name`,`Code`,`AccountTypeId`,`DetailType`,`Status`,`CostCenter`)
+VALUES('Join Fee','MEM-01-03-000009',3,'Misc Fee',1,1);
+INSERT INTO `membermax`.`glaccount`(`Name`,`Code`,`AccountTypeId`,`DetailType`,`Status`,`CostCenter`)
+VALUES('Optional Fee','MEM-01-04-000010',3,'Misc Fee',1,1);
+INSERT INTO `membermax`.`glaccount`(`Name`,`Code`,`AccountTypeId`,`DetailType`,`Status`,`CostCenter`)
+VALUES('Misc Fee','MEM-01-04-000100',3,'Misc Fee',1,1);
+INSERT INTO `membermax`.`glaccount`(`Name`,`Code`,`AccountTypeId`,`DetailType`,`Status`,`CostCenter`)
+VALUES('Visit Fee','MEM-01-05-000101',3,'Visit Fee',1,1);

@@ -1,0 +1,8 @@
+
+--only apply to cara-demo
+update configuration set OnlyShowDealershipAutoGroupDropdownInContactCRMConnectionTab = 1;
+UPDATE `configuration` SET `DisplayCompanySearchForMembershipAdditionalMember` = 1;
+INSERT INTO `relationship` (`Relation`, `ReverseRelationMale`, `ReverseRelationFemale`) VALUES ('Unknown', 'Unknown', 'Unknown');
+UPDATE `configuration` SET `ShowDealerShipComanyAsBillableForMembership` = 1;
+UPDATE `configuration` SET `IsGenerateRandomEmailForComany` = 1;
+UPDATE `configuration` SET `SociableSyncEnabled` = 1;

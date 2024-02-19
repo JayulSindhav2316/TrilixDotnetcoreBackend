@@ -1,0 +1,3 @@
+
+update lookup set `Values`="['Unassigned']" where `Group`="Designation"
+update  person set designation='Unassigned'

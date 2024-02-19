@@ -1,0 +1,8 @@
+
+INSERT INTO `itemtype` (`ItemTypeId`,`Name`,`Description`,`Status`) VALUES(1,"Donation","Donation",1);
+INSERT INTO `itemtype` (`ItemTypeId`,`Name`,`Description`,`Status`) VALUES(2,"Event","Event",1);
+INSERT INTO `itemtype` (`ItemTypeId`,`Name`,`Description`,`Status`) VALUES(3,"Marketplace","Marketplace",1);
+INSERT INTO `itemtype` (`ItemTypeId`,`Name`,`Description`,`Status`) VALUES(4,"Membership","Membership",1);
+INSERT INTO `itemtype` (`ItemTypeId`,`Name`,`Description`,`Status`) VALUES(5,"Services","Services",1);
+INSERT INTO `itemtype` (`ItemTypeId`,`Name`,`Description`,`Status`) VALUES(6,"Miscellaneous","Miscellaneous",1);
+

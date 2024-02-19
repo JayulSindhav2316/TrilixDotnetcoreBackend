@@ -1,0 +1,37 @@
+﻿ALTER TABLE menu
+ADD Display boolean 
+
+
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,
+Tooltip,Title,DisplayOrder,Display)
+VALUES 
+(4,2,'contactDetail', null,'/contactDetail',0,0,'',null,0,false),
+(2,1,'contactDetail', null,'/contactDetail',0,0,'',null,0,false),
+(18,10,'membershipDetails', null,'/setup/membershipDetails',0,0,'',null,0,false),
+(22,10,'organizationDetails', null,'/setup/organizationDetails',0,0,'',null,0,false),
+(34,10,'groupsDetails', null,'/setup/groupsDetails',0,0,'',null,0,false);
+
+
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,
+Tooltip,Title,DisplayOrder,Display)
+VALUES 
+
+(2,1,'contactProfile', null,'/contactProfile',0,0,'',null,0,false)
+
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,
+Tooltip,Title,DisplayOrder,Display)
+VALUES 
+
+(1,1,'payment', null,'/payment',0,0,'',null,0,false),
+(1,1,'receipt', null,'/receipt',0,0,'',null,0,false),
+(1,1,'checkout', null,'/checkout',0,0,'',null,0,false),
+
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,
+Tooltip,Title,DisplayOrder,Display)
+VALUES 
+
+(3,2,'createMembership', null,'/membership/createMembership',0,0,'',null,0,false)

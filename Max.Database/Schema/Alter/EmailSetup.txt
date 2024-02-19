@@ -1,0 +1,6 @@
+﻿UPDATE `tenant` SET`SenderEmailAddress` = 'ashoks@membermax.com',
+               `EmailServer` = '52.149.212.105', `EmailSenderUserName` ='',
+               `EmailSenderPassword` = '',`EmailServerPort` = '25', 
+               `EmailServerNeedsAuthentication` = 0
+WHERE `TenantId` = 'f5af072e-0968-11ec-89e8-38f3ab158646';
+            

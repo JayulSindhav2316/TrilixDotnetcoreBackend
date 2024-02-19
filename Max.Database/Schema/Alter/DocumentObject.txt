@@ -1,0 +1,21 @@
+﻿CREATE TABLE `documentobject` (
+  `DocumentObjectId` int(11) NOT NULL AUTO_INCREMENT,
+  `ContainerId` int(11) DEFAULT NULL,
+  `FileName` varchar(100) DEFAULT NULL,
+  `FileType` int(11) DEFAULT NULL,
+  `PathName` varchar(2048) DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `CreatedBy` int(11) DEFAULT NULL,
+  `BlobId` varchar(255) DEFAULT NULL,
+  `FileSize` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`DocumentObjectId`),
+  KEY `fk_documentobject_staffuserid_idx` (`CreatedBy`),
+  CONSTRAINT `fk_documentobject_staffuserid` FOREIGN KEY (`CreatedBy`) REFERENCES `staffuser` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `documentobject` 
+ADD COLUMN `Active` INT NULL AFTER `FileSize`;
+
+ALTER TABLE `documentobject` 
+CHANGE COLUMN `FileName` `FileName` VARCHAR(255) NULL DEFAULT NULL ;

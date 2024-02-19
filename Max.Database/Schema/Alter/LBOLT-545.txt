@@ -1,0 +1,2 @@
+﻿ALTER TABLE `entity` 
+ADD COLUMN `PreferredBillingCommunication` INT NULL AFTER `WebPasswordSalt`;

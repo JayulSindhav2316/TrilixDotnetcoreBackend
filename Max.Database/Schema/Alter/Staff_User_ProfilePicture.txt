@@ -1,0 +1,10 @@
+ALTER TABLE `staffuser` 
+ADD COLUMN `ProfilePictureId` INT(11) NOT NULL DEFAULT 0 AFTER `FailedAttempts`;
+
+ALTER TABLE `document` 
+ADD COLUMN `StaffId` INT(11) NULL AFTER `DisplayFileName`;
+
+
+ALTER TABLE `staffuser` 
+ADD COLUMN `SociableUserId` INT NULL AFTER `ProfilePictureId`,
+ADD COLUMN `SociableProfileId` INT NULL AFTER `SociableUserId`;

@@ -1,0 +1,8 @@
+﻿INSERT INTO `membermax`.`relation` (`PersonId`,`RelatedPersonId`,`Type`,`StartDate`,`EndDate`,`Status`,`Notes`)
+VALUES (5,4,'Son','2020-01-01','1000-01-01',1,'Notes');
+
+
+INSERT INTO `membermax`.`relation`(`PersonId`,`RelatedPersonId`,`Type`,`StartDate`,`EndDate`,`Status`,`Notes`)
+VALUES (3,4,'Spouse','2020-01-01','1000-01-01',1,'Notes');
+
+

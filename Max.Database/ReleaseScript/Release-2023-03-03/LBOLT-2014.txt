@@ -1,0 +1,6 @@
+ALTER TABLE `configuration` 
+ADD COLUMN `DisplayContactCRMDeleteMemberProfile` INT NULL DEFAULT '1' AFTER `DisplayDashboard`,
+ADD COLUMN `DisplayContactCRMDeleteCompanyProfile` INT NULL DEFAULT '1' AFTER `DisplayContactCRMDeleteMemberProfile`;
+
+//Applied to only NCACC DB
+update configuration set DisplayContactCRMDeleteMemberProfile = 0, DisplayContactCRMDeleteCompanyProfile = 0;

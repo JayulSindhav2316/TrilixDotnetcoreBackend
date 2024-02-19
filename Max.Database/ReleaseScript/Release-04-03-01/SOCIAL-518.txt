@@ -1,0 +1,5 @@
+CALL MaxAddColumn( 'configuration', 'IsGenerateRandomEmailForComany', 'INT NULL DEFAULT 0');
+
+CALL MaxAddColumn( 'configuration', 'CompanyRandomEmailDomain', 'VARCHAR(255) NULL DEFAULT NULL');
+
+ UPDATE `cara-demo`.`configuration` SET `IsGenerateRandomEmailForComany` = 1;

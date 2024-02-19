@@ -1,0 +1,32 @@
+ALTER TABLE `paymenttransaction` 
+DROP COLUMN `DoNotShowTransactionFutureDateWarning`;
+
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'entity'
+        AND table_schema = DATABASE()
+        AND column_name = 'DoNotShowTransactionFutureDateWarning'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `entity` ADD COLUMN `DoNotShowTransactionFutureDateWarning` INT NULL DEFAULT 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'paymenttransaction'
+        AND table_schema = DATABASE()
+        AND column_name = 'OfflinePaymentType'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `paymenttransaction` ADD COLUMN `OfflinePaymentType` VARCHAR(50) NULL DEFAULT NULL"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;

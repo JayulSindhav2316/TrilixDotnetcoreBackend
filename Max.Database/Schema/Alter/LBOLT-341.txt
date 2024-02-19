@@ -1,0 +1,22 @@
+ALTER TABLE `membermax`.`membershiptype` 
+ADD COLUMN `Units` INT NOT NULL AFTER `Status`;
+
+CREATE TABLE `relationship` (
+  `RelationshipId` int(11) NOT NULL AUTO_INCREMENT,
+  `Relation` varchar(50) DEFAULT NULL,
+  `ReverseRelationMale` varchar(50) DEFAULT NULL,
+  `ReverseRelationFemale` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`RelationshipId`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+
+ALTER TABLE `membermax`.`relation` 
+CHANGE COLUMN `Type` `RelationshipId` INT NOT NULL ,
+ADD INDEX `fk_relation_relationshipId_idx` (`RelationshipId` ASC);
+;
+ALTER TABLE `membermax`.`relation` 
+ADD CONSTRAINT `fk_relation_relationshipId`
+  FOREIGN KEY (`RelationshipId`)
+  REFERENCES `membermax`.`relationship` (`RelationshipId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+

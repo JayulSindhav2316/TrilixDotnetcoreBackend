@@ -1,0 +1,3 @@
+﻿
+ALTER TABLE  `contactactivityinteraction` 
+ADD COLUMN `InteractionRoleId` INT NULL AFTER `InteractionEntityId`;

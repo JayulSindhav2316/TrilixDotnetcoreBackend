@@ -1,0 +1,2 @@
+﻿ALTER TABLE `entityrolehistory` 
+ADD COLUMN `Status` INT NULL AFTER `StaffUserId`;

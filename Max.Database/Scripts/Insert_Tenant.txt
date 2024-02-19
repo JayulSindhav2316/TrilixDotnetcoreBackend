@@ -1,0 +1,6 @@
+INSERT INTO `maxtenant`.`tenant` (`TenantId`,`OrganizationName`,`OrganizationId`,`DatabaseName`,`HostName`,`ConnectionString`,`APIKey`,`SecretKey`,`BaseUrl`,`SenderEmailAddress`,`EmailServer`,`EmailSenderUserName`,`EmailSenderPassword`,`EmailServerPort`,`EmailServerNeedsAuthentication`)
+
+VALUES (UUID(),'cara-demo',1,'cara-demo','maxapi','server=localhost;port=3306;database=cara-demo;uid=root;password=Anit1066','','','','support@membermax.com','secure.emailsrvr.com','support@membermax.com','bind-sinker-MAX-snapshot','465','1');
+
+update tenant set BaseUrl='',SenderEmailAddress='support@membermax.com',EmailServer='secure.emailsrvr.com',EmailSenderUserName='support@membermax.com',EmailSenderPassword='bind-sinker-MAX-snapshot',EmailServerPort='465',EmailServerNeedsAuthentication='1' where tenantid=
+

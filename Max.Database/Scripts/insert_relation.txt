@@ -1,0 +1,5 @@
+INSERT INTO `membermax`.`lookup`
+(`Group`,`Values`,`Status`)
+VALUES
+('Relation','["Father","Mother","Son","Daughter","Spouse"]',1);
+   

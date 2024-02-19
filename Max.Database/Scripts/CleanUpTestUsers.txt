@@ -1,0 +1,29 @@
+﻿select * from staffuser where username='Staffphillips'
+
+//delete from staffuser where userid=38
+delete from documentobject where createdby=32
+select *  from documentobject where createdby=38
+delete from documentobjectaccesshistory where staffuserid=21
+
+delete FROM documentaccess Where documentobjectid=12411;
+delete from documentobjectaccesshistory where staffuserid=32;
+delete from multifactorcode where userid=32;
+delete FROM staffrole where staffid=32;
+delete from userdevice where userid=32;
+delete from membershipreport where userid=32;
+delete from JournalEntryDetail where JournalEntryHeaderId in (select JournalEntryHeaderId from JournalEntryHeader where userid=32);
+delete from JournalEntryHeader where userid=32;
+delete from staffuser where username='Staffphillips'
+
+//clean Contacts 
+
+select * from entity where WebLoginName='Mahesh'
+delete from person where personid=6755;
+delete FROM max_usccb.documentobjectaccesshistory where entityid=9815;
+delete from groupmemberrole where groupmemberid in ( select groupmemberid from groupmember where entityid=9815);
+delete from groupmember where entityid=9815;
+delete from userdevice where entityid=9815;
+delete from multifactorcode where entityid=9815;
+delete from relation where entityid=9815;
+delete from note where entityid=9815;
+delete from entity where entityid=9815;

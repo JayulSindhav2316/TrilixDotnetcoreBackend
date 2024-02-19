@@ -1,0 +1,18 @@
+DROP TABLE `reportsortorder`;
+DROP TABLE `reportshare`;
+DROP TABLE `reportfilter`;
+DROP TABLE `reportfield`;
+DROP TABLE `reportparameter`;
+DROP TABLE `membershipreport`;
+DROP TABLE `contactsaccountsreport`;
+DROP TABLE `reportcategory`;
+DROP TABLE `reportargument`;
+DROP TABLE `report`;
+
+
+
+
+
+
+
+

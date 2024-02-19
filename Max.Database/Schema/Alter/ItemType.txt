@@ -1,0 +1,9 @@
+﻿CREATE TABLE `membermax`.`itemtype` (
+  `ItemTypeId` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NULL,
+  `Description` VARCHAR(500) NULL,
+  `Status` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`ItemTypeId`));
+
+ALTER TABLE `invoice` 
+ADD COLUMN `InvoiceItemType` INT NULL AFTER `PromoCodeId`;

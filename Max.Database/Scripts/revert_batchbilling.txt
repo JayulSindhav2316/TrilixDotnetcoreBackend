@@ -1,0 +1,6 @@
+﻿update billingjob set status =1 where billingjobid=15;
+update billingcycle set status =1 where billingcycleid=15;
+update paperinvoice set status=0 where paperbillingcycleid=15;
+update invoice set status=0 where invoiceid in (select invoiceid from paperinvoice where paperbillingcycleid=15);
+update invoicedetail set status = 0 where invoiceid in (select invoiceid from paperinvoice where paperbillingcycleid=15);
+delete from billingemail;

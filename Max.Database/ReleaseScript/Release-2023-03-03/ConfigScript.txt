@@ -1,0 +1,5 @@
+﻿ALTER TABLE `configuration` 
+ADD COLUMN `DisplayCustomFields` INT default 0;
+
+-- NCAACC
+update configuration set DisplayCustomFields=1 where OrganizationId=1;

@@ -1,0 +1,82 @@
+﻿CREATE TABLE if not exists `customFieldBlock` (
+  `BlockId` int PRIMARY KEY AUTO_INCREMENT,
+  `Name` varchar(255),
+  `IsExisting` int,
+  `ShowBlock` int,
+  `BlockFor` int,
+  `ModuleId` int,	
+  `TabId` int
+);
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+select 'Additional Information',0,1,1,1,2 from (select 1) t
+		where not exists
+(SELECT `name` FROM customfieldblock WHERE name = 'Additional Information'
+ and ShowBlock=1 and BlockFor=1 and ModuleId=1 and TabId=2
+);
+
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+select 'Additional Information',0,1,2,1,2 from (select 1) t
+		where not exists
+(SELECT `name` FROM customfieldblock WHERE name = 'Additional Information'
+ and ShowBlock=1 and BlockFor=2 and ModuleId=1 and TabId=2
+);
+
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+select 'Personal Info',1,1,1,1,2 from (select 1) t
+		where not exists
+(SELECT `name` FROM customfieldblock WHERE name = 'Personal Info'
+ and ShowBlock=1 and BlockFor=1 and ModuleId=1 and TabId=2
+);
+
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+select 'Accounts Info',1,1,1,1,2 from (select 1) t
+		where not exists
+(SELECT `name` FROM customfieldblock WHERE name = 'Accounts Info'
+ and ShowBlock=1 and BlockFor=1 and ModuleId=1 and TabId=2
+);
+
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+select 'Account Info',1,1,2,1,2 from (select 1) t
+		where not exists
+(SELECT `name` FROM customfieldblock WHERE name = 'Account Info'
+ and ShowBlock=1 and BlockFor=2 and ModuleId=1 and TabId=2
+);
+
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+select 'Social Network',1,1,1,1,2 from (select 1) t
+		where not exists
+(SELECT `name` FROM customfieldblock WHERE name = 'Social Network'
+ and ShowBlock=1 and BlockFor=1 and ModuleId=1 and TabId=2
+);
+
+	
+ALTER TABLE `customfieldblock` ADD FOREIGN KEY (`ModuleId`) REFERENCES `moduleinfo` (`ModuleId`);
+ALTER TABLE `customfieldblock` ADD FOREIGN KEY (`TabId`) REFERENCES `tabinfo` (`TabId`);
+
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'customfieldlookup'
+        AND table_schema = DATABASE()
+        AND column_name = 'BlockId'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `customfieldlookup` ADD COLUMN `BlockId` INT NULL DEFAULT 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+update customfieldlookup cl
+join customfield c on cl.customfieldid=c.customfieldid
+set cl.blockid= case
+ when c.customfieldfor=1 
+ then (select blockid from customfieldblock
+where name='Additional Information' and BlockFor=1) 
+when c.customfieldfor=2 
+ then (select blockid from customfieldblock
+where name='Additional Information' and BlockFor=2) 
+end;
+
+ALTER TABLE `customFieldLookup` ADD FOREIGN KEY (`BlockId`) REFERENCES `customFieldBlock` (`BlockId`);

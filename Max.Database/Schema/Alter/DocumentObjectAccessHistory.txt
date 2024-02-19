@@ -1,0 +1,25 @@
+﻿CREATE TABLE `documentobjectaccesshistory` (
+  `AccessId` int(11) NOT NULL AUTO_INCREMENT,
+  `DocumentObjectId` int(11) DEFAULT NULL,
+  `EntityId` int(11) DEFAULT NULL,
+  `AccessType` int(11) DEFAULT NULL,
+  `AccessDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`AccessId`),
+  KEY `fk_documentaccess_object_id_idx` (`DocumentObjectId`),
+  KEY `fk_documentaccess_entityId_idx` (`EntityId`),
+  CONSTRAINT `fk_documentaccess_entityId` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_documentaccess_object_id` FOREIGN KEY (`DocumentObjectId`) REFERENCES `documentobject` (`DocumentObjectId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+ALTER TABLE `documentobjectaccesshistory` 
+ADD COLUMN `StaffUserId` INT(11) NULL DEFAULT NULL AFTER `EntityId`,
+ADD INDEX `fk_documentaccess_staffId_idx` (`StaffUserId` ASC);
+;
+ALTER TABLE `documentobjectaccesshistory` 
+ADD CONSTRAINT `fk_documentaccess_staffId`
+  FOREIGN KEY (`StaffUserId`)
+  REFERENCES `staffuser` (`UserId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

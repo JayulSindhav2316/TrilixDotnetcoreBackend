@@ -1,0 +1,53 @@
+﻿INSERT INTO `staffuser`
+(
+`UserName`,
+`FirstName`,
+`LastName`,
+`Email`,
+`Password`,
+`DepartmentId`,
+`Status`,
+`Salt`,
+OrganizationId)
+VALUES
+(
+'adrianna',
+'Ashok',
+'Sachan',
+'ashoks@membermax.com',
+'2516df16966e3cf625018dbb4b4eb66a436625f4bd89dfa0045a0fab75693b6182308e1172e815533edf131a0e37ec9eb677c85686e572cbfa914531dec9bf54',
+1,
+1,
+'7cef755b52c2f1cd78033c0dffc78d9b5c59bb8c545fefded8bd69caf8f35554d37c11d4634fe8916bbdc14aca2ed961bbdff3e0cb7cf83f99c601a5033686a6',1);
+
+INSERT INTO `staffuser`
+(
+`UserName`,
+`FirstName`,
+`LastName`,
+`Email`,
+`Password`,
+`DepartmentId`,
+`Status`,
+`Salt`,
+OrganizationId)
+VALUES
+(
+'BillingService',
+'System',
+'Account',
+'ashoks@membermax.com',
+'2516df16966e3cf625018dbb4b4eb66a436625f4bd89dfa0045a0fab75693b6182308e1172e815533edf131a0e37ec9eb677c85686e572cbfa914531dec9bf54',
+1,
+1,
+'7cef755b52c2f1cd78033c0dffc78d9b5c59bb8c545fefded8bd69caf8f35554d37c11d4634fe8916bbdc14aca2ed961bbdff3e0cb7cf83f99c601a5033686a6',1);
+
+/*password:Sunil@1234., */
+update membermax.staffuser set username='admin',password='6a083d1f670d1a70a20354888a0492d6f19bb1943def8488193c3a1b31165b54b5337b9666fa4f6ea22c2b287df2d4ff4a18522141c8f57e93441f0787fac9f7',
+salt='3aa03a42be3cfd16e2d178087514d4bac63bb95a6edd5e738d82c4825c1da271918f2d91c8b129f5f88c137a1a85a55d3e62b7a4aa547383af8382e9640d3aec'
+where userid=1
+
+{
+  "userName": "adrianna",
+  "password": "Sunil@1234.,"
+}

@@ -1,0 +1,9 @@
+﻿CREATE TABLE `solrexport` (
+  `SolrId` int(11) NOT NULL,
+  `CreatedBy` varchar(100) DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `FileName` varchar(255) DEFAULT NULL,
+  `Text` longtext,
+  `Uploaded` int(11) DEFAULT '0',
+  PRIMARY KEY (`SolrId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

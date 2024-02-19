@@ -1,0 +1,23 @@
+ALTER TABLE `email` 
+DROP FOREIGN KEY `fk_email_person_id`;
+ALTER TABLE `email` 
+ADD COLUMN `CompanyId` INT NULL DEFAULT NULL AFTER `IsPrimary`,
+CHANGE COLUMN `PersonId` `PersonId` INT(11)  NULL DEFAULT NULL ,
+ADD INDEX `fk_email_company_id_idx` (`CompanyId` ASC);
+;
+ALTER TABLE `email` 
+ADD CONSTRAINT `fk_email_person_id`
+  FOREIGN KEY (`PersonId`)
+  REFERENCES `person` (`PersonId`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_email_company_id`
+  FOREIGN KEY (`CompanyId`)
+  REFERENCES `company` (`CompanyId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+  
+INSERT INTO `email` (`EmailAddressType`,`EmailAddress`,`IsPrimary`,`CompanyId`)
+Select 'Work',Email,1,companyId From Company where email is not null and email != ''

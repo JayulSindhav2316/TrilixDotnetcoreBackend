@@ -1,0 +1,30 @@
+ALTER TABLE `event` 
+DROP FOREIGN KEY `fk_contactentity_id`;
+ALTER TABLE `event` 
+DROP COLUMN `ContactPersonEntityId`,
+ADD COLUMN `RegStartDate` DATETIME NULL AFTER `ToDate`,
+ADD COLUMN `RegEndDate` DATETIME NULL AFTER `RegStartDate`,
+CHANGE COLUMN `Summary` `Summary` VARCHAR(300) NULL DEFAULT NULL ,
+CHANGE COLUMN `Description` `Description` LONGTEXT NULL DEFAULT NULL ,
+DROP INDEX `fk_contactentityid_idx` ;
+;
+
+CREATE TABLE `eventcontact` (
+  `EventContactId` int(11) NOT NULL AUTO_INCREMENT,
+  `EventId` int(11) DEFAULT NULL,
+  `StaffId` int(11) DEFAULT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  `PhoneNumber` varchar(45) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `HidePhoneNumber` int(11) DEFAULT NULL,
+  PRIMARY KEY (`EventContactId`),
+  KEY `fk_eventcontact_eventid_idx` (`EventId`),
+  KEY `fk_eventcontact_staffid_idx` (`StaffId`),
+  CONSTRAINT `fk_eventcontact_eventid` FOREIGN KEY (`EventId`) REFERENCES `event` (`EventId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eventcontact_staffid` FOREIGN KEY (`StaffId`) REFERENCES `staffuser` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `linkregistrationgroupfee` 
+ADD COLUMN `RegistrationGroupEndDateTime` DATETIME NULL AFTER `RegistrationGroupDateTime`;
+

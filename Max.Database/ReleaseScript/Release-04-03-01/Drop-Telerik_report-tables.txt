@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS  `tr_applock`;
+DROP TABLE IF EXISTS  `tr_category`;
+DROP TABLE IF EXISTS  `tr_definition`;
+DROP TABLE IF EXISTS  `tr_object`;
+DROP TABLE IF EXISTS  `tr_report`;
+DROP TABLE IF EXISTS  `tr_set`;
+DROP TABLE IF EXISTS  `tr_string`;
+DROP TABLE IF EXISTS  `tr_template`;
+DROP TABLE IF EXISTS  `tr_category`;

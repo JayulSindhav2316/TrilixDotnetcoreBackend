@@ -1,0 +1,8 @@
+﻿ALTER TABLE `paymentprocessor` 
+ADD COLUMN `LiveAcceptJSURL` VARCHAR(255) NULL AFTER `LiveURL`,
+ADD COLUMN `TestAcceptJSURL` VARCHAR(255) NULL AFTER `TestURL`;
+
+
+
+update paymentprocessor set TestAcceptJSURL='https://jstest.authorize.net/v1/Accept.js'
+update paymentprocessor set LiveAcceptJSURL='https://js.authorize.net/v1/Accept.js'

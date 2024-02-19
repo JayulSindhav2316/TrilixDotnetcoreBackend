@@ -1,0 +1,284 @@
+DELETE from rolemenu where menuid in (select menuid FROM menu where Routerurl like 'cms%');
+DELETE FROM menu where Routerurl like 'cms%';
+
+set @menuId = 0;
+set @groupId = 0;
+
+CREATE TABLE IF NOT EXISTS test(
+    test INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+)  ENGINE=INNODB;
+
+
+insert into menugroup
+(select max(MenuGroupId)+1,'Event Registration',1,150,'Events' from menugroup);
+
+select @groupId:= MenuGroupId from menugroup where groupName='Event Registration';
+
+insert into menu
+(ParentMenuId,GroupId,Label,Icon,RouterURL,Expanded,Disabled,Tooltip,Title,DisplayOrder,Display)
+values
+(0,@groupId,'Event Registration','pi pi-fw pi-calendar','/eventregistration',0,0,null,'Event Registration',301,null);
+
+select @menuId:=menuid from menu where label='Event Registration';
+
+insert into menu
+(ParentMenuId,GroupId,Label,Icon,RouterURL,Expanded,Disabled,Tooltip,Title,DisplayOrder,Display)
+values
+(@menuId,@groupId,'Create New','pi pi-fw pi-list','/eventregistration/searchMember',0,0,null,'Create New',302,null),
+(@menuId,@groupId,'createEventRegistration',null,'/eventregistration/createeventregistration',0,0,null,null,0,0);
+
+
+/* Custom Field */
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,
+Tooltip,Title,DisplayOrder,Display)
+VALUES 
+
+(17,10,'Custom Fields', 'pi pi-fw pi-list','setup/customfields',0,0,'',null,0,null);
+
+insert into rolemenu
+(RoleId,MenuId)
+values
+(11,(select MenuId from menu where label = 'Event Registration' and RouterURL='/eventregistration')),
+(11,(select MenuId from menu where label = 'Create New' and RouterURL='/eventregistration/searchMember'));
+
+
+update menu set RouterURL = '/events/events' where Label='Events';
+update menu set RouterURL = '/events/EventMain' where Label='addEventSetUp';
+update menu set RouterURL = '/events/EventMain/Edit' where Label='editEventSetUp';
+update menu set RouterURL = '/events/questions' where Label='Questions';
+update menu set RouterURL = '/events/group-resgistration' where Label='Groups';
+
+
+CREATE TABLE eventregister (
+    EventRegisterId int NOT NULL AUTO_INCREMENT,
+    EventId int NOT NULL,
+    EntityId int NOT NULL,
+    PRIMARY KEY (EventRegisterId),
+    CONSTRAINT FK_Event FOREIGN KEY (EventId) REFERENCES event(EventId),
+    CONSTRAINT FK_Entity FOREIGN KEY (EntityId) REFERENCES entity(EntityId)
+);
+
+CREATE TABLE eventregisterquestion (
+	EventRegisterQuestionId int NOT NULL AUTO_INCREMENT,
+    EventRegisterId int NOT NULL,
+    SessionId int NOT NULL,
+	QuestionId int NOT NULL,
+    Answer longtext,
+    AnswerOptionId int,
+    PRIMARY KEY (EventRegisterQuestionId),
+    CONSTRAINT FK_EventRegisteration FOREIGN KEY (EventRegisterId) REFERENCES eventregister(EventRegisterId),
+    CONSTRAINT FK_Sessionons FOREIGN KEY (SessionId) REFERENCES session(SessionId),
+    CONSTRAINT FK_QuestionBank FOREIGN KEY (QuestionId) REFERENCES questionbank(QuestionBankId),
+    CONSTRAINT FK_AnswerOption FOREIGN KEY (AnswerOptionId) REFERENCES answeroption(AnswerOptionId)
+);
+
+CREATE TABLE eventregistersession (
+	EventRegisterSessionId int NOT NULL AUTO_INCREMENT,
+    EventRegisterId int NOT NULL,
+    SessionId int NOT NULL,
+    Price decimal(13,2),
+    PRIMARY KEY (EventRegisterSessionId),
+    CONSTRAINT FK_EventRegister FOREIGN KEY (EventRegisterId) REFERENCES eventregister(EventRegisterId),
+    CONSTRAINT FK_Session FOREIGN KEY (SessionId) REFERENCES session(SessionId)
+);
+
+ALTER TABLE `eventregisterquestion` 
+ADD COLUMN `EventId` INT NULL AFTER `AnswerOptionId`,
+ADD INDEX `FK_Events_idx` (`EventId` ASC);
+;
+ALTER TABLE `eventregisterquestion` 
+ADD CONSTRAINT `FK_Events`
+  FOREIGN KEY (`EventId`)
+  REFERENCES `event` (`EventId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+ALTER TABLE `eventregisterquestion` 
+DROP FOREIGN KEY `FK_Sessionons`;
+ALTER TABLE `eventregisterquestion` 
+CHANGE COLUMN `SessionId` `SessionId` INT NULL ;
+ALTER TABLE `eventregisterquestion` 
+ADD CONSTRAINT `FK_Sessionons`
+  FOREIGN KEY (`SessionId`)
+  REFERENCES `session` (`SessionId`);
+  
+ALTER TABLE eventregisterquestion MODIFY Answer longtext null;
+ALTER TABLE eventregisterquestion MODIFY AnswerOptionId int null;
+ALTER TABLE eventregisterquestion MODIFY EventId int null;
+
+ALTER TABLE paymenttransaction
+ADD NickName varchar(255);
+
+ALTER TABLE paymentprofile
+ADD NickName varchar(255);
+
+ALTER TABLE `configuration` 
+ADD COLUMN `DisplayRoles` INT NULL AFTER `SociableBaseUrl`;
+
+Update configuration set DisplayRoles=0 ;
+
+ALTER TABLE configuration ADD DataViewLayout VARCHAR(20)  NULL after DisplayRoles;
+
+update configuration set DataViewLayout='grid' where OrganizationId=1;
+
+
+CREATE TABLE `contactactivity` (
+  `ContactActivityId` INT NOT NULL AUTO_INCREMENT,
+  `EntityId` INT NULL,
+  `AccountId` INT NULL,
+  `InteractionAccountId` INT NULL,
+  `InteractionEntityId` INT NULL,
+  `ActivityDate` DATETIME NULL,
+  `InteractionType` INT NULL,
+  `ActivityConnection` INT NULL,
+  `Subject` VARCHAR(250) NULL,
+  `Description` VARCHAR(2500) NULL,
+  INDEX `fk_activity_entityId_idx` (`EntityId` ASC),
+  INDEX `fk_activity_accountId_idx` (`AccountId` ASC),
+  INDEX `fk_activity_interaction_Account_id_idx` (`InteractionAccountId` ASC),
+  INDEX `fk_activity_interaction_entuity_id_idx` (`InteractionEntityId` ASC),
+  PRIMARY KEY (`ContactActivityId`),
+  CONSTRAINT `fk_activity_entityId`
+    FOREIGN KEY (`EntityId`)
+    REFERENCES `entity` (`EntityId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activity_accountId`
+    FOREIGN KEY (`AccountId`)
+    REFERENCES `company` (`CompanyId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activity_interaction_entuity_id`
+    FOREIGN KEY (`InteractionEntityId`)
+    REFERENCES `entity` (`EntityId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activity_interaction_Account_id`
+    FOREIGN KEY (`InteractionAccountId`)
+    REFERENCES `company` (`CompanyId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+ALTER TABLE `contactactivity` 
+ADD COLUMN `StaffUserId` INT NULL AFTER `Description`,
+ADD INDEX `fk_activity_staff_user_id_idx` (`StaffUserId` ASC);
+;
+ALTER TABLE `contactactivity` 
+ADD CONSTRAINT `fk_activity_staff_user_id`
+  FOREIGN KEY (`StaffUserId`)
+  REFERENCES `staffuser` (`UserId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  CREATE TABLE `entityrole` (
+  `EntityRoleId` int(11) NOT NULL AUTO_INCREMENT,
+  `EntityId` int(11) DEFAULT NULL,
+  `ContactRoleId` int(11) DEFAULT NULL,
+  `EffectiveDate` datetime DEFAULT NULL,
+  `EndDate` datetime DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  `CompanyId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`EntityRoleId`),
+  KEY `fk_entityrole_entityId_idx` (`EntityId`),
+  KEY `fk_entityrole_contactroleId_idx` (`ContactRoleId`),
+  KEY `fk_entityrole_companyId_idx` (`CompanyId`),
+  CONSTRAINT `fk_entityrole_companyId` FOREIGN KEY (`CompanyId`) REFERENCES `company` (`CompanyId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entityrole_contactroleId` FOREIGN KEY (`ContactRoleId`) REFERENCES `contactrole` (`ContactRoleId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entityrole_entityId` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `entityrolehistory` (
+  `EntityRoleHistoryId` int(11) NOT NULL AUTO_INCREMENT,
+  `EntityId` int(11) DEFAULT NULL,
+  `ContactRoleId` int(11) DEFAULT NULL,
+  `CompanyId` int(11) DEFAULT NULL,
+  `ActivityType` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `ActivityDate` datetime DEFAULT NULL,
+  `Description` varchar(1000) COLLATE utf8_bin DEFAULT NULL,
+  `StaffUserId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`EntityRoleHistoryId`),
+  KEY `fk_entityhistory_entityid_idx` (`EntityId`),
+  KEY `fk_entityhistory_contactroleId_idx` (`ContactRoleId`),
+  KEY `fk_entityhistory_companyId_idx` (`CompanyId`),
+  KEY `fk_entityhistory_staffuserId_idx` (`StaffUserId`),
+  CONSTRAINT `fk_entityhistory_companyId` FOREIGN KEY (`CompanyId`) REFERENCES `company` (`CompanyId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entityhistory_contactroleId` FOREIGN KEY (`ContactRoleId`) REFERENCES `contactrole` (`ContactRoleId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entityhistory_entityid` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entityhistory_staffuserId` FOREIGN KEY (`StaffUserId`) REFERENCES `staffuser` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+CREATE TABLE `customfield` (
+  `CustomFieldId` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `ModuleId` int(11),
+  `OrganizationId` int(11),
+  `FieldTypeId` int(11),
+  `Label` varchar(255),
+  `Placeholder` varchar(255),
+  `validations` varchar(255),
+  `CharacterLimit` int,
+  `Required` int,
+  `CountryCode` int,
+  `DateFormat` varchar(255),
+  `DefaultDate` varchar(255),
+  `TimeFormat` varchar(255),
+  `DefaultTime` varchar(255),
+  `MultipleSelection` int
+);
+
+CREATE TABLE `fieldtype` (
+  `FieldTypeId` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `Type` varchar(255)
+);
+
+CREATE TABLE `customfieldoption` (
+  `OptionId` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `CustomFieldId` int,
+  `Option` varchar(255),
+  `code` varchar(255)
+);
+
+ALTER TABLE `customfield` ADD FOREIGN KEY (`FieldTypeId`) REFERENCES `fieldtype` (`FieldTypeId`);
+
+ALTER TABLE `customfieldoption` ADD FOREIGN KEY (`CustomFieldId`) REFERENCES `customfield` (`CustomFieldId`);
+
+
+INSERT INTO 
+	fieldtype(type)
+VALUES
+	('Text'),
+	('Email Address'),
+    ('Phone Number'),
+    ('Date'),
+    ('Time'),
+    ('Number'),
+    ('Short Text'),
+    ('Long Text'),
+    ('Dropdown'),
+    ('Single Choice Field'),
+    ('Multiple Choice Field');
+
+
+    ALTER TABLE customfield
+ADD Status int;
+
+ALTER TABLE `invoice` 
+ADD COLUMN `EventId` INT NULL AFTER `InvoiceItemType`,
+ADD INDEX `fk_invoice_event_id_idx` (`EventId` ASC);
+;
+ALTER TABLE `invoice` 
+ADD CONSTRAINT `fk_invoice_event_id`
+  FOREIGN KEY (`EventId`)
+  REFERENCES `event` (`EventId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+ALTER TABLE `invoicedetail` 
+ADD COLUMN `BillableEntityId` INT NULL AFTER `ItemType`;
+
+

@@ -1,0 +1,2 @@
+ALTER TABLE `billingcycle` 
+ADD COLUMN `CycleType` INT NULL DEFAULT 0 AFTER `Status`;

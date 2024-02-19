@@ -1,0 +1,21 @@
+﻿
+/* First need to import the existing custom field data from tables -
+customfielddata, customfieldoption, customfieldlookup, customfield
+then run the script */
+
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+VALUES ('Additional Information',0,1,1,1,2),
+		('Additional Information',0,1,2,1,2);
+
+/* To update the customFieldLookup to link the existing fields to the block */
+
+update customfieldlookup cl
+join customfield c on cl.customfieldid=c.customfieldid
+set cl.blockid= case
+ when c.customfieldfor=1 
+ then (select blockid from customfieldblock
+where name='Additional Information' and BlockFor=1) 
+when c.customfieldfor=2 
+ then (select blockid from customfieldblock
+where name='Additional Information' and BlockFor=2) 
+end;

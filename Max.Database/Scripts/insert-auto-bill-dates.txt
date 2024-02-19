@@ -1,0 +1,4 @@
+﻿INSERT INTO `membermax`.`autobillingprocessingdates`
+(`BillingType`,`InvoiceType`,`ThroughDate`,`EffectiveDate`,`Status`)
+VALUES
+('Membership','CreditCard','2021-05-31','2021-05-17',1);

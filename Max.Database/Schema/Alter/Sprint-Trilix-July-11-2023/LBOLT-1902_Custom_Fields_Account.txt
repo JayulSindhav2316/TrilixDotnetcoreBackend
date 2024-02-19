@@ -1,0 +1,391 @@
+﻿/* Account*/
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'NCACC Underwriter',1,2);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES ((select CustomFieldId from customfield where Label="NCACC Underwriter"),"Ariele D'Angelo"),
+	   ((select CustomFieldId from customfield where Label="NCACC Underwriter"),"Collin Klein"),
+       ((select CustomFieldId from customfield where Label="NCACC Underwriter"),"Willie Allen");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="NCACC Underwriter"),1);
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'Outreach Associate',1,2);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES ((select CustomFieldId from customfield where Label="Outreach Associate"),"Amy Cannon"),
+	   ((select CustomFieldId from customfield where Label="Outreach Associate"),"Denise Stinagle"),
+       ((select CustomFieldId from customfield where Label="Outreach Associate"),"Jack Horton"),
+       ((select CustomFieldId from customfield where Label="Outreach Associate"),"Neil Emory");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Outreach Associate"),1);
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor, MultipleSelection)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'Account Type',1,2,1);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES ((select CustomFieldId from customfield where Label="Account Type"),"Affiliate"),
+	   ((select CustomFieldId from customfield where Label="Account Type"),"COG"),
+       ((select CustomFieldId from customfield where Label="Account Type"),"County"),
+       ((select CustomFieldId from customfield where Label="Account Type"),"County Entity"),
+       ((select CustomFieldId from customfield where Label="Account Type"),"Other"),
+       ((select CustomFieldId from customfield where Label="Account Type"),"Sponsor"),
+       ((select CustomFieldId from customfield where Label="Account Type"),"State Association");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Account Type"),1);
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'NCACC District Number',1,2);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES ((select CustomFieldId from customfield where Label="NCACC District Number"),"1"),
+	   ((select CustomFieldId from customfield where Label="NCACC District Number"),"2"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"3"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"4"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"5"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"6"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"7"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"8"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"9"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"10"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"11"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"12"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"13"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"14"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"15"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"16"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"17"),
+       ((select CustomFieldId from customfield where Label="NCACC District Number"),"18");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="NCACC District Number"),1);
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'Commissioners',1,2);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES 
+       ((select CustomFieldId from customfield where Label="Commissioners"),"5"),
+       ((select CustomFieldId from customfield where Label="Commissioners"),"6"),
+       ((select CustomFieldId from customfield where Label="Commissioners"),"7"),
+       ((select CustomFieldId from customfield where Label="Commissioners"),"8"),
+       ((select CustomFieldId from customfield where Label="Commissioners"),"9");
+       
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Commissioners"),1);       
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'Election Method',1,2);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES 
+       ((select CustomFieldId from customfield where Label="Election Method"),"Pure at Large"),
+       ((select CustomFieldId from customfield where Label="Election Method"),"Pure by District"),
+       ((select CustomFieldId from customfield where Label="Election Method"),"At large with residency districts"),
+       ((select CustomFieldId from customfield where Label="Election Method"),"Other");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Election Method"),1);       
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'Terms Of Office',1,2);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES 
+       ((select CustomFieldId from customfield where Label="Terms Of Office"),"2 Year"),
+       ((select CustomFieldId from customfield where Label="Terms Of Office"),"Combination of 2/4 Year Staggered"),
+       ((select CustomFieldId from customfield where Label="Terms Of Office"),"4 Year"),
+       ((select CustomFieldId from customfield where Label="Terms Of Office"),"4 Year Staggered");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Terms Of Office"),1);    
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor, MultipleSelection)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'US Congress District',1,2,1);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES ((select CustomFieldId from customfield where Label="US Congress District"),"1"),
+	   ((select CustomFieldId from customfield where Label="US Congress District"),"2"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"3"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"4"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"5"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"6"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"7"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"8"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"9"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"10"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"11"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"12"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"13"),
+       ((select CustomFieldId from customfield where Label="US Congress District"),"14");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="US Congress District"),1);
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Multiple Choice Field"),'Pool Members',1,2);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES 
+       ((select CustomFieldId from customfield where Label="Pool Members"),"LP"),
+       ((select CustomFieldId from customfield where Label="Pool Members"),"WC"),
+       ((select CustomFieldId from customfield where Label="Pool Members"),"NCPTS");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Pool Members"),1);       
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Text"),'County Seat',1,2);
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="County Seat"),1);       
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Text"),'Population',1,2);
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Population"),1);       
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'COG',1,2);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES ((select CustomFieldId from customfield where Label="COG"),"Southwestern Commission"),
+	   ((select CustomFieldId from customfield where Label="COG"),"Land-of-Sky Regional Council"),
+       ((select CustomFieldId from customfield where Label="COG"),"Isothermal Planning and Development Commission"),
+       ((select CustomFieldId from customfield where Label="COG"),"High Country Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Western Piedmont Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Centralina Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Piedmont Triad Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Triangle J Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Kerr-Tar Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Upper Coastal Plain Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Mid-Carolina Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Lumber River Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Cape Fear Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Eastern Carolina Council of Governments"),
+       ((select CustomFieldId from customfield where Label="COG"),"Mid-East Commission"),
+       ((select CustomFieldId from customfield where Label="COG"),"Albermarle Commission");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="COG"),1);
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor, MultipleSelection)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'NC House District',1,2,1);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES 
+((select CustomFieldId from customfield where Label = 'NC House District'),'1'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'2'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'3'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'4'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'5'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'6'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'7'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'8'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'9'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'10'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'11'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'12'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'13'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'14'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'15'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'16'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'17'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'18'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'19'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'20'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'21'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'22'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'23'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'24'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'25'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'26'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'27'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'28'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'29'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'30'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'31'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'32'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'33'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'34'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'35'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'36'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'37'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'38'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'39'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'40'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'41'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'42'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'43'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'44'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'45'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'46'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'47'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'48'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'49'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'50'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'51'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'52'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'53'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'54'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'55'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'56'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'57'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'58'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'59'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'60'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'61'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'62'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'63'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'64'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'65'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'66'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'67'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'68'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'69'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'70'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'71'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'72'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'73'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'74'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'75'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'76'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'77'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'78'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'79'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'80'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'81'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'82'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'83'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'84'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'85'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'86'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'87'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'88'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'89'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'90'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'91'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'92'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'93'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'94'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'95'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'96'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'97'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'98'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'99'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'100'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'101'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'102'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'103'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'104'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'105'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'106'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'107'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'108'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'109'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'110'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'111'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'112'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'113'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'114'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'115'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'116'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'117'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'118'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'119'),
+((select CustomFieldId from customfield where Label = 'NC House District'),'120');
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="NC House District"),1);
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor, MultipleSelection)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'NC State District',1,2,1);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES 
+((select CustomFieldId from customfield where Label = 'NC State District'),'1'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'2'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'3'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'4'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'5'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'6'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'7'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'8'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'9'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'10'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'11'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'12'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'13'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'14'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'15'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'16'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'17'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'18'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'19'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'20'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'21'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'22'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'23'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'24'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'25'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'26'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'27'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'28'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'29'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'30'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'31'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'32'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'33'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'34'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'35'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'36'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'37'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'38'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'39'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'40'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'41'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'42'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'43'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'44'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'45'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'46'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'47'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'48'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'49'),
+((select CustomFieldId from customfield where Label = 'NC State District'),'50');
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="NC State District"),1);
+

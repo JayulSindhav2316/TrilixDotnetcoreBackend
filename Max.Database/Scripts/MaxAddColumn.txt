@@ -1,0 +1,28 @@
+
+/* Used to add a column dynamically */
+
+DROP PROCEDURE IF EXISTS MaxAddColumn;
+DELIMITER '//'
+
+CREATE PROCEDURE MaxAddColumn(
+	IN tableName TINYTEXT,
+	IN fieldName TINYTEXT,
+	IN fieldDef TEXT)
+BEGIN
+	IF NOT EXISTS (
+		SELECT * FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME=fieldName
+		and TABLE_NAME=tableName
+		)
+	THEN
+		SET @ddl=CONCAT('ALTER TABLE `',tableName,
+			'` ADD COLUMN `',fieldName,'` ',fieldDef);
+		PREPARE stmt FROM @ddl;
+		EXECUTE stmt;
+	END IF;
+END;
+
+/* How to Use
+   
+   CALL MaxAddColumn( 'department', 'cntest', 'INT UNSIGNED NOT NULL DEFAULT 1');
+*/

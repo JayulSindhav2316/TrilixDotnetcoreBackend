@@ -1,0 +1,223 @@
+/* Create all report related tables */
+
+CREATE TABLE `report` (
+  `ReportId` INT NOT NULL AUTO_INCREMENT,
+  `OrganizationId` INT NULL DEFAULT NULL,
+  `Title` VARCHAR(45) NULL DEFAULT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  `UserId` INT NULL DEFAULT NULL,
+  `ReportType` VARCHAR(45) NULL DEFAULT NULL,
+  `isCommunity` INT NULL DEFAULT 0,
+  `isFavorite` INT NULL DEFAULT 0,
+  `LastUpdatedOn` DATETIME NULL DEFAULT NULL,
+  `PreviewMode` INT NULL DEFAULT 0,
+  `Fields` VARCHAR(500) NULL DEFAULT NULL,
+  PRIMARY KEY (`ReportId`),
+  INDEX `fk_report_organizationId_idx` (`OrganizationId` ASC) ,
+  INDEX `fk_report_userId_idx` (`UserId` ASC) ,
+  CONSTRAINT `fk_report_organizationId`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `organization` (`OrganizationId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_report_userId`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `staffuser` (`UserId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+
+CREATE TABLE `membershipreport` (
+  `MembershipReportId` INT NOT NULL AUTO_INCREMENT,
+  `Categories` VARCHAR(500) NULL DEFAULT NULL,
+  `MembershipTypes` VARCHAR(500) NULL DEFAULT NULL,
+  `Status` VARCHAR(45) NULL DEFAULT NULL,
+  `ReportId` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`MembershipReportId`),
+  INDEX `fk_membershipreport_report_id_idx` (`ReportId` ASC) ,
+  CONSTRAINT `fk_membershipreport_report_id`
+    FOREIGN KEY (`ReportId`)
+    REFERENCES `report` (`ReportId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+
+CREATE TABLE `reportfilter` (
+  `ReportFilterId` INT NOT NULL AUTO_INCREMENT,
+  `ReportId` INT NULL DEFAULT NULL,
+  `Operator` VARCHAR(45) NULL DEFAULT NULL,
+  `Value` VARCHAR(100) NULL DEFAULT NULL,
+  `ReportFieldId` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`ReportFilterId`),
+  INDEX `fk_reportfilter_report_id_idx` (`ReportId` ASC) ,
+  CONSTRAINT `fk_reportfilter_report_id`
+    FOREIGN KEY (`ReportId`)
+    REFERENCES `report` (`ReportId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+CREATE TABLE `reportshare` (
+  `ReportShareId` INT NOT NULL AUTO_INCREMENT,
+  `UserId` INT NULL DEFAULT NULL,
+  `SharedToUserId` INT NULL DEFAULT NULL,
+  `ReportId` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`ReportShareId`),
+  INDEX `fk_report_share_report_id_idx` (`ReportId` ASC) ,
+  CONSTRAINT `fk_report_share_report_id`
+    FOREIGN KEY (`ReportId`)
+    REFERENCES `report` (`ReportId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+
+CREATE TABLE `reportsortorder` (
+  `ReportSortOrderId` INT NOT NULL AUTO_INCREMENT,
+  `FieldName` VARCHAR(100) NULL DEFAULT NULL,
+  `Order` VARCHAR(45) NULL DEFAULT NULL,
+  `FieldPathName` VARCHAR(250) NULL DEFAULT NULL,
+  `ReportId` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`ReportSortOrderId`),
+  INDEX `fk_reportsortorder_report_id_idx` (`ReportId` ASC) ,
+  CONSTRAINT `fk_reportsortorder_report_id`
+    FOREIGN KEY (`ReportId`)
+    REFERENCES `report` (`ReportId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+
+CREATE TABLE `reportcategory` (
+  `ReportCategoryId` INT NOT NULL AUTO_INCREMENT,
+  `Title` VARCHAR(100) NULL DEFAULT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  PRIMARY KEY (`ReportCategoryId`));
+
+
+CREATE TABLE `reportfield` (
+  `ReportFieldId` INT NOT NULL AUTO_INCREMENT,
+  `ReportCategoryId` INT NULL DEFAULT NULL,
+  `FieldName` VARCHAR(100) NULL DEFAULT NULL,
+  `TableName` VARCHAR(100) NULL DEFAULT NULL,
+  `Label` VARCHAR(100) NULL DEFAULT NULL,
+  `FieldTitle` VARCHAR(100) NULL DEFAULT NULL,
+  `DataType` VARCHAR(45) NULL DEFAULT NULL,
+  `DisplayOrder` INT NULL DEFAULT NULL,
+  `DisplayType` VARCHAR(45) NULL DEFAULT NULL,
+  `CustomFieldId` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`ReportFieldId`),
+  INDEX `fk_reportfield_customfield_id_idx` (`CustomFieldId` ASC) ,
+  INDEX `fk_reportfield_reportcategory_id_idx` (`ReportCategoryId` ASC) ,
+  CONSTRAINT `fk_reportfield_customfield_id`
+    FOREIGN KEY (`CustomFieldId`)
+    REFERENCES `customfield` (`CustomFieldId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_reportfield_reportcategory_id`
+    FOREIGN KEY (`ReportCategoryId`)
+    REFERENCES `reportcategory` (`ReportCategoryId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+
+
+
+/* Insert data for reportcategory and reportfield */
+
+INSERT INTO `reportcategory` (`Title`, `Description`) VALUES ('Membership', 'Membership Reports');
+INSERT INTO `reportcategory` (`Title`, `Description`) VALUES ('Contacts', 'Contacts Reports');
+INSERT INTO `reportcategory` (`Title`, `Description`) VALUES ('Accounts', 'Accounts Reports');
+
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Prefix', 'person', 'Personal Info', 'Prefix', 'String', '1', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'FirstName', 'person', 'Personal Info', 'First Name', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'LastName', 'person', 'Personal Info', 'Last Name', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Gender', 'person', 'Personal Info', 'Gender', 'String', '1', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'DOB', 'person', 'Personal Info', 'Date Of Birth', 'Date', '1', 'Calendar');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'PrimaryPhone', 'person', 'Personal Info', 'Primary Phone', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'PrimaryEmail', 'person', 'Personal Info', 'Primary Email', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Designation', 'person', 'Personal Info', 'Designation', 'String', '1', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'CompanyName', 'company', 'Company Info', 'Company Name', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Website', 'company', 'Company Info', 'Website', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'PrimaryPhone', 'company', 'Company Info', 'Primary Phone', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'PrimaryEmail', 'company', 'Company Info', 'Primary Email', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Address', 'company', 'Company Info', 'Address', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'City', 'company', 'Company Info', 'City', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'State', 'company', 'Company Info', 'State', 'String', '2', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Zip', 'company', 'Company Info', 'Zip', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'membershipCategoryId', 'membershipcategory', 'Membership Category', 'Category Id', 'Int', '3', 'Number');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Name', 'membershipcategory', 'Membership Category', 'Category Name', 'String', '3', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Status', 'membershipcategory', 'Membership Category', 'Category Status', 'String', '3', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'membershipTypeId', 'membershiptype', 'Membership Type', 'Type Id', 'Int', '4', 'Number');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Name', 'membershiptype', 'Membership Type', 'Type Name', 'String', '4', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Description', 'membershiptype', 'Membership Type', 'Type Description', 'String', '4', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Status', 'membershiptype', 'Membership Type', 'Type Status', 'String', '4', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'MembershipId', 'membership', 'Membership Info', 'Membership Id', 'Int', '5', 'Number');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'StartDate', 'membership', 'Membership Info', 'Start Date', 'Date', '5', 'Calendar');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'EndDate', 'membership', 'Membership Info', 'End Date', 'Date', '5', 'Calendar');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'NextBillDate', 'membership', 'Membership Info', 'Next Bill Date', 'Date', '5', 'Calendar');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'RenewDate', 'membership', 'Membership Info', 'Renew Date', 'Date', '5', 'Calendar');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Status', 'membership', 'Membership Info', 'Membership Status', 'String', '5', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'BillableEntityId', 'membership', 'Membership Info', 'Billable Entity', 'Int', '5', 'Number');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'BillingFee', 'membership', 'Membership Info', 'Fee Charged', 'Currency', '5', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'MembershipFee', 'membership', 'Membership Info', 'Fee', 'Currency', '5', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'BalanceDue', 'membership', 'Membership Info', 'Balance Due', 'Currency', '5', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'TerminationDate', 'membership', 'Membership Info', 'Termination Date', 'Date', '5', 'Calendar');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Name', 'entity', 'Billable Party', 'Billable Entity Name', 'String', '6', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'ReceiptId', 'receipt', 'Receipt', 'Receipt Id', 'Int', '7', 'Number');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Date', 'receipt', 'Receipt', 'Receipt Date', 'Date', '7', 'Calendar');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'PaymentMode', 'receipt', 'Receipt', 'Payment Mode', 'String', '7', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('1', 'Amount', 'receipt', 'Receipt', 'Payment Amount', 'Currency', '7', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Prefix', 'person', 'Personal Info', 'Prefix', 'String', '1', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'FirstName', 'person', 'Personal Info', 'First Name', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'MiddleName', 'person', 'Personal Info', 'Middle Name', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'LastName', 'person', 'Personal Info', 'Last Name', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'CasualName', 'person', 'Personal Info', 'Casual Name', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Suffix', 'person', 'Personal Info', 'Suffix', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'DateOfBirth', 'person', 'Personal Info', 'Birth Date', 'Date', '1', 'Calendar');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Gender', 'person', 'Personal Info', 'Gender', 'String', '1', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'PreferredContact', 'person', 'Personal Info', 'Primary Contact', 'String', '1', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Designation', 'person', 'Personal Info', 'Designation', 'String', '1', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'PhoneType', 'phone', 'Phone', 'Phone Type', 'String', '2', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'PhoneNumber', 'phone', 'Phone', 'Phone Number', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'EmailAddressType', 'email', 'Email', 'Email Type', 'String', '3', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'EmailAddress', 'email', 'Email', 'Email', 'String', '3', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'AddressType', 'address', 'Address', 'Address Type', 'String', '4', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Address1', 'address', 'Address', 'Address', 'String', '4', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'City', 'address', 'Address', 'City', 'String', '4', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'State', 'address', 'Address', 'State', 'String', '4', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Zip', 'address', 'Address', 'Zip', 'String', '4', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Country', 'address', 'Address', 'Country', 'String', '4', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'CompanyName', 'company', 'Company Info', 'Company Name', 'String', '5', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Title', 'company', 'Company Info', 'Title', 'String', '5', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'FacebookName', 'person', 'Social Network', 'Facebook', 'String', '6', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'TwitterName', 'person', 'Social Network', 'X', 'String', '6', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'LinkedinName', 'person', 'Social Network', 'LinkedIn', 'String', '6', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'Website', 'person', 'Social Network', 'Website', 'String', '6', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('2', 'InstagramName', 'person', 'Social Network', 'Instagram', 'String', '6', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'CompanyName', 'company', 'Company Info', 'Company Name', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'Website', 'company', 'Company Info', 'Website', 'String', '1', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'PhoneType', 'phone', 'Phone', 'Phone Type', 'String', '2', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'PhoneNumber', 'phone', 'Phone', 'Phone Number', 'String', '2', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'EmailAddressType', 'email', 'Email', 'Email Type', 'String', '3', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'EmailAddress', 'email', 'Email', 'Email', 'String', '3', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'AddressType', 'address', 'Address', 'Address Type', 'String', '4', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'Address1', 'address', 'Address', 'Address', 'String', '4', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'City', 'address', 'Address', 'City', 'String', '4', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'State', 'address', 'Address', 'State', 'String', '4', 'Dropdown');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'Zip', 'address', 'Address', 'Zip', 'String', '4', 'Text');
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`) VALUES ('3', 'Country', 'address', 'Address', 'Country', 'String', '4', 'Dropdown');
+
+
+
+
+/* Only insert this field, Roles, for ncacc 
+
+INSERT INTO `ncacc-demo`.`reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `Label`, `FieldTitle`, `DataType`, `DisplayOrder`, `DisplayType`)
+SELECT '2', 'Roles', 'company', 'Company Info', 'Roles', 'String', '5', 'Dropdown'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `ncacc-demo`.`reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Roles'
+);
+*/

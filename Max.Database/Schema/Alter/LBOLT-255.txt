@@ -1,0 +1,58 @@
+﻿CREATE TABLE `promocode` (
+  `PromoCodeId` INT NOT NULL AUTO_INCREMENT,
+  `Code` VARCHAR(50) NULL,
+  `Description` VARCHAR(500) NULL,
+  `DiscountType` INT NOT NULL DEFAULT 0,
+  `Discount` DECIMAL(13,2) NOT NULL DEFAULT 0,
+  `ExpirationDate` DATETIME NULL,
+  `Status` INT NOT NULL DEFAULT 0,
+  `StartDate` DATETIME NULL,
+  `GlAccountId` INT NULL,
+  `TransactionType` INT NULL,
+  PRIMARY KEY (`PromoCodeId`),
+  INDEX `pfk_promocode-GlAccount_id_idx` (`GlAccountId` ASC),
+  CONSTRAINT `pfk_promocode-GlAccount_id`
+    FOREIGN KEY (`GlAccountId`)
+    REFERENCES `glaccount` (`GlAccountId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ALTER TABLE `invoice` 
+ADD COLUMN `PromoCode` INT NOT NULL AFTER `UserId`;
+
+ALTER TABLE `invoicedetail` 
+ADD COLUMN `Discount` DECIMAL(13,2) NOT NULL AFTER `TaxAmount`;
+
+ALTER TABLE `receiptheader` 
+ADD COLUMN `PromoCode` INT NOT NULL AFTER `Notes`;
+
+ALTER TABLE `receiptdetail` 
+ADD COLUMN `Discount` DECIMAL(15,2) NOT NULL AFTER `Tax`;
+
+ALTER TABLE `shoppingcart` 
+ADD COLUMN `PromoCode` INT NOT NULL AFTER `PaymentMode`;
+
+ALTER TABLE `shoppingcartdetail` 
+ADD COLUMN `Discount` DECIMAL(13,2) NOT NULL AFTER `Tax`;
+
+ALTER TABLE `receiptheader` 
+CHANGE COLUMN `PromoCode` `PromoCodeId` INT(11) NOT NULL ;
+
+ALTER TABLE `shoppingcart` 
+CHANGE COLUMN `PromoCode` `PromoCodeId` INT(11) NOT NULL ;
+
+ALTER TABLE `invoice` 
+CHANGE COLUMN `PromoCode` `PromoCodeId` INT(11) NOT NULL ;
+
+ALTER TABLE `promocode` 
+ADD INDEX `pfk_promocode-GlAccount_id_idx` (`GlAccountId` ASC);
+;
+ALTER TABLE `promocode` 
+ADD CONSTRAINT `pfk_promocode-GlAccount_id`
+  FOREIGN KEY (`GlAccountId`)
+  REFERENCES `glaccount` (`GlAccountId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `billingfee` 
+ADD COLUMN `Discount` DECIMAL(13,2) NOT NULL AFTER `Fee`;

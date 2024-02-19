@@ -1,0 +1,4 @@
+
+ CALL MaxAddColumn( 'configuration', 'ShowDealerShipComanyAsBillableForMembership', 'INT NULL DEFAULT 0');
+
+ UPDATE `cara-demo`.`configuration` SET `ShowDealerShipComanyAsBillableForMembership` = 1;

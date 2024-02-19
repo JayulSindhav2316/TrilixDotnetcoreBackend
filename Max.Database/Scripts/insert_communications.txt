@@ -1,0 +1,6 @@
+﻿INSERT INTO `membermax`.`communication` (`From`,`PersonId`,`Type`,`Subject`,`Notes`,`Start`,`End`,`Scheduled`,`StaffUserId`)
+VALUES ('Sunil, Sharma',5,'Phone','Test Subject','Notes','2021-01-01','2021-01-01',0,7)
+
+INSERT INTO `membermax`.`communication` (`From`,`PersonId`,`Type`,`Subject`,`Notes`,`Start`,`End`,`Scheduled`,`StaffUserId`)
+VALUES ('Sunil, Sharma',5,'Phone','Test Subject','Notes','2021-04-01','2021-04-01',0,7)
+

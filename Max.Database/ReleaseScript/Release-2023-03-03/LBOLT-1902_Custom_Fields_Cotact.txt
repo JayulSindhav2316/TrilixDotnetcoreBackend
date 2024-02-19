@@ -1,0 +1,69 @@
+﻿INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Multiple Choice Field"),'Contact Type',1,1);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES 
+       ((select CustomFieldId from customfield where Label="Contact Type"),"Primary Contact");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Contact Type"),1);
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Text"),'Children',1,1);
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Children"),1);   
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Text"),'Alumni',1,1);
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Alumni"),1);   
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Text"),'State Bar Number',1,1);
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="State Bar Number"),1);   
+
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Date"),'Spouse Birthday',1,1);
+
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Spouse Birthday"),1);
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'Race',1,1);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES ((select CustomFieldId from customfield where Label="Race"),"Asian"),
+	   ((select CustomFieldId from customfield where Label="Race"),"Black"),
+       ((select CustomFieldId from customfield where Label="Race"),"Caucasian"),
+       ((select CustomFieldId from customfield where Label="Race"),"Hispanic"),
+       ((select CustomFieldId from customfield where Label="Race"),"Native American"),
+       ((select CustomFieldId from customfield where Label="Race"),"Other");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Race"),1);
+
+INSERT INTO customfield (ModuleId, OrganizationId, FieldTypeId,
+ Label, Status, CustomFieldFor)
+VALUES (1, 1,(select FieldTypeId from fieldtype where type="Dropdown"),'Party Affiliation',1,1);
+
+INSERT INTO customfieldoption (CustomFieldId, `Option`)
+VALUES ((select CustomFieldId from customfield where Label="Party Affiliation"),"Republican"),
+	   ((select CustomFieldId from customfield where Label="Party Affiliation"),"Democrat"),
+       ((select CustomFieldId from customfield where Label="Party Affiliation"),"Other");
+       
+INSERT INTO customfieldlookup (ModuleId, CustomFieldId, OrderOfDisplay)
+VALUES (1,(select CustomFieldId from customfield where Label="Party Affiliation"),1);

@@ -1,0 +1,11 @@
+﻿CREATE TABLE `clientlog` (
+  `ClientLogId` int(11) NOT NULL AUTO_INCREMENT,
+  `TimeStamp` datetime DEFAULT NULL,
+  `UserName` varchar(100) DEFAULT NULL,
+  `OrganizationName` varchar(100) DEFAULT NULL,
+  `Message` varchar(5000) DEFAULT NULL,
+  `Stack` varchar(1000) DEFAULT NULL,
+  `Route` varchar(1000) DEFAULT NULL,
+  `ClientUrl` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`ClientLogId`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;

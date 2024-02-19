@@ -1,0 +1,152 @@
+﻿
+
+INSERT INTO `reportcategory` (`ReportCategoryId`, `Title`, `Description`) VALUES ('2', 'Contacts', 'Contacts');
+INSERT INTO `reportcategory` (`ReportCategoryId`, `Title`, `Description`) VALUES ('3', 'Accounts', 'Accounts');
+
+
+
+INSERT INTO `menu` (`MenuId`, `ParentMenuId`, `GroupId`, `Label`, `Icon`, `RouterURL`, `Expanded`, `Disabled`, `Title`, `DisplayOrder`) VALUES ('72', '9', '4', 'Contacts & Accounts', 'pi pi-fw pi-list', '/report/contacts&accounts', '0', '0', 'Contacts & Accounts', '102');
+
+UPDATE `menu` SET `DisplayOrder` = '101’ WHERE (`MenuId` = '32');
+
+
+
+INSERT INTO `rolemenu` (`RoleMenuId`, `RoleId`, `MenuId`) VALUES ('2880', '11', '72');
+
+
+
+ALTER TABLE `reportfield` 
+ADD COLUMN `Label` VARCHAR(100) NULL DEFAULT NULL AFTER `TableName`;
+
+
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('204', '2', 'Prefix', 'person', 'Prefix', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('205', '2', 'FirstName', 'person', 'First Name', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('206', '2', 'MiddleName', 'person', 'Middle Name', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('207', '2', 'LastName', 'person', 'Last Name', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('208', '2', 'CasualName', 'person', 'Casual Name', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('209', '2', 'Suffix', 'person', 'Suffix', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('210', '2', 'DateOfBirth', 'person', 'Birth Date', 'Date', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('211', '2', 'Gender', 'person', 'Gender', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('212', '2', 'PreferredContact', 'person', 'Primary Contact', 'Int', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('213', '2', 'Designation', 'person', 'Designation', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('214', '2', 'PhoneType', 'phone', 'Phone Type', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('215', '2', 'PhoneNumber', 'phone', 'Phone Number', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('216', '2', 'EmailAddressType', 'email', 'Email Type', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('217', '2', 'EmailAddress', 'email', 'Email', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('218', '2', 'AddressType', 'address', 'Address Type', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('219', '2', 'Address1', 'address', 'Address', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('220', '2', 'City', 'address', 'City', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('221', '2', 'State', 'address', 'State', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('222', '2', 'Zip', 'address', 'Zip', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('223', '2', 'Country', 'address', 'Country', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('224', '2', 'CompanyName', 'company', 'Company Name', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('225', '2', 'Title', 'person', 'Title', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('226', '2', 'FacebookName', 'person', 'Facebook', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('227', '2', 'TwitterName', 'person', 'Twitter', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('228', '2', 'LinkedinName', 'person', 'LinkedIn', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('229', '2', 'Website', 'person', 'Website', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('230', '3', 'CompanyName', 'company', 'Company Name', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('231', '3', 'Website', 'company', 'Website', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('232', '3', 'PhoneType', 'phone', 'Phone Type', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('233', '3', 'PhoneNumber', 'phone', 'Phone Number', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('234', '3', 'EmailAddressType', 'email', 'Email Type', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('235', '3', 'EmailAddress', 'email', 'Email', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('236', '3', 'AddressType', 'address', 'Address Type', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('237', '3', 'Address1', 'address', 'Address', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('238', '3', 'City', 'address', 'City', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('239', '3', 'State', 'address', 'State', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('240', '3', 'Zip', 'address', 'Zip', 'String', '1');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`) VALUES ('241', '3', 'Country', 'address', 'Country', 'String', '1');
+
+ALTER TABLE `reportfield` 
+ADD COLUMN `DisplayOrder` INT NULL AFTER `FieldPathName`;
+
+
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '204');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '205');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '206');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '207');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '208');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '209');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '210');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '211');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '212');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '213');
+UPDATE `reportfield` SET `DisplayOrder` = '2' WHERE (`ReportFieldId` = '214');
+UPDATE `reportfield` SET `DisplayOrder` = '2' WHERE (`ReportFieldId` = '215');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`ReportFieldId` = '216');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`ReportFieldId` = '217');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '218');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '219');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '220');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '221');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '222');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '223');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '224');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '225');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`ReportFieldId` = '226');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`ReportFieldId` = '227');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`ReportFieldId` = '228');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`ReportFieldId` = '229');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '230');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '231');
+UPDATE `reportfield` SET `DisplayOrder` = '2' WHERE (`ReportFieldId` = '232');
+UPDATE `reportfield` SET `DisplayOrder` = '2' WHERE (`ReportFieldId` = '233');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`ReportFieldId` = '234');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`ReportFieldId` = '235');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '236');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '237');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '238');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '239');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '240');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '241');
+
+
+UPDATE `reportfield` SET `DisplayOrder` = '7' WHERE (`ReportFieldId` = '197');
+UPDATE `reportfield` SET `DisplayOrder` = '7' WHERE (`ReportFieldId` = '198');
+UPDATE `reportfield` SET `DisplayOrder` = '7' WHERE (`ReportFieldId` = '199');
+UPDATE `reportfield` SET `DisplayOrder` = '7' WHERE (`ReportFieldId` = '200');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '188');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '194');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '192');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '193');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '191');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '190');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`ReportFieldId` = '189');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`ReportFieldId` = '173');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`ReportFieldId` = '174');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`ReportFieldId` = '175');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '176');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '177');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '178');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`ReportFieldId` = '179');
+UPDATE `reportfield` SET `DisplayOrder` = '2' WHERE (`ReportFieldId` = '203');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`ReportFieldId` = '187');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '180');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '181');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '182');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '183');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '184');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '185');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '186');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '195');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '196');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '201');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`ReportFieldId` = '202');
+
+
+
+
+
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`) VALUES ('5', '2', 'Age');
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`, `Type`) VALUES ('6', '2', 'Gender', 'String');
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`, `Type`) VALUES ('7', '2', 'Designation', 'String');
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`, `Type`) VALUES ('8', '2', 'City', 'String');
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`, `Type`) VALUES ('9', '2', 'State', 'String');
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`, `Type`) VALUES ('10', '2', 'Zip', 'String');
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`, `Type`) VALUES ('11', '3', 'City', 'String');
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`, `Type`) VALUES ('12', '3', 'State', 'String');
+INSERT INTO `reportparameter` (`ReportParameterId`, `CategoryId`, `Parameter`, `Type`) VALUES ('13', '3', 'Zip', 'String');
+
+UPDATE `reportparameter` SET `Parameter` = 'Birth Date', `Type` = 'Date' WHERE (`ReportParameterId` = '5');
+

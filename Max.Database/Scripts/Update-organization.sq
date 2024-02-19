@@ -1,0 +1,13 @@
+﻿Update  `membermax`.`organization`
+        SET `Name` = 'MemberMax',   
+        `Address1`=' 201, The Great Eastern Chambers',
+        `Address2`=' CBD Belapur',
+        `Address3`='Sector-11',
+        `City`='Kharghar',
+        `State`= 'MH',
+        `Zip`='400-614',
+        `Phone`='540-904-0429',
+        `Logo`='Organization\\Membermax\\Images\\logo.jpg',
+        `Website`='www.membermax.com',
+        `HeaderImage`='Organization\\Membermax\\Images\\header.jpg'
+        where organizationid=2

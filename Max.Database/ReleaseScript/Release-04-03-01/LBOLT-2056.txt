@@ -1,0 +1,68 @@
+UPDATE `reportfield` SET `DataType` = 'string' WHERE (`ReportFieldId` = '212');
+
+ALTER TABLE `reportfilter` 
+DROP FOREIGN KEY `fk_reportFIlter_parameterId`;
+ALTER TABLE `reportfilter` 
+CHANGE COLUMN `ParameterId` `ParameterId` INT NULL DEFAULT NULL ;
+ALTER TABLE `reportfilter` 
+ADD CONSTRAINT `fk_reportFIlter_parameterId`
+  FOREIGN KEY (`ParameterId`)
+  REFERENCES `reportparameter` (`ReportParameterId`);
+
+CALL MaxAddColumn( 'reportfilter', 'ReportFieldId', 'INT NULL DEFAULT 0');
+
+ALTER TABLE `reportfilter` 
+ADD INDEX `fk_reportfilter_fieldId_idx` (`ReportFieldId` ASC);
+ALTER TABLE `reportfilter` 
+ADD CONSTRAINT `fk_reportfilter_fieldId`
+  FOREIGN KEY (`ReportFieldId`)
+  REFERENCES `reportfield` (`ReportFieldId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+CALL MaxAddColumn( 'reportfield', 'DisplayType', 'VARCHAR(45) NULL DEFAULT NULL');
+
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '204');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '205');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '206');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '207');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '208');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '209');
+UPDATE `reportfield` SET `DisplayType` = 'Calendar' WHERE (`ReportFieldId` = '210');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '211');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '212');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '213');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '214');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '215');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '216');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '217');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '218');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '219');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '220');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '221');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '222');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '223');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '224');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '225');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '226');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '227');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '228');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '229');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '230');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '231');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '232');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '233');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '234');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '235');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '236');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '237');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '238');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '239');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`ReportFieldId` = '240');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`ReportFieldId` = '241');
+
+
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`, `DisplayOrder`) VALUES ('242', '1', 'Website', 'company', 'Website', 'String', '0', '2');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`, `DisplayOrder`) VALUES ('243', '1', 'PrimaryAddress', 'company', 'Primary Address', 'String', '0', '2');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`, `DisplayOrder`) VALUES ('244', '1', 'PrimaryPhone', 'company', 'Primary Phone', 'String', '0', '2');
+INSERT INTO `reportfield` (`ReportFieldId`, `ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`, `DisplayOrder`) VALUES ('245', '1', 'PrimaryEmail', 'company', 'Primary Email', 'String', '0', '2');

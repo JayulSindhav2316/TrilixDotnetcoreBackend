@@ -1,0 +1,3 @@
+Note :- only applied to NCACC DB
+--------------------------------
+update configuration set ContactDisplayMembership = 0; 

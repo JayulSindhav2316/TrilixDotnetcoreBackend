@@ -1,0 +1,7 @@
+insert into company(companyName,streetAddress,city,state,zip,email,phone,website)
+Select account, concat(`Address 1` ,' ',`Address 2`),city,state,`postal code`,email,`main phone`,`Web Address` from import_countyaccounts;
+
+insert into entity(CompanyId,Name,OrganizationId)
+SELECT companyId,CompanyName,1 FROM `ncacc-demo`.company;
+
+update company set entityid=companyid

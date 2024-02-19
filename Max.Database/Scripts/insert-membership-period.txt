@@ -1,0 +1,15 @@
+INSERT INTO `membermax`.`membershipperiod`(`Name`,`Description`,`Status`)
+VALUES ('Annual','Annual',1);
+INSERT INTO `membermax`.`membershipperiod`(`Name`,`Description`,`Status`)
+VALUES ('Semi-Annual','Semi-Annual',1);
+INSERT INTO `membermax`.`membershipperiod`(`Name`,`Description`,`Status`)
+VALUES ('Quarterly','Quarterly',1);
+INSERT INTO `membermax`.`membershipperiod`(`Name`,`Description`,`Status`)
+VALUES ('Monthly','Monthly',1);
+INSERT INTO `membermax`.`membershipperiod`(`Name`,`Description`,`Status`)
+VALUES ('Weekday','Weekday',1);
+INSERT INTO `membermax`.`membershipperiod`(`Name`,`Description`,`Status`)
+VALUES ('Weekly','Weekly',1);
+INSERT INTO `membermax`.`membershipperiod`(`Name`,`Description`,`Status`)
+VALUES ('Bi-Monthly','Bi-Monthly',1);
+

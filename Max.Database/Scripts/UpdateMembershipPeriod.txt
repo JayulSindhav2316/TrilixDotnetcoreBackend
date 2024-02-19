@@ -1,0 +1,9 @@
+﻿SELECT * FROM membermax.membershipperiod;
+
+update membermax.membershipperiod set PeriodUnit ='Year', Duration=1 where Name='Annual'
+update membermax.membershipperiod set PeriodUnit ='Month', Duration=6 where Name='Semi-Annual'
+update membermax.membershipperiod set PeriodUnit ='Month', Duration=3 where Name='Quarterly'
+update membermax.membershipperiod set PeriodUnit ='Month', Duration=1 where Name='Monthly'
+update membermax.membershipperiod set PeriodUnit ='Day', Duration=1 where Name='Weekday'
+update membermax.membershipperiod set PeriodUnit ='Day', Duration=7 where Name='Weekly'
+update membermax.membershipperiod set PeriodUnit ='Month', Duration=2 where Name='Bi-Monthly'

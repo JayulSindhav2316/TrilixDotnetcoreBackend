@@ -1,0 +1,2 @@
+INSERT INTO `max_ncacc`.staffuser (`UserName`,`FirstName`,`LastName`,`Email`,`Password`,`DepartmentId`,`Status`,`Salt`,`OrganizationId`,`isDisplayUser`)
+SELECT `UserName`,`FirstName`,`LastName`,`Email`,`Password`,`DepartmentId`,`Status`,`Salt`,`OrganizationId`,`isDisplayUser` FROM `ncacc-training`.staffuser where email like '%@ncacc.org';

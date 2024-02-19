@@ -1,0 +1,2 @@
+insert into menu (ParentMenuId,groupid,Label,RouterURL,Expanded,Disabled,Title,DisplayOrder,icon) 
+values (17,10,'Report Desinger','/setup/report-desinger',0,0,'Report Designer',231,'pi-chart-bar')

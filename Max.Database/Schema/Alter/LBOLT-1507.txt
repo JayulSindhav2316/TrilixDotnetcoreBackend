@@ -1,0 +1,5 @@
+ALTER TABLE `event` 
+ADD COLUMN `EventBannerImageId` INT NULL AFTER `EventImageId`;
+
+ALTER TABLE `document` 
+ADD COLUMN `EventBannerImageId` INT NULL AFTER `EventId`;

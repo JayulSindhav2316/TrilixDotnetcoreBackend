@@ -1,0 +1,16 @@
+/*  To be used only initially while inserting data while client set up  */
+
+insert into grouproles (GroupRoleName, OrganizationId) values('President',0);
+insert into linkgrouproles (GroupRoleId, IsLinked, OrganizationId, GroupRoleName)
+select GroupRoleId, 1, 1, GroupRoleName from grouproles where GroupRoleName = 'President';
+
+insert into grouproles (GroupRoleName, OrganizationId) values('Chairman',0);
+insert into linkgrouproles (GroupRoleId, IsLinked, OrganizationId, GroupRoleName)
+select GroupRoleId, 1, 1, GroupRoleName from grouproles where GroupRoleName = 'Chairman';
+
+insert into grouproles (GroupRoleName, OrganizationId) values('Director',0);
+insert into linkgrouproles (GroupRoleId, IsLinked, OrganizationId, GroupRoleName)
+select GroupRoleId, 1, 1, GroupRoleName from grouproles where GroupRoleName = 'Director';
+
+Update Menu set RouterURL = '/setup/groups' where Label = 'Boards & Groups';
+Update Menu set RouterURL = '/manage/groups' where Label = 'Board & Committees';

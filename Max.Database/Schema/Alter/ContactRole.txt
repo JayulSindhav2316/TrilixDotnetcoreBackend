@@ -1,0 +1,13 @@
+CREATE TABLE `contactrole` (
+  `ContactRoleId` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NOT NULL,
+  `Description` VARCHAR(500) NULL,
+  `Active` INT NULL,
+  PRIMARY KEY (`ContactRoleId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+--INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+--VALUES (17,10,'Contact Roles','pi pi-fw pi-globe','/setup/contactRoles',0,0,'','Contact Roles',235);

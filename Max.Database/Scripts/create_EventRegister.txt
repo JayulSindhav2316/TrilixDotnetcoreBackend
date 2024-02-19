@@ -1,0 +1,8 @@
+CREATE TABLE eventregister (
+    EventRegisterId int NOT NULL AUTO_INCREMENT,
+    EventId int NOT NULL,
+    EntityId int NOT NULL,
+    PRIMARY KEY (EventRegisterId),
+    CONSTRAINT FK_Event FOREIGN KEY (EventId) REFERENCES event(EventId),
+    CONSTRAINT FK_Entity FOREIGN KEY (EntityId) REFERENCES entity(EntityId)
+);

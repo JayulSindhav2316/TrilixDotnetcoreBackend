@@ -1,0 +1,3 @@
+﻿ALTER TABLE `membermax`.`reportfield` 
+ADD COLUMN `DataType` VARCHAR(45) NULL AFTER `FieldTitle`,
+ADD COLUMN `Sortable` INT NULL AFTER `DataType`;

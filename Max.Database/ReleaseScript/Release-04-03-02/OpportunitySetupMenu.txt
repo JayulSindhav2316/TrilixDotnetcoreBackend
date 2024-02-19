@@ -1,0 +1,13 @@
+
+SELECT @parentMenuId:=menuid from menu where label='SetUp' and RouterURL='/setup';
+SELECT @groupId:=groupId from menu where label='SetUp' and RouterURL='/SetUp';
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,Tooltip,Title,DisplayOrder,Display)
+VALUES (@parentMenuId,@groupId,'Opportunity Pipeline', 'pi pi-fw pi-list','/setup/opportunity-pipeline',0,0,'Opportunity Pipeline','Opportunity Pipeline',140,1);
+
+
+SELECT @parentMenuId:=menuid from menu where label='SetUp' and RouterURL='/setup';
+SELECT @groupId:=groupId from menu where label='SetUp' and RouterURL='/SetUp';
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,Tooltip,Title,DisplayOrder,Display)
+VALUES (@parentMenuId,@groupId,'Pipeline Detail', 'pi pi-fw pi-list','/setup/opportunity-pipeline-detail',0,0,'Pipeline Detail','Pipeline Detail',141,0);

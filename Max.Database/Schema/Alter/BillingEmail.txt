@@ -1,0 +1,23 @@
+﻿CREATE TABLE `billingemail` (
+  `BillingEmailId` INT NOT NULL AUTO_INCREMENT,
+  `BillingCycleId` INT NOT NULL,
+  `InvoiceId` INT NOT NULL,
+  `EmailAddress` VARCHAR(255) NULL,
+  `CommunicationDate` DATETIME NULL,
+  `Response` VARCHAR(500) NULL,
+  `Status` INT NOT NULL,
+  PRIMARY KEY (`BillingEmailId`),
+  INDEX `fk_billingemail_invoiceId_idx` (`InvoiceId` ASC),
+ 
+  CONSTRAINT `fk_billingemail_invoiceId`
+    FOREIGN KEY (`InvoiceId`)
+    REFERENCES `invoice` (`InvoiceId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+ALTER TABLE `billingemail` 
+DROP FOREIGN KEY `fk_billingemail_billingCycleId`;
+ALTER TABLE `billingemail` 
+DROP INDEX `fk_billingemail_billingCycleId_idx` ;
+;

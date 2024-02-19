@@ -1,0 +1,2 @@
+﻿ALTER TABLE `membermax`.`person` 
+ADD COLUMN `CasualName` VARCHAR(45) NULL AFTER `MiddleName`;

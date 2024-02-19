@@ -1,0 +1,33 @@
+﻿CREATE TABLE if not exists `customFieldBlock` (
+  `BlockId` int PRIMARY KEY AUTO_INCREMENT,
+  `Name` varchar(255),
+  `IsExisting` int,
+  `ShowBlock` int,
+  `BlockFor` int,
+  `ModuleId` int,	
+  `TabId` int
+);
+INSERT INTO customfieldblock (name, IsExisting, ShowBlock, BlockFor, ModuleId, TabId)
+VALUES ('Additional Information',0,1,1,1,2),
+       ('Additional Information',0,1,2,1,2),
+	   ('Personal Info',1,1,1,1,2),
+       ('Accounts Info',1,1,1,1,2),
+       ('Social Network',1,1,1,1,2);
+	
+ALTER TABLE `customfieldblock` ADD FOREIGN KEY (`ModuleId`) REFERENCES `moduleinfo` (`ModuleId`);
+ALTER TABLE `customfieldblock` ADD FOREIGN KEY (`TabId`) REFERENCES `tabinfo` (`TabId`);
+
+ALTER TABLE `customfieldlookup` ADD COLUMN `BlockId` INT DEFAULT 0;
+
+update customfieldlookup cl
+join customfield c on cl.customfieldid=c.customfieldid
+set cl.blockid= case
+ when c.customfieldfor=1 
+ then (select blockid from customfieldblock
+where name='Additional Information' and BlockFor=1) 
+when c.customfieldfor=2 
+ then (select blockid from customfieldblock
+where name='Additional Information' and BlockFor=2) 
+end;
+
+ALTER TABLE `customFieldLookup` ADD FOREIGN KEY (`BlockId`) REFERENCES `customFieldBlock` (`BlockId`);

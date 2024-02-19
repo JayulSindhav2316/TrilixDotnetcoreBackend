@@ -1,0 +1,3 @@
+﻿INSERT INTO `membermax`.`autobillingsettings`
+(`EnableAutomatedBillingForMembership`,`AutomatedCoordinatorForMembership`,`IsPauseOrEnableForMembership`)
+VALUES (1,'ashoks@membermax.com',1);

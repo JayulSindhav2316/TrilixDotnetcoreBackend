@@ -1,0 +1,1663 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema membermax
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema membermax
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `membermax` DEFAULT CHARACTER SET latin1 ;
+USE `membermax` ;
+
+-- -----------------------------------------------------
+-- Table `membermax`.`__yuniql_schema_version`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`__yuniql_schema_version` (
+  `sequence_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `version` VARCHAR(190) NOT NULL,
+  `applied_on_utc` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `applied_by_user` VARCHAR(32) NOT NULL,
+  `applied_by_tool` VARCHAR(32) NOT NULL,
+  `applied_by_tool_version` VARCHAR(16) NOT NULL,
+  `status` VARCHAR(32) NOT NULL,
+  `duration_ms` INT(11) NOT NULL,
+  `checksum` VARCHAR(64) NOT NULL,
+  `failed_script_path` VARCHAR(4000) NULL DEFAULT NULL,
+  `failed_script_error` VARCHAR(4000) NULL DEFAULT NULL,
+  `additional_artifacts` VARCHAR(4000) NULL DEFAULT NULL,
+  PRIMARY KEY (`sequence_id`),
+  UNIQUE INDEX `ix___yuniql_schema_version` (`version` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`accesslog`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`accesslog` (
+  `AccessLogId` INT(11) NOT NULL AUTO_INCREMENT,
+  `UserName` VARCHAR(100) NULL DEFAULT NULL,
+  `UserAgent` VARCHAR(250) NULL DEFAULT NULL,
+  `Referrer` VARCHAR(100) NULL DEFAULT NULL,
+  `IpAddress` VARCHAR(45) NULL DEFAULT NULL,
+  `Portal` INT(11) NOT NULL,
+  `AccessDate` DATETIME NOT NULL,
+  PRIMARY KEY (`AccessLogId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 288
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`organization`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`organization` (
+  `OrganizationId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NULL DEFAULT NULL,
+  `Prefix` VARCHAR(45) NULL DEFAULT NULL,
+  `Address1` VARCHAR(100) NULL DEFAULT NULL,
+  `Address2` VARCHAR(100) NULL DEFAULT NULL,
+  `Address3` VARCHAR(100) NULL DEFAULT NULL,
+  `City` VARCHAR(45) NULL DEFAULT NULL,
+  `State` VARCHAR(10) NULL DEFAULT NULL,
+  `Zip` VARCHAR(10) NULL DEFAULT NULL,
+  `Phone` VARCHAR(50) NULL DEFAULT NULL,
+  `Country` VARCHAR(45) NULL DEFAULT NULL,
+  `Logo` VARCHAR(500) NULL DEFAULT NULL,
+  `Website` VARCHAR(255) NULL DEFAULT NULL,
+  `HeaderImage` VARCHAR(500) NULL DEFAULT NULL,
+  `FooterImge` VARCHAR(500) NULL DEFAULT NULL,
+  `Email` VARCHAR(255) NULL DEFAULT NULL,
+  `PrimaryContactName` VARCHAR(100) NULL DEFAULT NULL,
+  `PrimaryContactEmail` VARCHAR(255) NULL DEFAULT NULL,
+  `PrimaryContactPhone` VARCHAR(45) NULL DEFAULT NULL,
+  `TwilioAccountSid` VARCHAR(250) NULL DEFAULT NULL,
+  `TwilioAuthToken` VARCHAR(100) NULL DEFAULT NULL,
+  `PrintMessage` VARCHAR(255) NULL DEFAULT NULL,
+  `WebMessage` VARCHAR(255) NULL DEFAULT NULL,
+  `Facebook` VARCHAR(255) NULL DEFAULT NULL,
+  `Twitter` VARCHAR(255) NULL DEFAULT NULL,
+  `LinkedIn` VARCHAR(255) NULL DEFAULT NULL,
+  `Code` VARCHAR(5) NULL DEFAULT NULL,
+  PRIMARY KEY (`OrganizationId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`department`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`department` (
+  `DepartmentId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NULL DEFAULT NULL,
+  `Description` VARCHAR(100) NULL DEFAULT NULL,
+  `CostCenterCode` VARCHAR(45) NULL DEFAULT NULL,
+  `OrganizationId` INT(11) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`DepartmentId`),
+  INDEX `fk_department_organization_id_idx` (`OrganizationId` ASC) VISIBLE,
+  CONSTRAINT `fk_department_organization_id`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `membermax`.`organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 11
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`staffuser`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`staffuser` (
+  `UserId` INT(11) NOT NULL AUTO_INCREMENT,
+  `OrganizationId` INT(11) NOT NULL,
+  `DepartmentId` INT(11) NOT NULL,
+  `UserName` VARCHAR(50) NULL DEFAULT NULL,
+  `FirstName` VARCHAR(50) NULL DEFAULT NULL,
+  `LastName` VARCHAR(50) NULL DEFAULT NULL,
+  `Email` VARCHAR(250) NULL DEFAULT NULL,
+  `Password` VARCHAR(500) NULL DEFAULT NULL,
+  `Status` INT(11) NOT NULL,
+  `LastAccessed` DATETIME NULL DEFAULT NULL,
+  `Salt` VARCHAR(500) NULL DEFAULT NULL,
+  `CellPhoneNumber` VARCHAR(15) NULL DEFAULT NULL,
+  `Locked` INT(11) NOT NULL DEFAULT '0',
+  `FailedAttempts` INT(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`UserId`),
+  INDEX `fk_staff_user_deprtment_id_idx` (`DepartmentId` ASC) VISIBLE,
+  INDEX `fk_staff_user_organization_id_idx` (`OrganizationId` ASC) VISIBLE,
+  CONSTRAINT `fk_staff_user_deprtment_id`
+    FOREIGN KEY (`DepartmentId`)
+    REFERENCES `membermax`.`department` (`DepartmentId`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_staff_user_organization_id`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `membermax`.`organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 17
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`accesstoken`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`accesstoken` (
+  `AccessTokenId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Token` VARCHAR(500) NULL DEFAULT NULL,
+  `Create` DATETIME NOT NULL,
+  `Expire` DATETIME NOT NULL,
+  `CreatedIP` VARCHAR(45) NULL DEFAULT NULL,
+  `RevokedIP` VARCHAR(45) NULL DEFAULT NULL,
+  `Revoked` DATETIME NOT NULL,
+  `RefreshToken` VARCHAR(500) NULL DEFAULT NULL,
+  `UserId` INT(11) NOT NULL,
+  PRIMARY KEY (`AccessTokenId`),
+  INDEX `fk_accesstoken_user_id_idx` (`UserId` ASC) VISIBLE,
+  CONSTRAINT `fk_accesstoken_user_id`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 933
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`glaccounttype`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`glaccounttype` (
+  `AccountId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NULL DEFAULT NULL,
+  `Description` VARCHAR(500) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`AccountId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`glaccount`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`glaccount` (
+  `GlAccountId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NULL DEFAULT NULL,
+  `Code` VARCHAR(50) NULL DEFAULT NULL,
+  `AccountTypeId` INT(11) NULL DEFAULT NULL,
+  `DetailType` VARCHAR(100) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  `CostCenterId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`GlAccountId`),
+  INDEX `fk_glaccount_Accounttype_id_idx` (`AccountTypeId` ASC) VISIBLE,
+  INDEX `fk_glaccount_depart_CC_id_idx` (`CostCenterId` ASC) VISIBLE,
+  CONSTRAINT `fk_glaccount_accounttype_id`
+    FOREIGN KEY (`AccountTypeId`)
+    REFERENCES `membermax`.`glaccounttype` (`AccountId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_glaccount_depart_cc_id`
+    FOREIGN KEY (`CostCenterId`)
+    REFERENCES `membermax`.`department` (`DepartmentId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 20
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`accountingsetup`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`accountingsetup` (
+  `AccountSetupId` INT(11) NOT NULL AUTO_INCREMENT,
+  `OrganizationId` INT(11) NOT NULL,
+  `OnlineCreditGlAccount` INT(11) NOT NULL,
+  `OffLinePaymentGlAccount` INT(11) NOT NULL,
+  `ProcessingFeeGlAccount` INT(11) NOT NULL,
+  `SalesReturnGlAccount` INT(11) NOT NULL,
+  PRIMARY KEY (`AccountSetupId`),
+  INDEX `fk_as_organizationid_idx` (`OrganizationId` ASC) VISIBLE,
+  INDEX `fk_as_processingfeeglid_idx` (`ProcessingFeeGlAccount` ASC) VISIBLE,
+  INDEX `gf_as_onlinecreditglid_idx` (`OnlineCreditGlAccount` ASC) VISIBLE,
+  INDEX `fk_as_offlinepaymentglid_idx` (`OffLinePaymentGlAccount` ASC) VISIBLE,
+  INDEX `fk_as_salesreturnglid_idx` (`SalesReturnGlAccount` ASC) VISIBLE,
+  CONSTRAINT `fk_as_offlinepaymentglid`
+    FOREIGN KEY (`OffLinePaymentGlAccount`)
+    REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_as_onlinecreditglid`
+    FOREIGN KEY (`OnlineCreditGlAccount`)
+    REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_as_organizationid`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `membermax`.`organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_as_processingfeeglid`
+    FOREIGN KEY (`ProcessingFeeGlAccount`)
+    REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_as_salesreturnglid`
+    FOREIGN KEY (`SalesReturnGlAccount`)
+    REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`company`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`company` (
+  `CompanyId` INT(11) NOT NULL AUTO_INCREMENT,
+  `CompanyName` VARCHAR(100) NULL DEFAULT NULL,
+  `AddressId` INT(11) NULL DEFAULT NULL,
+  `Email` VARCHAR(255) NULL DEFAULT NULL,
+  `Website` VARCHAR(255) NULL DEFAULT NULL,
+  `PrimaryContactName` VARCHAR(100) NULL DEFAULT NULL,
+  `PrimaryContactPhone` VARCHAR(45) NULL DEFAULT NULL,
+  `PrimaryContactEmail` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`CompanyId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 15282
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`person`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`person` (
+  `PersonId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Prefix` VARCHAR(45) NULL DEFAULT NULL,
+  `FirstName` VARCHAR(100) NULL DEFAULT NULL,
+  `LastName` VARCHAR(100) NULL DEFAULT NULL,
+  `MiddleName` VARCHAR(45) NULL DEFAULT NULL,
+  `CasualName` VARCHAR(45) NULL DEFAULT NULL,
+  `Suffix` VARCHAR(45) NULL DEFAULT NULL,
+  `Gender` VARCHAR(45) NULL DEFAULT NULL,
+  `Title` VARCHAR(45) NULL DEFAULT NULL,
+  `Salutation` VARCHAR(45) NULL DEFAULT NULL,
+  `DateOfBirth` DATE NULL DEFAULT NULL,
+  `CompanyId` INT(11) NULL DEFAULT NULL,
+  `FacebookName` VARCHAR(100) NULL DEFAULT NULL,
+  `LinkedinName` VARCHAR(100) NULL DEFAULT NULL,
+  `SkypeName` VARCHAR(100) NULL DEFAULT NULL,
+  `TwitterName` VARCHAR(100) NULL DEFAULT NULL,
+  `Website` VARCHAR(255) NULL DEFAULT NULL,
+  `OrganizationId` INT(11) NULL DEFAULT NULL,
+  `ProfilePictureId` INT(11) NULL DEFAULT NULL,
+  `WebLoginName` VARCHAR(255) NULL DEFAULT NULL,
+  `WebPassword` VARCHAR(1000) NULL DEFAULT NULL,
+  `WebPasswordSalt` VARCHAR(1000) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  `PreferredContact` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`PersonId`),
+  INDEX `fk_person_comapny_id_idx` (`CompanyId` ASC) VISIBLE,
+  INDEX `fk_person_organization_id_idx` (`OrganizationId` ASC) VISIBLE,
+  CONSTRAINT `fk_person_comapny_id`
+    FOREIGN KEY (`CompanyId`)
+    REFERENCES `membermax`.`company` (`CompanyId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_person_organization_id`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `membermax`.`organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 36053
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`address` (
+  `AddressId` INT(11) NOT NULL AUTO_INCREMENT,
+  `AddressType` VARCHAR(45) NULL DEFAULT NULL,
+  `Address1` VARCHAR(100) NULL DEFAULT NULL,
+  `Address2` VARCHAR(100) NULL DEFAULT NULL,
+  `Address3` VARCHAR(100) NULL DEFAULT NULL,
+  `City` VARCHAR(100) NULL DEFAULT NULL,
+  `State` VARCHAR(45) NULL DEFAULT NULL,
+  `Zip` VARCHAR(10) NULL DEFAULT NULL,
+  `Country` VARCHAR(45) NULL DEFAULT NULL,
+  `PersonId` INT(11) NOT NULL DEFAULT '0',
+  `IsPrimary` INT(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`AddressId`),
+  INDEX `fk_address_person_id_idx` (`PersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_address_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 33023
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`membershipcategory`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`membershipcategory` (
+  `MembershipCategoryId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`MembershipCategoryId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 11
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`membershipperiod`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`membershipperiod` (
+  `MembershipPeriodId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NULL DEFAULT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  `PeriodUnit` VARCHAR(45) NULL DEFAULT NULL,
+  `Duration` INT(11) NOT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`MembershipPeriodId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 15
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`membershiptype`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`membershiptype` (
+  `MembershipTypeId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NULL DEFAULT NULL,
+  `Code` VARCHAR(20) NULL DEFAULT NULL,
+  `Description` VARCHAR(500) NULL DEFAULT NULL,
+  `Period` INT(11) NULL DEFAULT NULL,
+  `Category` INT(11) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`MembershipTypeId`),
+  INDEX `fk_mmembershiptype_period_id_idx` (`Period` ASC) VISIBLE,
+  INDEX `fk_membershiptype_memmbeeership_category_id_idx` (`Category` ASC) VISIBLE,
+  CONSTRAINT `fk_membershiptype_membership_category_id`
+    FOREIGN KEY (`Category`)
+    REFERENCES `membermax`.`membershipcategory` (`MembershipCategoryId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_membershiptype_period_id`
+    FOREIGN KEY (`Period`)
+    REFERENCES `membermax`.`membershipperiod` (`MembershipPeriodId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 27
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`membership`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`membership` (
+  `MembershipId` INT(11) NOT NULL AUTO_INCREMENT,
+  `MembershipTypeId` INT(11) NULL DEFAULT NULL,
+  `StartDate` DATE NOT NULL,
+  `EndDate` DATE NOT NULL,
+  `ReviewDate` DATE NOT NULL,
+  `BillablePersonId` INT(11) NOT NULL,
+  `NextBillDate` DATE NOT NULL,
+  `BillingOnHold` INT(11) NOT NULL,
+  `CreateDate` DATETIME NOT NULL,
+  `RenewalDate` DATE NOT NULL,
+  `TerminationDate` DATE NOT NULL,
+  `Status` INT(11) NOT NULL DEFAULT '0',
+  `AutoPayEnabled` INT(11) NOT NULL DEFAULT '0',
+  `PaymentProfileId` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`MembershipId`),
+  INDEX `fk_membbership_membbership_type_id_idx` (`MembershipTypeId` ASC) VISIBLE,
+  INDEX `fk_mmembbership_billabble_personId_idx` (`BillablePersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_membership_membership_type_id`
+    FOREIGN KEY (`MembershipTypeId`)
+    REFERENCES `membermax`.`membershiptype` (`MembershipTypeId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mmembbership_billabble_personId`
+    FOREIGN KEY (`BillablePersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 975
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`billingdocument`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`billingdocument` (
+  `BillingDocumentId` INT(11) NOT NULL AUTO_INCREMENT,
+  `CreatedDate` DATETIME NOT NULL,
+  `InvoiceType` VARCHAR(50) NULL DEFAULT NULL,
+  `BillingType` VARCHAR(50) NULL DEFAULT NULL,
+  `IsFinalized` INT(11) NULL DEFAULT NULL,
+  `Status` INT(11) NOT NULL,
+  `AbpdId` INT(11) NULL DEFAULT NULL,
+  `ThroughDate` DATETIME NOT NULL,
+  PRIMARY KEY (`BillingDocumentId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 68
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`receiptheader`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`receiptheader` (
+  `Receiptid` INT(11) NOT NULL AUTO_INCREMENT,
+  `Date` DATETIME NOT NULL,
+  `StaffId` INT(11) NULL DEFAULT NULL,
+  `PaymentMode` VARCHAR(50) NULL DEFAULT NULL,
+  `CheckNo` VARCHAR(45) NULL DEFAULT NULL,
+  `Status` INT(11) NOT NULL,
+  `OrganizationId` INT(11) NULL DEFAULT NULL,
+  `Notes` VARCHAR(500) NULL DEFAULT NULL,
+  PRIMARY KEY (`Receiptid`),
+  INDEX `fk_staffid_idx` (`StaffId` ASC) VISIBLE,
+  INDEX `fk_organizationid_idx` (`OrganizationId` ASC) VISIBLE,
+  CONSTRAINT `fk_organizationid`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `membermax`.`organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_staffid`
+    FOREIGN KEY (`StaffId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 747
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`paymenttransaction`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`paymenttransaction` (
+  `PaymentTransactionId` INT(11) NOT NULL AUTO_INCREMENT,
+  `TransactionDate` DATETIME NOT NULL,
+  `PersonId` INT(11) NULL DEFAULT NULL,
+  `ReceiptId` INT(11) NULL DEFAULT NULL,
+  `Amount` DECIMAL(15,2) NOT NULL,
+  `TransactionType` INT(11) NULL DEFAULT NULL,
+  `PaymentType` VARCHAR(50) NULL DEFAULT NULL,
+  `CardType` VARCHAR(50) NULL DEFAULT NULL,
+  `CreditCardHolderName` VARCHAR(100) NULL DEFAULT NULL,
+  `AccountNumber` VARCHAR(45) NULL DEFAULT NULL,
+  `RoutingNumber` VARCHAR(9) NULL DEFAULT NULL,
+  `BankName` VARCHAR(100) NULL DEFAULT NULL,
+  `AccountHolderName` VARCHAR(100) NULL DEFAULT NULL,
+  `AccountType` VARCHAR(50) NULL DEFAULT NULL,
+  `RefId` VARCHAR(50) NULL DEFAULT NULL,
+  `AuthCode` VARCHAR(500) NULL DEFAULT NULL,
+  `ResponseCode` VARCHAR(50) NULL DEFAULT NULL,
+  `MessageDetails` VARCHAR(1000) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  `Result` INT(11) NULL DEFAULT NULL,
+  `IsAdjusted` INT(11) NULL DEFAULT NULL,
+  `ReferenceNumber` VARCHAR(50) NULL DEFAULT NULL,
+  `ReferenceTransactionId` VARCHAR(45) NULL DEFAULT NULL,
+  `TransactionId` VARCHAR(45) NULL DEFAULT NULL,
+  `ResponseDetails` VARCHAR(1500) NULL DEFAULT NULL,
+  `ShoppingCartId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`PaymentTransactionId`),
+  INDEX `fk_pt_personid_idx` (`PersonId` ASC) VISIBLE,
+  INDEX `fk_paymenttransaction_recei[pt_id_idx` (`ReceiptId` ASC) VISIBLE,
+  CONSTRAINT `fk_paymenttransaction_receipt_id`
+    FOREIGN KEY (`ReceiptId`)
+    REFERENCES `membermax`.`receiptheader` (`Receiptid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pt_personid`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 819
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`invoice`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`invoice` (
+  `InvoiceId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Date` DATETIME NOT NULL,
+  `PersonId` INT(11) NOT NULL,
+  `DueDate` DATE NOT NULL,
+  `BillingType` VARCHAR(45) NULL DEFAULT NULL,
+  `InvoiceType` VARCHAR(45) NULL DEFAULT NULL,
+  `MembershipId` INT(11) NULL DEFAULT NULL,
+  `BillablePersonId` INT(11) NULL DEFAULT NULL,
+  `Status` INT(11) NOT NULL,
+  `PaymentTransactionId` INT(11) NULL DEFAULT NULL,
+  `Notes` VARCHAR(500) NULL DEFAULT NULL,
+  `UserId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`InvoiceId`),
+  INDEX `fk_invoice_membership_id_idx` (`MembershipId` ASC) VISIBLE,
+  INDEX `fk_invoice_person_id_idx` (`BillablePersonId` ASC) VISIBLE,
+  INDEX `fk_invoice_paymenttransaction_id_idx` (`PaymentTransactionId` ASC) VISIBLE,
+  CONSTRAINT `fk_invoice_membership_id`
+    FOREIGN KEY (`MembershipId`)
+    REFERENCES `membermax`.`membership` (`MembershipId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_invoice_paymenttransaction_id`
+    FOREIGN KEY (`PaymentTransactionId`)
+    REFERENCES `membermax`.`paymenttransaction` (`PaymentTransactionId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_invoice_person_id`
+    FOREIGN KEY (`BillablePersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 3603
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`autobillingdraft`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`autobillingdraft` (
+  `AutoBillingDraftId` INT(11) NOT NULL AUTO_INCREMENT,
+  `BillingDocumentId` INT(11) NULL DEFAULT NULL,
+  `PersonName` VARCHAR(200) NULL DEFAULT NULL,
+  `PersonId` INT(11) NULL DEFAULT NULL,
+  `Amount` DECIMAL(15,2) NOT NULL,
+  `NextDueDate` DATETIME NULL DEFAULT NULL,
+  `CardNumber` VARCHAR(50) NULL DEFAULT NULL,
+  `ExpirationDate` VARCHAR(25) NULL DEFAULT NULL,
+  `CardType` VARCHAR(45) NULL DEFAULT NULL,
+  `BankAccountNumber` VARCHAR(50) NULL DEFAULT NULL,
+  `BankAccountType` VARCHAR(50) NULL DEFAULT NULL,
+  `RoutingNumber` VARCHAR(9) NULL DEFAULT NULL,
+  `IsProcessed` INT(11) NULL DEFAULT NULL,
+  `ProfileId` VARCHAR(45) NULL DEFAULT NULL,
+  `PaymentProfileId` VARCHAR(45) NULL DEFAULT NULL,
+  `MembershipId` INT(11) NULL DEFAULT NULL,
+  `InvoiceId` INT(11) NOT NULL,
+  PRIMARY KEY (`AutoBillingDraftId`),
+  INDEX `fk_personid_idx` (`PersonId` ASC) VISIBLE,
+  INDEX `fk_abd_billingdocumentid_idx` (`BillingDocumentId` ASC) VISIBLE,
+  INDEX `fk_abd_Membership_id_idx` (`MembershipId` ASC) VISIBLE,
+  INDEX `fk_abd_invoiceId_idx` (`InvoiceId` ASC) VISIBLE,
+  CONSTRAINT `fk_abd_Membership_id`
+    FOREIGN KEY (`MembershipId`)
+    REFERENCES `membermax`.`membership` (`MembershipId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_abd_billingdocumentid`
+    FOREIGN KEY (`BillingDocumentId`)
+    REFERENCES `membermax`.`billingdocument` (`BillingDocumentId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_abd_invoiceId`
+    FOREIGN KEY (`InvoiceId`)
+    REFERENCES `membermax`.`invoice` (`InvoiceId`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_abd_personid`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1328
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`autobillingjob`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`autobillingjob` (
+  `AutoBillingJobId` INT(11) NOT NULL AUTO_INCREMENT,
+  `JobType` VARCHAR(45) NOT NULL,
+  `BillingType` VARCHAR(45) NOT NULL,
+  `InvoiceType` VARCHAR(45) NULL DEFAULT NULL,
+  `ThroughDate` DATETIME NOT NULL,
+  `Create` DATETIME NOT NULL,
+  `Start` DATETIME NOT NULL,
+  `End` DATETIME NOT NULL,
+  `Status` INT(11) NOT NULL,
+  `AbpdId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`AutoBillingJobId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 105
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`autobillingnotification`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`autobillingnotification` (
+  `AutoBillingNotificationId` INT(11) NOT NULL AUTO_INCREMENT,
+  `AbpdId` INT(11) NULL DEFAULT NULL,
+  `BillingType` VARCHAR(50) NULL DEFAULT NULL,
+  `InvoiceType` VARCHAR(50) NULL DEFAULT NULL,
+  `NotificationType` VARCHAR(50) NULL DEFAULT NULL,
+  `NotificationSentDate` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`AutoBillingNotificationId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`autobillingonhold`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`autobillingonhold` (
+  `AutoBillingOnHoldId` INT(11) NOT NULL AUTO_INCREMENT,
+  `MembershipId` INT(11) NOT NULL,
+  `CreateDate` DATETIME NOT NULL,
+  `Reason` VARCHAR(255) NULL DEFAULT NULL,
+  `ReviewDate` DATETIME NOT NULL,
+  `UserId` INT(11) NOT NULL,
+  PRIMARY KEY (`AutoBillingOnHoldId`),
+  INDEX `fk_autobillingonhold_membershipId_idx` (`MembershipId` ASC) VISIBLE,
+  INDEX `fk_autobillingonhold_usrrId_idx` (`UserId` ASC) VISIBLE,
+  CONSTRAINT `fk_autobillingonhold_membershipId`
+    FOREIGN KEY (`MembershipId`)
+    REFERENCES `membermax`.`membership` (`MembershipId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_autobillingonhold_usrrId`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`autobillingpayment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`autobillingpayment` (
+  `AutoBillingPaymentId` INT(11) NOT NULL AUTO_INCREMENT,
+  `AutoBillingDraftId` INT(11) NOT NULL,
+  `PaymentTransactionId` INT(11) NOT NULL,
+  `ReceiptId` INT(11) NOT NULL,
+  `Status` INT(11) NOT NULL,
+  PRIMARY KEY (`AutoBillingPaymentId`),
+  INDEX `fk_abp_paymentTransactionId_idx` (`PaymentTransactionId` ASC) VISIBLE,
+  INDEX `fk_abp_abd_id_idx` (`AutoBillingDraftId` ASC) VISIBLE,
+  INDEX `fk_abp_receiptId_idx` (`ReceiptId` ASC) VISIBLE,
+  CONSTRAINT `fk_abp_abd_id`
+    FOREIGN KEY (`AutoBillingDraftId`)
+    REFERENCES `membermax`.`autobillingdraft` (`AutoBillingDraftId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_abp_paymentTransactionId`
+    FOREIGN KEY (`PaymentTransactionId`)
+    REFERENCES `membermax`.`paymenttransaction` (`PaymentTransactionId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_abp_receiptId`
+    FOREIGN KEY (`ReceiptId`)
+    REFERENCES `membermax`.`receiptheader` (`Receiptid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`autobillingprocessingdate`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`autobillingprocessingdate` (
+  `AutoBillingProcessingDatesId` INT(11) NOT NULL AUTO_INCREMENT,
+  `BillingType` VARCHAR(50) NULL DEFAULT NULL,
+  `InvoiceType` VARCHAR(50) NULL DEFAULT NULL,
+  `ThroughDate` DATETIME NOT NULL,
+  `EffectiveDate` DATETIME NOT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  `IsLastDayOfThroughDate` INT(11) NULL DEFAULT NULL,
+  `IsLastDayOfEffectiveDate` INT(11) NULL DEFAULT NULL,
+  `LastUpdated` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`AutoBillingProcessingDatesId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`autobillingsetting`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`autobillingsetting` (
+  `AutoBillingsettingsId` INT(11) NOT NULL AUTO_INCREMENT,
+  `EnableAutomatedBillingForMembership` INT(11) NULL DEFAULT NULL,
+  `IsPauseOrEnableForMembership` INT(11) NULL DEFAULT NULL,
+  `EmailForNotification` VARCHAR(500) NULL DEFAULT NULL,
+  `SMSForNotification` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`AutoBillingsettingsId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`billingcycle`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`billingcycle` (
+  `BillingCycleId` INT(11) NOT NULL AUTO_INCREMENT,
+  `CycleName` VARCHAR(100) NULL DEFAULT NULL,
+  `RunDate` DATETIME NOT NULL,
+  `ThroughDate` DATETIME NOT NULL,
+  `Status` INT(11) NOT NULL,
+  PRIMARY KEY (`BillingCycleId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`billingbatch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`billingbatch` (
+  `BillingBatchId` INT(11) NOT NULL AUTO_INCREMENT,
+  `BatchCycleId` INT(11) NOT NULL,
+  `MembershipTypeId` INT(11) NOT NULL,
+  `Status` INT(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`BillingBatchId`),
+  INDEX `fk_billingbatch_cycle_id_idx` (`BatchCycleId` ASC) VISIBLE,
+  INDEX `fk_billingbatch_membership_typeId_idx` (`MembershipTypeId` ASC) VISIBLE,
+  CONSTRAINT `fk_billingbatch_cycle_id`
+    FOREIGN KEY (`BatchCycleId`)
+    REFERENCES `membermax`.`billingcycle` (`BillingCycleId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_billingbatch_membership_typeId`
+    FOREIGN KEY (`MembershipTypeId`)
+    REFERENCES `membermax`.`membershiptype` (`MembershipTypeId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`membershipfee`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`membershipfee` (
+  `FeeId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NULL DEFAULT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  `FeeAmount` DECIMAL(13,2) NOT NULL,
+  `GlAccountId` INT(11) NULL DEFAULT NULL,
+  `BillingFrequency` INT(11) NULL DEFAULT NULL,
+  `IsMandatory` INT(11) NULL DEFAULT NULL,
+  `Status` INT(11) NOT NULL,
+  `MembershipTypeId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`FeeId`),
+  INDEX `fk_MembershipTypeId_idx` (`MembershipTypeId` ASC) VISIBLE,
+  INDEX `fk_mmemmbbershipfee_glchartof_account_id_idx` (`GlAccountId` ASC) VISIBLE,
+  CONSTRAINT `fk_MembershipTypeId`
+    FOREIGN KEY (`MembershipTypeId`)
+    REFERENCES `membermax`.`membershiptype` (`MembershipTypeId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mmemmbbershipfee_glchartof_account_id`
+    FOREIGN KEY (`GlAccountId`)
+    REFERENCES `membermax`.`glaccount` (`GlAccountId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 62
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`billingfee`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`billingfee` (
+  `BillingFeeId` INT(11) NOT NULL AUTO_INCREMENT,
+  `MembershipId` INT(11) NOT NULL,
+  `MembershipFeeId` INT(11) NOT NULL,
+  `Fee` DECIMAL(13,2) NOT NULL,
+  `Status` INT(11) NOT NULL,
+  PRIMARY KEY (`BillingFeeId`),
+  INDEX `fk_billingfee_membership_id_idx` (`MembershipId` ASC) VISIBLE,
+  INDEX `fk_billingfee_membershipFee_id_idx` (`MembershipFeeId` ASC) VISIBLE,
+  CONSTRAINT `fk_billingfee_membershipFee_id`
+    FOREIGN KEY (`MembershipFeeId`)
+    REFERENCES `membermax`.`membershipfee` (`FeeId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_billingfee_membership_id`
+    FOREIGN KEY (`MembershipId`)
+    REFERENCES `membermax`.`membership` (`MembershipId`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1751
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`billingjob`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`billingjob` (
+  `BillingJobId` INT(11) NOT NULL AUTO_INCREMENT,
+  `BillingCycleId` INT(11) NOT NULL,
+  `CreateDate` DATETIME NOT NULL,
+  `StartDate` DATETIME NOT NULL,
+  `EndDate` DATETIME NOT NULL,
+  `Status` INT(11) NOT NULL,
+  PRIMARY KEY (`BillingJobId`),
+  INDEX `fk_billingjob_billing_cycle_id_idx` (`BillingCycleId` ASC) VISIBLE,
+  CONSTRAINT `fk_billingjob_billing_cycle_id`
+    FOREIGN KEY (`BillingCycleId`)
+    REFERENCES `membermax`.`billingcycle` (`BillingCycleId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`communication`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`communication` (
+  `CommunicationId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Date` DATETIME NULL DEFAULT NULL,
+  `From` VARCHAR(45) NULL DEFAULT NULL,
+  `PersonId` INT(11) NULL DEFAULT NULL,
+  `Type` VARCHAR(45) NULL DEFAULT NULL,
+  `Subject` VARCHAR(100) NULL DEFAULT NULL,
+  `Notes` VARCHAR(500) NULL DEFAULT NULL,
+  `Start` DATETIME NULL DEFAULT NULL,
+  `End` DATETIME NULL DEFAULT NULL,
+  `Scheduled` INT(11) NULL DEFAULT NULL,
+  `StaffUserId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`CommunicationId`),
+  INDEX `fk_communication_staffUser_id_idx` (`StaffUserId` ASC) VISIBLE,
+  INDEX `fk_communication_person_id_idx` (`PersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_communication_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_communication_staffUser_id`
+    FOREIGN KEY (`StaffUserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`invoicedetail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`invoicedetail` (
+  `InvoiceDetailId` INT(11) NOT NULL AUTO_INCREMENT,
+  `InvoiceId` INT(11) NOT NULL,
+  `Description` VARCHAR(100) NULL DEFAULT NULL,
+  `GlAccount` VARCHAR(45) NULL DEFAULT NULL,
+  `Price` DECIMAL(13,2) NOT NULL,
+  `Quantity` INT(11) NOT NULL,
+  `Taxable` INT(11) NULL DEFAULT NULL,
+  `TaxRate` DECIMAL(13,2) NULL DEFAULT NULL,
+  `TaxAmount` DECIMAL(13,2) NULL DEFAULT NULL,
+  `Amount` DECIMAL(13,2) NOT NULL,
+  `Status` INT(11) NOT NULL,
+  `FeeId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`InvoiceDetailId`),
+  INDEX `fk_invoice_detail_invoicce_id_idx` (`InvoiceId` ASC) VISIBLE,
+  INDEX `fk_invoice_detail_membership_feeId_idx` (`FeeId` ASC) VISIBLE,
+  CONSTRAINT `fk_invoice_detail_invoicce_id`
+    FOREIGN KEY (`InvoiceId`)
+    REFERENCES `membermax`.`invoice` (`InvoiceId`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_invoice_detail_membership_feeId`
+    FOREIGN KEY (`FeeId`)
+    REFERENCES `membermax`.`membershipfee` (`FeeId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 5974
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`receiptdetail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`receiptdetail` (
+  `ReceiptDetailId` INT(11) NOT NULL AUTO_INCREMENT,
+  `ReceiptHeaderId` INT(11) NULL DEFAULT NULL,
+  `PersonId` INT(11) NULL DEFAULT NULL,
+  `Quantity` INT(11) NULL DEFAULT NULL,
+  `Rate` DECIMAL(15,2) NULL DEFAULT NULL,
+  `Amount` DECIMAL(15,2) NOT NULL,
+  `Status` INT(11) NOT NULL,
+  `Description` VARCHAR(200) NULL DEFAULT NULL,
+  `InvoiceDetailId` INT(11) NULL DEFAULT NULL,
+  `Tax` DECIMAL(15,2) NULL DEFAULT NULL,
+  `PastDueInvoiceDetailRef` INT(11) NULL DEFAULT NULL,
+  `ItemType` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`ReceiptDetailId`),
+  INDEX `fk_rcptheader_id_idx` (`ReceiptHeaderId` ASC) VISIBLE,
+  INDEX `fk_rcptdetail_invoicedetailid_idx` (`InvoiceDetailId` ASC) VISIBLE,
+  CONSTRAINT `fk_rcptdetail_invoicedetailid`
+    FOREIGN KEY (`InvoiceDetailId`)
+    REFERENCES `membermax`.`invoicedetail` (`InvoiceDetailId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rcptdetail_rcptheaderid`
+    FOREIGN KEY (`ReceiptHeaderId`)
+    REFERENCES `membermax`.`receiptheader` (`Receiptid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1524
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`credittransaction`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`credittransaction` (
+  `CreditTransactionId` INT(11) NOT NULL AUTO_INCREMENT,
+  `TransactionDate` DATETIME NOT NULL,
+  `PersonId` INT(11) NOT NULL,
+  `ReceiptDetailId` INT(11) NOT NULL,
+  `EntryType` INT(11) NOT NULL,
+  `CreditGlAccount` VARCHAR(50) NOT NULL,
+  `DebitGlAccount` VARCHAR(50) NOT NULL,
+  `ExpirDate` DATETIME NOT NULL,
+  `Reason` VARCHAR(255) NULL DEFAULT NULL,
+  `Status` INT(11) NOT NULL,
+  `Amount` DECIMAL(13,3) NULL DEFAULT NULL,
+  PRIMARY KEY (`CreditTransactionId`),
+  INDEX `fk_credittransaction_personId_idx` (`PersonId` ASC) VISIBLE,
+  INDEX `fk_creditTransaction_receiptdetail_id_idx` (`ReceiptDetailId` ASC) VISIBLE,
+  CONSTRAINT `fk_creditTransaction_receiptdetail_id`
+    FOREIGN KEY (`ReceiptDetailId`)
+    REFERENCES `membermax`.`receiptdetail` (`ReceiptDetailId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_credittransaction_personId`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 40
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`document`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`document` (
+  `DocumentId` INT(11) NOT NULL AUTO_INCREMENT,
+  `PersonId` INT(11) NULL DEFAULT NULL,
+  `OrganizationId` INT(11) NULL DEFAULT NULL,
+  `ContentType` VARCHAR(100) NULL DEFAULT NULL,
+  `Title` VARCHAR(100) NULL DEFAULT NULL,
+  `FilePath` VARCHAR(255) NULL DEFAULT NULL,
+  `FileName` VARCHAR(500) NULL DEFAULT NULL,
+  `DisplayFileName` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`DocumentId`),
+  INDEX `fk_document_person_id_idx` (`PersonId` ASC) VISIBLE,
+  INDEX `fk_department_organization_id_idx` (`OrganizationId` ASC) VISIBLE,
+  CONSTRAINT `fk_department_organizationId_id`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `membermax`.`organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_document_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 31
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`email`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`email` (
+  `EmailId` INT(11) NOT NULL AUTO_INCREMENT,
+  `EmailAddressType` VARCHAR(45) NULL DEFAULT NULL,
+  `EmailAddress` VARCHAR(255) NULL DEFAULT NULL,
+  `PersonId` INT(11) NOT NULL DEFAULT '0',
+  `IsPrimary` INT(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`EmailId`),
+  INDEX `fk_email_person_id_idx` (`PersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_email_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 64986
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`journalentryheader`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`journalentryheader` (
+  `JournalEntryHeaderId` INT(11) NOT NULL AUTO_INCREMENT,
+  `EntryDate` DATETIME NOT NULL,
+  `ReceiptHeaderId` INT(11) NOT NULL,
+  `UserId` INT(11) NOT NULL,
+  `TransactionType` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`JournalEntryHeaderId`),
+  INDEX `fk_journalentryheader_receipt_Id_idx` (`ReceiptHeaderId` ASC) VISIBLE,
+  INDEX `fk_journalentryheader_userId_idx` (`UserId` ASC) VISIBLE,
+  CONSTRAINT `fk_journalentryheader_receipt_Id`
+    FOREIGN KEY (`ReceiptHeaderId`)
+    REFERENCES `membermax`.`receiptheader` (`Receiptid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_journalentryheader_userId`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 644
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`journalentrydetail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`journalentrydetail` (
+  `JournalEntryDetailId` INT(11) NOT NULL AUTO_INCREMENT,
+  `JournalEntryHeaderId` INT(11) NOT NULL,
+  `ReceiptDetailId` INT(11) NOT NULL,
+  `GlAccountCode` VARCHAR(45) NULL DEFAULT NULL,
+  `Description` VARCHAR(100) NULL DEFAULT NULL,
+  `Amount` DECIMAL(14,2) NOT NULL,
+  `EntryType` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`JournalEntryDetailId`),
+  INDEX `fk_journalentrydetail_header_id_idx` (`JournalEntryHeaderId` ASC) VISIBLE,
+  INDEX `fk_journalentrydetail_receiptdetail_id__idx` (`ReceiptDetailId` ASC) VISIBLE,
+  CONSTRAINT `fk_journalentrydetail_header_id`
+    FOREIGN KEY (`JournalEntryHeaderId`)
+    REFERENCES `membermax`.`journalentryheader` (`JournalEntryHeaderId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_journalentrydetail_receiptdetail_id_`
+    FOREIGN KEY (`ReceiptDetailId`)
+    REFERENCES `membermax`.`receiptdetail` (`ReceiptDetailId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1421
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`lookup`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`lookup` (
+  `LookupId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Group` VARCHAR(45) NULL DEFAULT NULL,
+  `Values` VARCHAR(5000) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`LookupId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 8
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`membershipconnection`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`membershipconnection` (
+  `MembershipConnectionId` INT(11) NOT NULL AUTO_INCREMENT,
+  `MembershipId` INT(11) NOT NULL,
+  `PersonId` INT(11) NOT NULL,
+  `Status` INT(11) NOT NULL,
+  PRIMARY KEY (`MembershipConnectionId`),
+  INDEX `fk_membershiprelationship_membership_id_idx` (`MembershipId` ASC) VISIBLE,
+  INDEX `fk_membershiprelation_person_idx` (`PersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_membershiprelation_person`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_membershiprelationship_membership_id`
+    FOREIGN KEY (`MembershipId`)
+    REFERENCES `membermax`.`membership` (`MembershipId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`membershiphistory`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`membershiphistory` (
+  `MembershipHistoryId` INT(11) NOT NULL AUTO_INCREMENT,
+  `MembershipId` INT(11) NULL DEFAULT NULL,
+  `StatusDate` DATETIME NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  `ChangedBy` INT(11) NULL DEFAULT NULL,
+  `Reason` VARCHAR(250) NULL DEFAULT NULL,
+  `PreviousMembershipId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`MembershipHistoryId`),
+  INDEX `fk_embbershiphistory_membership_id_idx` (`MembershipId` ASC) VISIBLE,
+  INDEX `fk_membership_staff_user_id_idx` (`ChangedBy` ASC) VISIBLE,
+  CONSTRAINT `fk_embbershiphistory_membership_id`
+    FOREIGN KEY (`MembershipId`)
+    REFERENCES `membermax`.`membership` (`MembershipId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_membership_staff_user_id`
+    FOREIGN KEY (`ChangedBy`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 14
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`menu`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`menu` (
+  `MenuId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NULL DEFAULT NULL,
+  `Url` VARCHAR(255) NULL DEFAULT NULL,
+  `Group` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`MenuId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 15
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`multifactorcode`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`multifactorcode` (
+  `MultiFactorCodeId` INT(11) NOT NULL AUTO_INCREMENT,
+  `UserId` INT(11) NOT NULL,
+  `CommunicationMode` VARCHAR(45) NULL DEFAULT NULL,
+  `CreatDate` DATETIME NOT NULL,
+  `ExpiryDate` DATETIME NOT NULL,
+  `Token` VARCHAR(250) NULL DEFAULT NULL,
+  `DeviceId` INT(11) NULL DEFAULT '0',
+  `IpAddress` VARCHAR(45) NULL DEFAULT NULL,
+  `CodeExpired` INT(11) NOT NULL,
+  `CodeUsed` INT(11) NOT NULL,
+  `UserAgent` VARCHAR(45) NULL DEFAULT NULL,
+  `Attempts` INT(11) NOT NULL,
+  `AccessCode` VARCHAR(45) NULL DEFAULT NULL,
+  `OTPCode` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`MultiFactorCodeId`),
+  INDEX `fk_multifactorcode_staffuser_id_idx` (`UserId` ASC) VISIBLE,
+  CONSTRAINT `fk_multifactorcode_staffuser_id`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 95
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`note`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`note` (
+  `NoteId` INT(11) NOT NULL AUTO_INCREMENT,
+  `PersonId` INT(11) NOT NULL,
+  `Notes` VARCHAR(500) NOT NULL,
+  `Severity` VARCHAR(20) NOT NULL,
+  `DisplayOnProfile` INT(11) NOT NULL,
+  `CreatedOn` DATETIME NOT NULL,
+  `CreatedBy` VARCHAR(100) NOT NULL,
+  `ModifiedOn` DATETIME NULL DEFAULT NULL,
+  `ModifiedBy` VARCHAR(100) NULL DEFAULT NULL,
+  `Status` INT(11) NOT NULL,
+  PRIMARY KEY (`NoteId`),
+  INDEX `fk_note_personid_idx` (`PersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_note_personid`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`paperinvoice`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`paperinvoice` (
+  `PaperInvoiceId` INT(11) NOT NULL AUTO_INCREMENT,
+  `PaperBillingCycleId` INT(11) NOT NULL,
+  `InvoiceId` INT(11) NOT NULL,
+  `PersonId` INT(11) NOT NULL,
+  `DueDate` DATETIME NOT NULL,
+  `Description` VARCHAR(100) NULL DEFAULT NULL,
+  `Amount` DECIMAL(14,2) NOT NULL,
+  `Status` INT(11) NOT NULL,
+  `CreateDate` DATETIME NOT NULL,
+  PRIMARY KEY (`PaperInvoiceId`),
+  INDEX `fk_paper_invoice_billing_cycle_id_idx` (`PaperBillingCycleId` ASC) VISIBLE,
+  INDEX `fk_paper_invoice_person_id_idx` (`PersonId` ASC) VISIBLE,
+  INDEX `fk_paper_invoice_invoice_id_idx` (`InvoiceId` ASC) VISIBLE,
+  CONSTRAINT `fk_paper_invoice_billing_cycle_id`
+    FOREIGN KEY (`PaperBillingCycleId`)
+    REFERENCES `membermax`.`billingcycle` (`BillingCycleId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_paper_invoice_invoice_id`
+    FOREIGN KEY (`InvoiceId`)
+    REFERENCES `membermax`.`invoice` (`InvoiceId`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_paper_invoice_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`paymentprocessor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`paymentprocessor` (
+  `PaymentProcessorId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NULL DEFAULT NULL,
+  `MerchantId` VARCHAR(100) NULL DEFAULT NULL,
+  `LiveURL` VARCHAR(255) NULL DEFAULT NULL,
+  `TestURL` VARCHAR(255) NULL DEFAULT NULL,
+  `LoginId` VARCHAR(255) NULL DEFAULT NULL,
+  `ApiKey` VARCHAR(500) NULL DEFAULT NULL,
+  `TransactionKey` VARCHAR(255) NULL DEFAULT NULL,
+  `TransactionMode` INT(11) NULL DEFAULT NULL,
+  `OrganizationId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`PaymentProcessorId`),
+  INDEX `fk_payment_processor_organization_id_idx` (`OrganizationId` ASC) VISIBLE,
+  CONSTRAINT `fk_payment_processor_organization_id`
+    FOREIGN KEY (`OrganizationId`)
+    REFERENCES `membermax`.`organization` (`OrganizationId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`paymentprofile`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`paymentprofile` (
+  `PaymentProfileId` INT(11) NOT NULL AUTO_INCREMENT,
+  `PersonId` INT(11) NOT NULL,
+  `ProfileId` VARCHAR(50) NULL DEFAULT NULL,
+  `PreferredPaymentMethod` INT(11) NULL DEFAULT NULL,
+  `Status` INT(11) NOT NULL,
+  `AuthNetPaymentProfileId` VARCHAR(50) NULL DEFAULT NULL,
+  `CardNumber` VARCHAR(45) NULL DEFAULT NULL,
+  `ExpirationDate` VARCHAR(45) NULL DEFAULT NULL,
+  `CardType` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`PaymentProfileId`),
+  INDEX `fk_paymentProfileId_person_id_idx` (`PersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_paymentProfileId_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 283
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`persontag`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`persontag` (
+  `TagId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Label` VARCHAR(50) NULL DEFAULT NULL,
+  `Value` VARCHAR(255) NULL DEFAULT NULL,
+  `PersonId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`TagId`),
+  INDEX `fk_persontagg_person_id_idx` (`PersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_persontagg_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`phone`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`phone` (
+  `PhoneId` INT(11) NOT NULL AUTO_INCREMENT,
+  `PhoneType` VARCHAR(45) NULL DEFAULT NULL,
+  `PhoneNumber` VARCHAR(45) NULL DEFAULT NULL,
+  `PersonId` INT(11) NOT NULL DEFAULT '0',
+  `IsPrimary` INT(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`PhoneId`),
+  INDEX `fk_phone_person_id_idx` (`PersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_phone_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 51991
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`receiptitemdetail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`receiptitemdetail` (
+  `ReciptItemDetailId` INT(11) NOT NULL AUTO_INCREMENT,
+  `ReceiptDetailId` INT(11) NULL DEFAULT NULL,
+  `ItemType` INT(11) NULL DEFAULT NULL,
+  `CurrentPrice` DECIMAL(15,2) NULL DEFAULT NULL,
+  `Amount` DECIMAL(15,2) NULL DEFAULT NULL,
+  `RunningPrice` DECIMAL(15,2) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  `GLAccountId` INT(11) NULL DEFAULT NULL,
+  `AmountEdited` DECIMAL(15,2) NULL DEFAULT NULL,
+  PRIMARY KEY (`ReciptItemDetailId`),
+  INDEX `fk_rid_rcptdetailid_idx` (`ReceiptDetailId` ASC) VISIBLE,
+  CONSTRAINT `fk_rid_rcptdetailid`
+    FOREIGN KEY (`ReceiptDetailId`)
+    REFERENCES `membermax`.`receiptdetail` (`ReceiptDetailId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`refunddetail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`refunddetail` (
+  `RefundId` INT(11) NOT NULL AUTO_INCREMENT,
+  `RefundDate` DATETIME NOT NULL,
+  `RefundMode` INT(11) NOT NULL,
+  `ReceiptDetailId` INT(11) NOT NULL,
+  `Description` VARCHAR(100) NULL DEFAULT NULL,
+  `Amount` DECIMAL(14,3) NOT NULL,
+  `Reason` VARCHAR(250) NULL DEFAULT NULL,
+  `ProcessingFee` DECIMAL(14,3) NULL DEFAULT NULL,
+  `UserId` INT(11) NOT NULL,
+  `PaymentTransactionId` INT(11) NOT NULL,
+  `PersonId` INT(11) NOT NULL,
+  PRIMARY KEY (`RefundId`),
+  INDEX `fk_refund_receiptdetail_id_idx` (`ReceiptDetailId` ASC) VISIBLE,
+  INDEX `fk_refund_usr_id_idx` (`UserId` ASC) VISIBLE,
+  CONSTRAINT `fk_refund_receiptdetail_id`
+    FOREIGN KEY (`ReceiptDetailId`)
+    REFERENCES `membermax`.`receiptdetail` (`ReceiptDetailId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_refund_usr_id`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 54
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`relation`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`relation` (
+  `RelationId` INT(11) NOT NULL AUTO_INCREMENT,
+  `PersonId` INT(11) NULL DEFAULT NULL,
+  `RelatedPersonId` INT(11) NULL DEFAULT NULL,
+  `Type` VARCHAR(45) NULL DEFAULT NULL,
+  `StartDate` DATETIME NULL DEFAULT NULL,
+  `EndDate` DATETIME NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  `Notes` VARCHAR(500) NULL DEFAULT NULL,
+  PRIMARY KEY (`RelationId`),
+  INDEX `fk_relation_person_id_idx` (`PersonId` ASC) VISIBLE,
+  INDEX `fk_relation_related_person_id_idx` (`RelatedPersonId` ASC) VISIBLE,
+  CONSTRAINT `fk_relation_person_id`
+    FOREIGN KEY (`PersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_relation_related_person_id`
+    FOREIGN KEY (`RelatedPersonId`)
+    REFERENCES `membermax`.`person` (`PersonId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 31
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`role` (
+  `RoleId` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NULL DEFAULT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  `Status` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`RoleId`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 15
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`rolemenu`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`rolemenu` (
+  `RoleMenuId` INT(11) NOT NULL AUTO_INCREMENT,
+  `RoleId` INT(11) NOT NULL,
+  `MenuId` INT(11) NOT NULL,
+  PRIMARY KEY (`RoleMenuId`),
+  INDEX `fk_role_menu_idx` (`RoleId` ASC) VISIBLE,
+  INDEX `fk_menu_id_idx` (`MenuId` ASC) VISIBLE,
+  INDEX `fk_role_menu_role_idx` (`RoleId` ASC) VISIBLE,
+  INDEX `fk_role_menu_menu_id_idx` (`MenuId` ASC) VISIBLE,
+  CONSTRAINT `fk_menu_menu_id`
+    FOREIGN KEY (`MenuId`)
+    REFERENCES `membermax`.`menu` (`MenuId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_role_role_id`
+    FOREIGN KEY (`RoleId`)
+    REFERENCES `membermax`.`role` (`RoleId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 48
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`shoppingcart`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`shoppingcart` (
+  `ShoppingCartId` INT(11) NOT NULL AUTO_INCREMENT,
+  `TransactionDate` DATETIME NOT NULL,
+  `UserId` INT(11) NULL DEFAULT NULL,
+  `SessionId` VARCHAR(100) NULL DEFAULT NULL,
+  `ReceiptId` INT(11) NULL DEFAULT NULL,
+  `PaymentStatus` INT(11) NOT NULL,
+  `PersonId` INT(11) NULL DEFAULT NULL,
+  `CreditBalance` DECIMAL(14,3) NOT NULL DEFAULT '0.000',
+  `UseCreditBalance` INT(11) NOT NULL DEFAULT '0',
+  `PaymentMode` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`ShoppingCartId`),
+  INDEX `fk_shoppingcart_receiptId_idx` (`ReceiptId` ASC) VISIBLE,
+  INDEX `fk_shoppingcart_staff_user_id_idx` (`UserId` ASC) VISIBLE,
+  CONSTRAINT `fk_shoppingcart_receiptId`
+    FOREIGN KEY (`ReceiptId`)
+    REFERENCES `membermax`.`receiptheader` (`Receiptid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shoppingcart_staff_user_id`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 661
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`shoppingcartdetail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`shoppingcartdetail` (
+  `ShoppingCartDetailId` INT(11) NOT NULL AUTO_INCREMENT,
+  `ShoppingCartId` INT(11) NULL DEFAULT NULL,
+  `Description` VARCHAR(100) NULL DEFAULT NULL,
+  `ItemType` INT(11) NULL DEFAULT NULL,
+  `ItemId` INT(11) NULL DEFAULT NULL,
+  `Selected` INT(11) NULL DEFAULT NULL,
+  `Price` DECIMAL(13,2) NOT NULL,
+  `Quantity` INT(11) NOT NULL,
+  `Tax` DECIMAL(13,2) NULL DEFAULT NULL,
+  `Amount` DECIMAL(13,2) NOT NULL,
+  `ItemGroup` VARCHAR(100) NULL DEFAULT NULL,
+  `ItemGroupDescription` VARCHAR(200) NULL DEFAULT NULL,
+  `MembershipId` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`ShoppingCartDetailId`),
+  INDEX `fk_shoppingcartdetail_shoppingcart_id_idx` (`ShoppingCartId` ASC) VISIBLE,
+  INDEX `fk_shoppingCartDetail_MembershipId_idx` (`MembershipId` ASC) VISIBLE,
+  CONSTRAINT `fk_shoppingCartDetail_MembershipId`
+    FOREIGN KEY (`MembershipId`)
+    REFERENCES `membermax`.`membership` (`MembershipId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shoppingcartdetail_shoppingcart_id`
+    FOREIGN KEY (`ShoppingCartId`)
+    REFERENCES `membermax`.`shoppingcart` (`ShoppingCartId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1490
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`staffrole`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`staffrole` (
+  `StaffRoleId` INT(11) NOT NULL AUTO_INCREMENT,
+  `StaffId` INT(11) NOT NULL,
+  `RoleId` INT(11) NOT NULL,
+  PRIMARY KEY (`StaffRoleId`),
+  INDEX `fk_staff_id_idx` (`StaffId` ASC) VISIBLE,
+  INDEX `fk_role_id_idx` (`RoleId` ASC) VISIBLE,
+  CONSTRAINT `fk_role_id`
+    FOREIGN KEY (`RoleId`)
+    REFERENCES `membermax`.`role` (`RoleId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_staff_id`
+    FOREIGN KEY (`StaffId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 126
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`token`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`token` (
+  `TokenId` INT(11) NOT NULL AUTO_INCREMENT,
+  `ClientId` VARCHAR(45) NULL DEFAULT NULL,
+  `TokenValue` VARCHAR(255) NULL DEFAULT NULL,
+  `CreateDate` DATETIME NOT NULL,
+  `UserId` INT(11) NOT NULL,
+  `ExpiryTime` DATETIME NOT NULL,
+  PRIMARY KEY (`TokenId`),
+  INDEX `fk_token_staffuser_id_idx` (`UserId` ASC) VISIBLE,
+  CONSTRAINT `fk_token_staffuser_id`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `membermax`.`userdevice`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `membermax`.`userdevice` (
+  `UserDeviceId` INT(11) NOT NULL AUTO_INCREMENT,
+  `UserId` INT(11) NOT NULL,
+  `IPAddress` VARCHAR(45) NULL DEFAULT NULL,
+  `DeviceName` VARCHAR(255) NULL DEFAULT NULL,
+  `LastAccessed` DATETIME NOT NULL,
+  `Authenticated` INT(11) NOT NULL DEFAULT '0',
+  `Locked` INT(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`UserDeviceId`),
+  INDEX `fk_userdevice_staffuser_id_idx` (`UserId` ASC) VISIBLE,
+  CONSTRAINT `fk_userdevice_staffuser_id`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `membermax`.`staffuser` (`UserId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 120
+DEFAULT CHARACTER SET = latin1;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

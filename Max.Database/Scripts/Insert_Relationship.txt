@@ -1,0 +1,9 @@
+﻿INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Child', 'Parent', 'Child');
+INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Grandparent', 'Grandchild', 'Grandchild');
+INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Other', 'Other', 'Other');
+INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Parent', 'Child', 'Child');
+INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Sibling', 'Sibling', 'Sibling');
+INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Spouse', 'Spouse', 'Spouse');
+INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Company', 'Employee', 'Employee');
+INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Employee', 'Company', 'Company');
+INSERT INTO `relationship` (`Relation`,`ReverseRelationMale`,`ReverseRelationFemale`) VALUES('Unknown', 'Unknown', 'Unknown');

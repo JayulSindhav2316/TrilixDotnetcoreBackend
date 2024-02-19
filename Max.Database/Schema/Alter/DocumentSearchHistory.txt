@@ -1,0 +1,7 @@
+﻿CREATE TABLE `documentsearchhistory` (
+  `DocumentSearchId` INT NOT NULL AUTO_INCREMENT,
+  `EntityId` INT NULL,
+  `SearchText` VARCHAR(200) NULL,
+  `SearchDate` DATETIME NULL,
+  `IpAddress` VARCHAR(45) NULL,
+  PRIMARY KEY (`DocumentSearchId`));

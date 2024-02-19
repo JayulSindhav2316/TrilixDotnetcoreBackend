@@ -1,0 +1,2 @@
+﻿ALTER TABLE `nbma-demo`.company
+ADD Country varchar(255);

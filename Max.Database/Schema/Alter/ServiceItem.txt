@@ -1,0 +1,31 @@
+﻿CREATE TABLE `item` (
+  `ItemId` int(11) NOT NULL AUTO_INCREMENT,
+  `ItemType` int(11) NOT NULL DEFAULT '0',
+  `ItemCode` varchar(45) DEFAULT NULL,
+  `Description` varchar(500) DEFAULT NULL,
+  `UnitRate` decimal(13,2) NOT NULL DEFAULT '0.00',
+  `Status` int(11) NOT NULL DEFAULT '0',
+  `ItemGlAccount` int(11) NOT NULL,
+  `Image` blob,
+  PRIMARY KEY (`ItemId`),
+  KEY `fk_ServiceItem_GlAccount_idx` (`ItemGlAccount`),
+  KEY `fk_item_itemType_idx` (`ItemType`),
+  CONSTRAINT `fk_ServiceItem_GlAccount` FOREIGN KEY (`ItemGlAccount`) REFERENCES `glaccount` (`GlAccountId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_item_itemType` FOREIGN KEY (`ItemType`) REFERENCES `itemtype` (`ItemTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `invoicedetail` 
+ADD COLUMN `ItemId` INT NULL AFTER `FeeId`,
+ADD INDEX `fk_invoice_detail_Item_itemId_idx` (`ItemId` ASC);
+;
+ALTER TABLE `invoicedetail` 
+ADD CONSTRAINT `fk_invoice_detail_Item_itemId`
+  FOREIGN KEY (`ItemId`)
+  REFERENCES `item` (`ItemId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+ALTER TABLE `invoicedetail` 
+ADD COLUMN `ItemType` INT NOT NULL DEFAULT 0 AFTER `ItemId`;
+
+

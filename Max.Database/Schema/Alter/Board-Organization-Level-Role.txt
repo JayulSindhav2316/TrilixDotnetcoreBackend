@@ -1,0 +1,65 @@
+CREATE TABLE `group` (
+  `GroupId` int(11) NOT NULL AUTO_INCREMENT,
+  `GroupName` varchar(100) DEFAULT NULL,
+  `GroupDescription` varchar(500) DEFAULT NULL,
+  `PreferredNumbers` int(11) DEFAULT NULL,
+  `ApplyTerm` int(11) DEFAULT NULL,
+  `TerrmStartDate` datetime DEFAULT NULL,
+  `TermEndDate` datetime DEFAULT NULL,
+  `OrganizationId` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`GroupId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `grouprole` (
+  `GroupRoleId` int(11) NOT NULL AUTO_INCREMENT,
+  `GroupRoleName` varchar(100) DEFAULT NULL,
+  `OrganizationId` int(11) DEFAULT '0',
+  PRIMARY KEY (`GroupRoleId`),
+  KEY `fk_organizationid_idx` (`OrganizationId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `linkgrouprole` (
+  `LinkGroupRoleId` int(11) NOT NULL AUTO_INCREMENT,
+  `GroupRoleId` int(11) DEFAULT NULL,
+  `GroupId` int(11) DEFAULT NULL,
+  `IsLinked` int(11) DEFAULT NULL,
+  `OrganizationId` int(11) DEFAULT NULL,
+  `GroupRoleName` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`LinkGroupRoleId`),
+  KEY `fk_group_id_idx` (`GroupId`),
+  KEY `fk_grouprole_id_idx` (`GroupRoleId`),
+  CONSTRAINT `fk_group_id` FOREIGN KEY (`GroupId`) REFERENCES `group` (`GroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_grouprole_id` FOREIGN KEY (`GroupRoleId`) REFERENCES `grouprole` (`GroupRoleId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `groupmember` (
+  `GroupMemberId` int(11) NOT NULL AUTO_INCREMENT,
+  `PersonId` int(11) DEFAULT NULL,
+  `EntityId` int(11) DEFAULT NULL,
+  `GroupId` int(11) DEFAULT NULL,
+  `RoleId` int(11) DEFAULT NULL,
+  `StartDate` datetime DEFAULT NULL,
+  `EndDate` datetime DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`GroupMemberId`),
+  KEY `fk_gm_personId_idx` (`PersonId`),
+  KEY `fk_gm_entityId_idx` (`EntityId`),
+  KEY `fk_gm_groupId_idx` (`GroupId`),
+  KEY `fk_gm_roleId_idx` (`RoleId`),
+  CONSTRAINT `fk_gm_entityId` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gm_groupId` FOREIGN KEY (`GroupId`) REFERENCES `group` (`GroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gm_personId` FOREIGN KEY (`PersonId`) REFERENCES `person` (`PersonId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gm_roleId` FOREIGN KEY (`RoleId`) REFERENCES `grouprole` (`GroupRoleId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*  To be used only initially to enter default roles  */
+
+insert into grouprole (GroupRoleName, OrganizationId) values('President',0);
+insert into grouprole (GroupRoleName, OrganizationId) values('Chairman',0);
+insert into grouprole (GroupRoleName, OrganizationId) values('Director',0);
+
+/* Update menu script */
+
+Update Menu set RouterURL = '/setup/groups', Icon = 'pi pi-fw pi-sitemap' where Label = 'Boards & Groups';
+Update Menu set RouterURL = '/manage/groups' where Label = 'Board & Committees';

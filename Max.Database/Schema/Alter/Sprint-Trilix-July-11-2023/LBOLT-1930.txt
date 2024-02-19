@@ -1,0 +1,2 @@
+﻿ALTER TABLE customfield
+ADD COLUMN CustomFieldFor int;

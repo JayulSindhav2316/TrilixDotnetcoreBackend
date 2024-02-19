@@ -1,0 +1,6 @@
+﻿ALTER TABLE  `contactactivityinteraction` 
+ADD COLUMN `IsDeleted` INT NULL AFTER `InteractionRoleId`;
+
+
+ALTER TABLE `contactactivity`
+ADD COLUMN `IsDeleted` INT NULL DEFAULT NULL AFTER `ContactRoleId`;

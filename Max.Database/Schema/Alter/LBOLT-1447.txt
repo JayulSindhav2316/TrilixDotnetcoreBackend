@@ -1,0 +1,9 @@
+﻿
+ALTER TABLE `address` 
+ADD COLUMN `StateCode` VARCHAR(100) NULL DEFAULT NULL AFTER `CountryCode`;
+
+ALTER TABLE  `states` 
+ADD COLUMN `ShortName` VARCHAR(100) NOT NULL AFTER `Name`;
+
+update states set shortname=name;
+

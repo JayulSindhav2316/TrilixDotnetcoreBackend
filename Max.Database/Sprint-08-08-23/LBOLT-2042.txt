@@ -1,0 +1,13 @@
+ALTER TABLE `relation` 
+ADD COLUMN `Primary` BIT NULL DEFAULT NULL AFTER `Notes`,
+ADD COLUMN `Billable` BIT NULL DEFAULT NULL AFTER `Primary`,
+ADD COLUMN `Social` BIT NULL DEFAULT NULL AFTER `Billable`;
+
+ALTER TABLE `relation` 
+DROP FOREIGN KEY `fk_relation_relationshipId`;
+ALTER TABLE `relation` 
+CHANGE COLUMN `RelationshipId` `RelationshipId` INT NULL DEFAULT NULL ;
+ALTER TABLE `relation` 
+ADD CONSTRAINT `fk_relation_relationshipId`
+FOREIGN KEY (`RelationshipId`)
+REFERENCES `relationship` (`RelationshipId`);

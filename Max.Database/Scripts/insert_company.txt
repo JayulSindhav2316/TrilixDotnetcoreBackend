@@ -1,0 +1,2 @@
+﻿INSERT INTO `membermax`.`company`(`CompanyName`,`AddressId`,`Email`,`Website`,`PrimaryContactName`,`PrimaryContactPhone`,`PrimaryContactEmail`)
+VALUES('Contoso',1,'contose@test.email.com','www.contoso.com','M. Thomson','500008900','managertest.contoso.com');

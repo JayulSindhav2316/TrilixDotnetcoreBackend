@@ -1,0 +1,6 @@
+
+SELECT @parentMenuId:=0;
+SELECT @groupId:=MenuGroupId from menugroup where GroupName='Main';
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,Tooltip,Title,DisplayOrder,Display)
+VALUES (@parentMenuId,@groupId,'Opportunities', 'pi pi-fw pi-th-large','opportunity-dashboard',0,0,'Opportunities','Opportunities',140,1);

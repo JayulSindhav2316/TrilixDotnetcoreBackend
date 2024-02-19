@@ -1,0 +1,13 @@
+﻿CREATE TABLE `documentcontainer` (
+  `ContainerId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  `Description` varchar(500) DEFAULT NULL,
+  `AccessControlEnabled` int(11) DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `CreatedBy` int(11) DEFAULT NULL,
+  `BlobContainerId` varchar(128) DEFAULT NULL,
+  `EncryptionKey` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`ContainerId`),
+  KEY `fk_documentconatiner_staff_user_id_idx` (`CreatedBy`),
+  CONSTRAINT `fk_documentconatiner_staff_user_id` FOREIGN KEY (`CreatedBy`) REFERENCES `staffuser` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;

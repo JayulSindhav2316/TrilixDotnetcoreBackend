@@ -1,0 +1,5 @@
+/*Change the Database Name & URL as per configuration*/
+update `nace-pp`.configuration set SociableSyncEnabled=1;
+update `nace-pp`.configuration set SociableBaseUrl='https://nace-pp.membermax.com/'
+/*Change the TenantId as per configuration*/
+update maxtenant.tenant set SociableBaseUrl='https://nace-pp.membermax.com', SociableAdminUserName='administrator', SociableAdminPassword='dK994owatSvH43MwrJte' where tenantid='6a45cb73-6345-11ee-8c0c-000d3a9b2734'

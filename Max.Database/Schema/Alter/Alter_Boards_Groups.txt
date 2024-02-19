@@ -1,0 +1,22 @@
+ALTER TABLE groupmember 
+DROP COLUMN `EndDate`,
+DROP COLUMN `StartDate`;
+
+ALTER TABLE `nbma-demo`.`groupmemberrole` 
+ADD COLUMN `StartDate` DATETIME NULL AFTER `GroupRoleId`,
+ADD COLUMN `EndDate` DATETIME NULL AFTER `StartDate`,
+ADD COLUMN `Status` INT NULL AFTER `EndDate`;
+
+ALTER TABLE `nbma-demo`.`grouphistory` 
+DROP FOREIGN KEY `fk_gh_staffid`,
+DROP FOREIGN KEY `fk_gh_linkgrouproleid`,
+DROP FOREIGN KEY `fk_gh_grouproleid`,
+DROP FOREIGN KEY `fk_gh_groupmemberid`,
+DROP FOREIGN KEY `fk_gh_groupid`;
+ALTER TABLE `nbma-demo`.`grouphistory` 
+DROP INDEX `fk_gh_linkgrouproleid_idx` ,
+DROP INDEX `fk_gh_grouproleid_idx` ,
+DROP INDEX `fk_bgh_staffid_idx` ,
+DROP INDEX `fk_bgh_groupmemberid_idx` ,
+DROP INDEX `fk_bgh_groupid_idx` ;
+;

@@ -1,0 +1,14 @@
+﻿SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'company'
+        AND table_schema = DATABASE()
+        AND column_name = 'MemberId'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `company` ADD COLUMN `MemberId`  VARCHAR(100) NULL DEFAULT NULL"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;

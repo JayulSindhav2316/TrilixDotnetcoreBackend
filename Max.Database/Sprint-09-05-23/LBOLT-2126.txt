@@ -1,0 +1,4 @@
+﻿ 
+ CALL MaxAddColumn( 'configuration', 'DisplayCompanySearchForMembershipAdditionalMember', 'INT NULL DEFAULT 0');
+
+ UPDATE `cara-demo`.`configuration` SET `DisplayCompanySearchForMembershipAdditionalMember` = 1;

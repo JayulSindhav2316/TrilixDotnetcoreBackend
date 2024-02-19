@@ -1,0 +1,3 @@
+
+// run only on nace-training
+UPDATE `configuration` SET `DisplayContactCRMDeleteMemberProfile` = '0', `DisplayContactCRMDeleteCompanyProfile` = '0'

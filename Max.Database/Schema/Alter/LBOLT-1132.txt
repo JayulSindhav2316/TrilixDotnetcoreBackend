@@ -1,0 +1,29 @@
+ALTER TABLE `entity` 
+ADD COLUMN `AccountLocked` INT(11) NULL AFTER `PreferredBillingCommunication`,
+ADD COLUMN `PasswordFailedAttempts` INT(11) NULL AFTER `AccountLocked`,
+ADD COLUMN `PortalLastAccessed` DATETIME NULL AFTER `PasswordFailedAttempts`;
+
+
+ALTER TABLE `multifactorcode` 
+ADD COLUMN `EntityId` INT(11) NULL AFTER `UserId`,
+ADD INDEX `fk_multifactorcode_entity_id_idx` (`EntityId` ASC);
+;
+ALTER TABLE `multifactorcode` 
+ADD CONSTRAINT `fk_multifactorcode_entity_id`
+  FOREIGN KEY (`EntityId`)
+  REFERENCES `entity` (`EntityId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+  
+ALTER TABLE `userdevice` 
+ADD COLUMN `EntityId` INT(11) NULL AFTER `UserId`,
+ADD INDEX `fk_userdevice_entity_id_idx` (`EntityId` ASC);
+;
+ALTER TABLE `userdevice` 
+ADD CONSTRAINT `fk_userdevice_entity_id`
+  FOREIGN KEY (`EntityId`)
+  REFERENCES `entity` (`EntityId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

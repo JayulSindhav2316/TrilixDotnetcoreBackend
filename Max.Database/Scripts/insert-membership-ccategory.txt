@@ -1,0 +1,14 @@
+INSERT INTO `membermax`.`membershipcategory`(`Name`,`Status`)
+VALUES ('Person',1);
+INSERT INTO `membermax`.`membershipcategory`(`Name`,`Status`)
+VALUES ('Company',1);
+INSERT INTO `membermax`.`membershipcategory`(`Name`,`Status`)
+VALUES ('Individual',1);
+INSERT INTO `membermax`.`membershipcategory`(`Name`,`Status`)
+VALUES ('Student',1);
+INSERT INTO `membermax`.`membershipcategory`(`Name`,`Status`)
+VALUES ('Couple',1);
+
+
+
+

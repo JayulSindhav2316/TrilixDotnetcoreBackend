@@ -1,0 +1,15 @@
+update `lookup` set `values` = '["Reverend","Most Reverend","His Eminence","Rev. Monsignor","Very Reverend","Mr.","Mrs.","Ms.","Dr.","Prof."]'
+where group='Prefix'
+
+update `lookup` set `values` = '["Reverend","Most Reverend","His Eminence","Rev. Monsignor","Very Reverend","Mr.","Mrs.","Ms.","Dr.","Prof."]'
+where group='Prefix'
+
+
+
+INSERT INTO `lookup`
+(
+`Group`,
+`Values`,
+`Status`)
+VALUES
+('Designation','["Vendor","Student","Membership"]',1);

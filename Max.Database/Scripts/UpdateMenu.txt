@@ -1,0 +1,5 @@
+update menu set RouterURL = '/events/events' where Label='Events';
+update menu set RouterURL = '/events/EventMain' where Label='addEventSetUp';
+update menu set RouterURL = '/events/EventMain/Edit' where Label='editEventSetUp';
+update menu set RouterURL = '/events/questions' where Label='Questions';
+update menu set RouterURL = '/events/group-resgistration' where Label='Groups';

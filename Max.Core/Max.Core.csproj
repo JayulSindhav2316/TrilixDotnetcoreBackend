@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helpers\CustomConverter.cs" />
+    <Compile Remove="Models\CreateCustomerProfileRequest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Models\AuthNetPaymentResponseModel.cs~RF4276c73.TMP" />
+    <None Remove="Models\PromoCodeModel.cs~RF3b89beb.TMP" />
+    <None Remove="Models\ShoppingCartDetailModel.cs~RF47ada5c.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.7.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.Graylog" Version="2.3.0" />
+    <PackageReference Include="SolrNet.Core" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>

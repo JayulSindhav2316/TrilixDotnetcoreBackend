@@ -1,0 +1,223 @@
+CREATE DATABASE `nbma-demo-report` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+
+CREATE TABLE `membershipcategory` (
+  `MembershipCategoryId` int(11) NOT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`MembershipCategoryId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `membershiptype` (
+  `MembershipTypeId` int(11) NOT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `Code` varchar(20) DEFAULT NULL,
+  `Description` varchar(500) DEFAULT NULL,
+  `Period` varchar(45) DEFAULT NULL,
+  `PaymentFrequency` int(11) DEFAULT NULL,
+  `Category` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  `Units` int(11) NOT NULL,
+  PRIMARY KEY (`MembershipTypeId`),
+  KEY `fk_mmembershiptype_period_id_idx` (`Period`),
+  KEY `fk_membershiptype_memmbeeership_category_id_idx` (`Category`),
+  CONSTRAINT `fk_membershiptype_membership_category_id` FOREIGN KEY (`Category`) REFERENCES `membershipcategory` (`MembershipCategoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `organization` (
+  `OrganizationId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  `Title` varchar(100) DEFAULT NULL,
+  `Prefix` varchar(45) DEFAULT NULL,
+  `Address1` varchar(100) DEFAULT NULL,
+  `Address2` varchar(100) DEFAULT NULL,
+  `Address3` varchar(100) DEFAULT NULL,
+  `City` varchar(45) DEFAULT NULL,
+  `State` varchar(10) DEFAULT NULL,
+  `Zip` varchar(10) DEFAULT NULL,
+  `Phone` varchar(50) DEFAULT NULL,
+  `Country` varchar(45) DEFAULT NULL,
+  `Website` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `Code` varchar(5) DEFAULT NULL,
+  `AccountName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`OrganizationId`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `entity` (
+  `EntityId` int(11) NOT NULL AUTO_INCREMENT,
+  `PersonId` int(11) DEFAULT NULL,
+  `CompanyId` int(11) DEFAULT NULL,
+  `Name` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `OrganizationId` int(11) DEFAULT NULL,
+  `ProfilePictureId` int(11) DEFAULT NULL,
+  `WebLoginName` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `PreferredBillingCommunication` int(11) DEFAULT NULL,
+  PRIMARY KEY (`EntityId`),
+  KEY `fk_entity_organization_id_idx` (`OrganizationId`),
+  CONSTRAINT `fk_entity_organization_id` FOREIGN KEY (`OrganizationId`) REFERENCES `organization` (`OrganizationId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+CREATE TABLE `membership` (
+  `MembershipId` int(11) NOT NULL AUTO_INCREMENT,
+  `MembershipTypeId` int(11) DEFAULT NULL,
+  `MembershipTypeName` varchar(100) DEFAULT NULL,
+  `StartDate` date NOT NULL,
+  `EndDate` date NOT NULL,
+  `ReviewDate` date NOT NULL,
+  `BillableEntityId` int(11) DEFAULT NULL,
+  `NextBillDate` date NOT NULL,
+  `BillingOnHold` int(11) NOT NULL,
+  `CreateDate` datetime NOT NULL,
+  `RenewalDate` date NOT NULL,
+  `TerminationDate` date NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '0',
+  `AutoPayEnabled` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`MembershipId`),
+  KEY `fk_membbership_membership_type_id_idx` (`MembershipTypeId`),
+  KEY `fk_membership_billableEntityId_idx` (`BillableEntityId`),
+  CONSTRAINT `fk_membership_billableEntity_id` FOREIGN KEY (`BillableEntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_membership_membership_type_id` FOREIGN KEY (`MembershipTypeId`) REFERENCES `membershiptype` (`MembershipTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `company` (
+  `CompanyId` int(11) NOT NULL AUTO_INCREMENT,
+  `CompanyName` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `Email` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `Phone` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `Website` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `BillableContactId` int(11) DEFAULT NULL,
+  `EntityId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`CompanyId`),
+  KEY `fk_company_entityid_idx` (`EntityId`),
+  CONSTRAINT `fk_company_entityid` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+CREATE TABLE `person` (
+  `PersonId` int(11) NOT NULL AUTO_INCREMENT,
+  `Prefix` varchar(45) DEFAULT NULL,
+  `FirstName` varchar(100) DEFAULT NULL,
+  `LastName` varchar(100) DEFAULT NULL,
+  `MiddleName` varchar(45) DEFAULT NULL,
+  `CasualName` varchar(45) DEFAULT NULL,
+  `Suffix` varchar(45) DEFAULT NULL,
+  `Gender` varchar(45) DEFAULT NULL,
+  `Title` varchar(45) DEFAULT NULL,
+  `Salutation` varchar(45) DEFAULT NULL,
+  `DateOfBirth` date DEFAULT NULL,
+  `CompanyId` int(11) DEFAULT NULL,
+  `FacebookName` varchar(100) DEFAULT NULL,
+  `LinkedinName` varchar(100) DEFAULT NULL,
+  `SkypeName` varchar(100) DEFAULT NULL,
+  `TwitterName` varchar(100) DEFAULT NULL,
+  `Website` varchar(255) DEFAULT NULL,
+  `OrganizationId` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  `PreferredContact` int(11) DEFAULT NULL,
+  `EntityId` int(11) DEFAULT NULL,
+  `Designation` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`PersonId`),
+  KEY `fk_person_comapny_id_idx` (`CompanyId`),
+  KEY `fk_person_organization_id_idx` (`OrganizationId`),
+  KEY `fk_person_entity_id_idx` (`EntityId`),
+  KEY `idx_person_first_name` (`FirstName`),
+  KEY `idx_person_last_name` (`LastName`),
+  CONSTRAINT `fk_person_comapny_id` FOREIGN KEY (`CompanyId`) REFERENCES `company` (`CompanyId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_person_entity_id` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_person_organization_id` FOREIGN KEY (`OrganizationId`) REFERENCES `organization` (`OrganizationId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `department` (
+  `DepartmentId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(45) DEFAULT NULL,
+  `Description` varchar(100) DEFAULT NULL,
+  `CostCenterCode` varchar(45) DEFAULT NULL,
+  `OrganizationId` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`DepartmentId`),
+  KEY `fk_department_organization_id_idx` (`OrganizationId`),
+  CONSTRAINT `fk_department_organization_id` FOREIGN KEY (`OrganizationId`) REFERENCES `organization` (`OrganizationId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `glaccounttype` (
+  `AccountId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  `Description` varchar(500) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`AccountId`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `glaccount` (
+  `GlAccountId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  `Code` varchar(50) DEFAULT NULL,
+  `AccountTypeId` int(11) DEFAULT NULL,
+  `DetailType` varchar(100) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  `CostCenterId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`GlAccountId`),
+  KEY `fk_glaccount_Accounttype_id_idx` (`AccountTypeId`),
+  KEY `fk_glaccount_depart_CC_id_idx` (`CostCenterId`),
+  CONSTRAINT `fk_glaccount_accounttype_id` FOREIGN KEY (`AccountTypeId`) REFERENCES `glaccounttype` (`AccountId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_glaccount_depart_cc_id` FOREIGN KEY (`CostCenterId`) REFERENCES `department` (`DepartmentId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `membershipfee` (
+  `FeeId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(45) DEFAULT NULL,
+  `Description` varchar(250) DEFAULT NULL,
+  `FeeAmount` decimal(13,2) NOT NULL,
+  `GlAccountId` int(11) DEFAULT NULL,
+  `BillingFrequency` int(11) DEFAULT NULL,
+  `IsMandatory` int(11) DEFAULT NULL,
+  `Status` int(11) NOT NULL,
+  `MembershipTypeId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`FeeId`),
+  KEY `fk_MembershipTypeId_idx` (`MembershipTypeId`),
+  KEY `fk_mmemmbbershipfee_glchartof_account_id_idx` (`GlAccountId`),
+  CONSTRAINT `fk_MembershipTypeId` FOREIGN KEY (`MembershipTypeId`) REFERENCES `membershiptype` (`MembershipTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mmemmbbershipfee_glchartof_account_id` FOREIGN KEY (`GlAccountId`) REFERENCES `glaccount` (`GlAccountId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `billingfee` (
+  `BillingFeeId` int(11) NOT NULL AUTO_INCREMENT,
+  `MembershipId` int(11) NOT NULL,
+  `MembershipFeeId` int(11) NOT NULL,
+  `Fee` decimal(13,2) NOT NULL,
+  `Discount` decimal(13,2) NOT NULL,
+  `Status` int(11) NOT NULL,
+  PRIMARY KEY (`BillingFeeId`),
+  KEY `fk_billingfee_membership_id_idx` (`MembershipId`),
+  KEY `fk_billingfee_membershipFee_id_idx` (`MembershipFeeId`),
+  CONSTRAINT `fk_billingfee_membershipFee_id` FOREIGN KEY (`MembershipFeeId`) REFERENCES `membershipfee` (`FeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_billingfee_membership_id` FOREIGN KEY (`MembershipId`) REFERENCES `membership` (`MembershipId`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `membershipperiod` (
+  `MembershipPeriodId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(45) DEFAULT NULL,
+  `Description` varchar(250) DEFAULT NULL,
+  `PeriodUnit` varchar(45) DEFAULT NULL,
+  `Duration` int(11) NOT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`MembershipPeriodId`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `membershipconnection` (
+  `MembershipConnectionId` int(11) NOT NULL AUTO_INCREMENT,
+  `MembershipId` int(11) NOT NULL,
+  `EntityId` int(11) NOT NULL,
+  `Status` int(11) NOT NULL,
+  PRIMARY KEY (`MembershipConnectionId`),
+  KEY `fk_membershiprelationship_membership_id_idx` (`MembershipId`),
+  KEY `fk_membershiprelation_entity_idx` (`EntityId`),
+  CONSTRAINT `fk_membershiprelation_entity` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_membershiprelationship_membership_id` FOREIGN KEY (`MembershipId`) REFERENCES `membership` (`MembershipId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;

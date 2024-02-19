@@ -1,0 +1,16 @@
+CREATE TABLE `entityrole` (
+  `EntityRoleId` int(11) NOT NULL AUTO_INCREMENT,
+  `EntityId` int(11) DEFAULT NULL,
+  `ContactRoleId` int(11) DEFAULT NULL,
+  `EffectiveDate` datetime DEFAULT NULL,
+  `EndDate` datetime DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  `CompanyId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`EntityRoleId`),
+  KEY `fk_entityrole_entityId_idx` (`EntityId`),
+  KEY `fk_entityrole_contactroleId_idx` (`ContactRoleId`),
+  KEY `fk_entityrole_companyId_idx` (`CompanyId`),
+  CONSTRAINT `fk_entityrole_companyId` FOREIGN KEY (`CompanyId`) REFERENCES `company` (`CompanyId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entityrole_contactroleId` FOREIGN KEY (`ContactRoleId`) REFERENCES `contactrole` (`ContactRoleId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entityrole_entityId` FOREIGN KEY (`EntityId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

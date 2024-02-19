@@ -1,0 +1,4 @@
+﻿ALTER TABLE `configuration` 
+ADD COLUMN `DisplayDashboard` INT NULL DEFAULT '1' AFTER `DisplayCustomFields`;
+
+UPDATE `ncacc-demo`.`configuration` SET `DisplayDashboard` = '0' WHERE (`ConfigurationId` = '2');

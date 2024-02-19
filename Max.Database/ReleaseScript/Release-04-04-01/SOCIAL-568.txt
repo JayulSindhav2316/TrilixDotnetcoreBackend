@@ -1,0 +1,17 @@
+/*CALL MaxAddColumn( 'configuration', 'CustomFieldsToSync', ' LONGTEXT NULL DEFAULT NULL');*/
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'configuration'
+        AND table_schema = DATABASE()
+        AND column_name = 'CustomFieldsToSync'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `configuration` ADD COLUMN `CustomFieldsToSync` LONGTEXT NULL DEFAULT NULL"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+//only applied to nace
+update configuration set CustomFieldsToSync = "VotingIndividual"

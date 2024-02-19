@@ -1,0 +1,214 @@
+
+
+ALTER TABLE `reportfield` 
+ADD COLUMN `Label` VARCHAR(100) NULL DEFAULT NULL AFTER `TableName`;
+
+
+ALTER TABLE `reportfield` 
+ADD COLUMN `DisplayOrder` INT NULL AFTER `FieldPathName`;
+
+
+/* LBOLT-1993*/
+ALTER TABLE `membershipreport` 
+ADD COLUMN `ReportId` INT NULL DEFAULT NULL AFTER `PreviewMode`;
+
+ALTER TABLE `membershipreport` 
+ADD COLUMN `isMyReport` INT NULL DEFAULT '0' AFTER `ReportId`,
+ADD COLUMN `isCommunity` INT NULL DEFAULT '0' AFTER `isMyReport`;
+
+/* LBOLT-2056*/
+
+ALTER TABLE `reportfilter` 
+DROP FOREIGN KEY `fk_reportFIlter_parameterId`;
+ALTER TABLE `reportfilter` 
+CHANGE COLUMN `ParameterId` `ParameterId` INT NULL DEFAULT NULL ;
+ALTER TABLE `reportfilter` 
+ADD CONSTRAINT `fk_reportFIlter_parameterId`
+  FOREIGN KEY (`ParameterId`)
+  REFERENCES `reportparameter` (`ReportParameterId`);
+
+ALTER TABLE `reportfield`
+ADD COLUMN `DisplayType` VARCHAR(45) NULL DEFAULT NULL;
+
+ALTER TABLE `reportfilter`
+ADD COLUMN `ReportFieldId` INT NULL DEFAULT 0;
+
+/* LBOLT-2073*/
+
+/*LBOLT-2084*/
+
+CREATE TABLE IF NOT EXISTS `contactsaccountsreport` (
+  `ContactsAccountsReportId` INT NOT NULL,
+  `Title` VARCHAR(45) NULL DEFAULT NULL,
+  `Description` VARCHAR(250) NULL DEFAULT NULL,
+  `UserId` INT NULL DEFAULT NULL,
+  `Type` VARCHAR(45) NULL DEFAULT NULL,
+  `Fields` VARCHAR(500) NULL DEFAULT NULL,
+  `PreviewMode` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`ContactsAccountsReportId`));
+
+ALTER TABLE `contactsaccountsreport` 
+CHANGE COLUMN `ContactsAccountsReportId` `ContactsAccountsReportId` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `contactsaccountsreport` 
+ADD INDEX `fk_contactsaccountsreport_staff_userId_idx` (`UserId` ASC);
+ALTER TABLE `contactsaccountsreport` 
+ADD CONSTRAINT `fk_contactsaccountsreport_staff_userId`
+  FOREIGN KEY (`UserId`)
+  REFERENCES `staffuser` (`UserId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+ALTER TABLE `contactsaccountsreport` 
+ADD COLUMN `ReportId` INT NULL DEFAULT NULL AFTER `PreviewMode`;
+
+
+ALTER TABLE `report` 
+ADD COLUMN `ReportType` VARCHAR(45) NULL DEFAULT NULL AFTER `Shared`,
+ADD COLUMN `isMyReport` INT NULL DEFAULT '0' AFTER `ReportType`,
+ADD COLUMN `isCommunity` INT NULL DEFAULT '0' AFTER `isMyReport`,
+CHANGE COLUMN `Name` `Name` VARCHAR(100) CHARACTER SET 'utf8mb3' NULL ,
+CHANGE COLUMN `Shared` `Shared` TINYINT NULL ;
+
+
+ALTER TABLE `contactsaccountsreport` 
+ADD INDEX `fk_contactsaccountsreport_report_id_idx` (`ReportId` ASC);
+ALTER TABLE `contactsaccountsreport` 
+ADD CONSTRAINT `fk_contactsaccountsreport_report_id`
+  FOREIGN KEY (`ReportId`)
+  REFERENCES `report` (`ReportId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+
+ALTER TABLE `reportshare` 
+ADD COLUMN `tReportId` INT NULL DEFAULT NULL AFTER `SharedToUserId`,
+ADD INDEX `fk_report_share_tReportId_idx` (`tReportId` ASC);
+
+ALTER TABLE `reportshare` 
+ADD CONSTRAINT `fk_report_share_tReportId`
+  FOREIGN KEY (`tReportId`)
+  REFERENCES `contactsaccountsreport` (`ContactsAccountsReportId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+ALTER TABLE `reportsortorder` 
+ADD COLUMN `tReportId` INT NULL DEFAULT NULL AFTER `DataType`,
+ADD INDEX `fk_reportsortorder_tReportId_idx` (`tReportId` ASC);
+
+ALTER TABLE `reportsortorder` 
+ADD CONSTRAINT `fk_reportsortorder_tReportId`
+  FOREIGN KEY (`tReportId`)
+  REFERENCES `contactsaccountsreport` (`ContactsAccountsReportId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+ALTER TABLE `reportfilter`
+ADD COLUMN `tReportId` INT NULL DEFAULT NULL AFTER `Value`,
+ADD INDEX `fk_reportfilter_tReportId_idx` (`tReportId` ASC);
+
+ALTER TABLE `reportfilter` 
+ADD CONSTRAINT `fk_reportfilter_tReportId`
+  FOREIGN KEY (`tReportId`)
+  REFERENCES `contactsaccountsreport` (`ContactsAccountsReportId`)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+
+ALTER TABLE `reportfilter` 
+DROP FOREIGN KEY `fk_reportfilter_reportId`;
+ALTER TABLE `reportfilter` 
+CHANGE COLUMN `ReportId` `ReportId` INT NULL DEFAULT NULL ;
+ALTER TABLE `reportfilter` 
+ADD CONSTRAINT `fk_reportfilter_reportId`
+  FOREIGN KEY (`ReportId`)
+  REFERENCES `membershipreport` (`MembershipReportId`);
+
+ALTER TABLE `contactsaccountsreport` 
+ADD COLUMN `isMyreport` INT NULL DEFAULT '0' AFTER `ReportId`,
+ADD COLUMN `isCommunity` INT NULL DEFAULT '0' AFTER `isMyreport`;
+
+ALTER TABLE `contactsaccountsreport`
+ADD COLUMN `LastUpdatedOn` datetime DEFAULT NULL;
+
+ALTER TABLE `membershipreport`
+ADD COLUMN `LastUpdatedOn` datetime DEFAULT NULL;
+
+/*LBOLT-2099*/
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'configuration'
+        AND table_schema = DATABASE()
+        AND column_name = 'DisplayContactCRMRelationContactCompany'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `configuration` ADD COLUMN `DisplayContactCRMRelationContactCompany` INT NULL DEFAULT NULL"
+));
+
+/*LBOLT-2120*/
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'configuration'
+        AND table_schema = DATABASE()
+        AND column_name = 'DisplayCompanySearchForMembershipAdditionalMember'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `configuration` ADD COLUMN `DisplayCompanySearchForMembershipAdditionalMember` INT NULL DEFAULT 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+INSERT INTO `relationship` (`Relation`, `ReverseRelationMale`, `ReverseRelationFemale`) VALUES ('Dealership', 'Auto Group', 'Auto Group');
+
+/* LBOLT-2134 */
+ALTER TABLE `billingcycle` 
+ADD COLUMN `CycleType` INT NULL DEFAULT 0 AFTER `Status`;
+
+/* LBOLT-2152 */
+
+ALTER TABLE `entityrolehistory` 
+ADD COLUMN `IsDeleted` INT NULL DEFAULT NULL;
+
+ALTER TABLE `entityrole` 
+ADD COLUMN `IsDeleted` INT NULL DEFAULT NULL;
+
+/* LBOLT-2157 */
+ALTER TABLE `configuration` 
+ADD COLUMN `ShowDealerShipCompanyAsBillableForMembership` INT NULL DEFAULT 0;
+ 
+ /* LBOLT-2205 */
+ALTER TABLE `configuration` 
+ADD COLUMN `DisplayBillableContactFieldOnSearch` INT NULL DEFAULT 0;
+
+/* SOCIAL-518 */
+ALTER TABLE `configuration` 
+ADD COLUMN `IsGenerateRandomEmailForComany` INT NULL DEFAULT 0;
+
+ALTER TABLE `configuration` 
+ADD COLUMN `CompanyRandomEmailDomain` VARCHAR(255) NULL DEFAULT NULL;
+
+ALTER TABLE `configuration` 
+ADD COLUMN `OnlyShowDealershipAutoGroupDropdownInContactCRMConnectionTab` INT NULL DEFAULT 0;
+
+ALTER TABLE `configuration` 
+ADD COLUMN `ShowDealerShipComanyAsBillableForMembership` INT NULL DEFAULT 0;
+
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'group'
+        AND table_schema = DATABASE()
+        AND column_name = 'SocialGroupId'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `group` ADD COLUMN `SocialGroupId` INT NULL DEFAULT NULL AFTER `Sync`"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+ 

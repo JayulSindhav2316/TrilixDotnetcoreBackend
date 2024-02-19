@@ -1,0 +1,7 @@
+drop size of VM desk top
+Drop ISze of Db server
+Drop backup of Storage
+Bastion host needs to be removed
+Tagging the VMs based on uses
+
+Db3 Size Db cut half size

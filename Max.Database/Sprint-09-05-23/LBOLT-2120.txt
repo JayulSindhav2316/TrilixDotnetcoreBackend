@@ -1,0 +1,21 @@
+SET @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'configuration'
+        AND table_schema = DATABASE()
+        AND column_name = 'DisplayCompanySearchForMembershipAdditionalMember'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE `configuration` ADD COLUMN `DisplayCompanySearchForMembershipAdditionalMember` INT NULL DEFAULT 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+
+INSERT INTO `relationship` (`Relation`, `ReverseRelationMale`, `ReverseRelationFemale`) VALUES ('Dealership', 'Auto Group', 'Auto Group');
+
+
+--only apply to cara-demo
+update configuration set OnlyShowDealershipAutoGroupDropdownInContactCRMConnectionTab = 1;

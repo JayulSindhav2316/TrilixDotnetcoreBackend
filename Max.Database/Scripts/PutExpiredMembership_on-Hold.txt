@@ -1,0 +1,4 @@
+﻿Update Membership Set status=4 where enddate < '2022-04-01';
+
+INSERT INTO `membershiphistory` (`MembershipId`,`StatusDate`,`Status`,`ChangedBy`,`Reason`)
+select membershipid,'2022-04-01',1,1,'Expired Membership' from membership where status = 4

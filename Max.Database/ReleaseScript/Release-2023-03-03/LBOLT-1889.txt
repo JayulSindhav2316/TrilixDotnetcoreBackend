@@ -1,0 +1,5 @@
+ALTER TABLE `countries` 
+ADD COLUMN `Regex` TEXT NULL DEFAULT NULL AFTER `ZipFormat`;
+
+
+update countries set ZipFormat = '99999-9999', Regex='^(?:\[0-9]{9}|\[0-9]{5})$' where Name = 'United States' and ShortName = 'US';

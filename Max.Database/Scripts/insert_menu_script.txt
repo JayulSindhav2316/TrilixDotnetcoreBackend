@@ -1,0 +1,241 @@
+DELETE FROM rolemenu;
+DELETE FROM menu;
+DELETE FROM menugroup;
+ALTER TABLE `menugroup` AUTO_INCREMENT = 1;
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Main',1,10,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Membership',1,20,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Billing',1,30,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Reports',1,40,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Events',1,50,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Marketplace',1,60,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Board & Committees',1,70,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Publications',1,80,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Accounting',1,90,'Main');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Set Up',1,110,'Administration');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Staff Management',1,120,'Administration');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Manage',1,130,'CMS');
+INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Preview',1,140,'CMS');
+
+
+ALTER TABLE `menu` AUTO_INCREMENT = 1;
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,1,'Dashboard','pi pi-fw pi-home','/',0,0,'','Dashboard',10);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,1,'Contacts - CRM','pi pi-fw pi-users','/contacts',0,0,'','Contacts - CRM',20);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,2,'Membership','pi pi-fw pi-id-card','/membership',1,0,'','Membership',30);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (3,2,'Create New','pi pi-fw pi-list','/membership/searchMember',0,0,'','Create New',40);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,3,'Billing','pi pi-fw pi-id-card','/billing',1,0,'','billing',50);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (5,3,'Dashboard','pi pi-fw pi-list','/billing/dashboard',0,0,'','Dashboard',60);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (5,3,'Recurring','pi pi-fw spin pi-spinner','billing/recurring',0,0,'','Recurring',70);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (5,3,'Manual','pi pi-fw pi-list','billing/manual',0,0,'','Manual',75);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,4,'Reports','pi pi-fw pi-id-card','/report',1,0,'','Reports',80);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (8,4,'General Ledger','pi pi-fw spin pi-spinner','/report/generalledger',0,0,'','General Ledger',90);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (8,4,'Credit Card','pi pi-fw pi-list','/report/creditcard',0,0,'','Credit Card',100);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,1,'Events','pi pi-fw pi-calendar','/events',0,0,'','Events',110);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,1,'Marketplace','pi pi-fw pi-shopping-cart','/marketplace',0,0,'','Marketplace',120);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,1,'Boards & Groups','pi pi-fw pi-sitemap','/manage/groups',0,0,'','Boards & Groups',130);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,1,'Publications','pi pi-fw pi-list','/board-committees',0,0,'','publications',140);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,1,'Accounting','pi pi-fw pi-briefcase','/accounting',0,0,'','Accounting',150);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,10,'SetUp','pi pi-fw pi-list','/setup',1,0,'','SetUp',170);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Membership Types','pi pi-fw pi-list','/setup/membership',0,0,'','Membership Types',180);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Departments','pi pi-fw pi-list','/setup/department',0,0,'','Departments',190);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'GL Accounts','pi pi-fw pi-briefcase','/setup/glAccounts',0,0,'','GL Accounts',200);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Recurring Billing','pi pi-fw pi-list','/setup/recurringBuilling',0,0,'','Recurring Billing',210);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Organization','pi pi-fw pi-globe','/setup/organization',0,0,'','Organization',220);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Promo Codes','pi pi-fw pi-globe','/setup/promoCode',0,0,'','Promo Codes',230);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,11,'Staff Management','pi pi-fw pi-user','/staff',1,0,'','Staff Management',240);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (24,11,'Manage Users','pi pi-fw pi-user','/staff/staff',0,0,'','Manage Users',250);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (24,11,'Manage Roles','pi pi-fw pi-tag','/staff/role',0,0,'','Manage Roles',260);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (24,11,'Link Role-Menus','pi pi-fw pi-tags','/staff/role-menu',0,0,'','Link Role-Menus',270);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,12,'Manage','pi pi-fw spin pi-spinner','cms/manager/pages',0,0,'','Manage',280);
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (0,13,'Preview','pi pi-fw pi-list','cms/preview',0,0,'','Preview',290);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Invoice Items','pi pi-fw pi-tag','/setup/invoiceItem',0,0,'','Invoice Items',232);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Boards & Groups','pi pi-fw pi-sitemap','/setup/group',0,0,'','Boards & Groups',233);
+
+
+ Insert into rolemenu (RoleId,MenuId)
+ select 11, menuId from Menu
+
+ INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+ VALUES (9,4,'Membership','pi pi-fw pi-list','/report/membership',0,0,'','Membership',102);
+
+ INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+ VALUES (9,4,'Deposit','pi pi-fw pi-list','/report/deposit',0,0,'','Deposit',103);          
+ 
+ //Document Management
+
+ INSERT INTO `menugroup` ( `GroupName`, `Status`,`DisplayOrder`,`MenuName`) VALUES ('Documents',1,100,'Main');
+ 
+ 
+ INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+ VALUES (0,14,'Directories','pi pi-fw pi-list','/document/container',0,0,'','Directories',110);
+ 
+ INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+ VALUES (0,14,'Documents','pi pi-fw pi-list','/document',1,0,'','Documents',300);
+ 
+ update menu set parentmenuid=37 where menuid=36
+
+  
+ INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+ VALUES (37,14,'Documents','pi pi-fw pi-list','/document/folder',0,0,'','Documents',120);
+
+/* events manager set up */
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Events','pi pi-fw pi-calendar','/setup/events',0,0,'','Events',234);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`,`Display`)
+VALUES (55,10,'addEventSetUp',null,'/setup/EventMain',0,0,'',null,0,0);
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`,`Display`)
+VALUES (55,10,'editEventSetUp',null,'/setup/EventMain/Edit',0,0,'',null,0,0);
+
+/* set up => question bank  */
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Questions','pi pi-fw pi-briefcase','/setup/questions',0,0,'','Questions',235);
+
+/* Moving the Events related pages under Main = > Events */
+
+update `menugroup` set MenuName = 'Events', groupname = 'Manage' where groupname = 'Events';
+update `menu` set Expanded = 1, GroupId = 5, Label = 'Manage', Title = 'Manage' where RouterURL = '/events';
+update `menu` set GroupId = 5, ParentMenuId = 12 where RouterURL = '/setup/EventMain';
+update `menu` set GroupId = 5, ParentMenuId = 12 where RouterURL = '/setup/EventMain/Edit';
+update `menu` set GroupId = 5, ParentMenuId = 12, Label = 'Events' where RouterURL = '/setup/events';
+update `menu` set GroupId = 5, ParentMenuId = 12, Label = 'Groups' where RouterURL = '/setup/group-resgistration';
+update `menu` set GroupId = 5, ParentMenuId = 12 where RouterURL = '/setup/questions';
+
+
+INSERT INTO `menu` (`ParentMenuId`,`GroupId`,`Label`,`Icon`,`RouterURL`,`Expanded`,`Disabled`,`Tooltip`,`Title`,`DisplayOrder`)
+VALUES (17,10,'Contact Roles','pi pi-fw pi-globe','/setup/contactRoles',0,0,'','Contact Roles',235);
+
+
+/* set up => event registration  Inserting main menu */
+
+set @menuId = 0;
+set @groupId = 0;
+
+insert into menugroup
+(select max(MenuGroupId)+1,'Event Registration',1,150,'Events' from menugroup);
+
+select @groupId:= MenuGroupId from menugroup where groupName='Event Registration';
+
+insert into menu
+(ParentMenuId,GroupId,Label,Icon,RouterURL,Expanded,Disabled,Tooltip,Title,DisplayOrder,Display)
+
+values
+(0,@groupId,'Event Registration','pi pi-fw pi-calendar','/eventregistration',0,0,null,'Event Registration',301,null);
+
+
+/* Now adding Sub Menu Menu Id of parent menu can't be harcoded as every db could have diffrent parent mmenuid */
+
+select @menuId:=menuid from menu where label='Event Registration';
+
+insert into menu
+(ParentMenuId,GroupId,Label,Icon,RouterURL,Expanded,Disabled,Tooltip,Title,DisplayOrder,Display)
+
+values
+(@menuId,@groupId,'Create New','pi pi-fw pi-list','/eventregistration/searchMember',1,0,null,'Create New',302,null),
+
+(@menuId,@groupId,'createEventRegistration',null,'/eventregistration/createeventregistration',0,0,null,null,0,0);
+
+
+/* Custom Field */
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,
+Tooltip,Title,DisplayOrder,Display)
+VALUES 
+
+(17,10,'Custom Fields', 'pi pi-fw pi-list','setup/customfields',0,0,'',null,0,null);
+
+/* Reports Menu */
+insert into menu (ParentMenuId,groupid,Label,RouterURL,Expanded,Disabled,Title,DisplayOrder,icon)
+values (17,10,'Report Category','/setup/report-category',0,0,'Report Category',234,'pi pi-book');
+
+insert into menu (ParentMenuId,groupid,Label,RouterURL,Expanded,Disabled,Title,DisplayOrder,icon)
+values (17,10,'Report Desinger','/setup/report-desinger',0,0,'Report Designer',235,'pi pi-chart-bar');
+
+insert into menu (ParentMenuId,groupid,Label,RouterURL,Expanded,Disabled,Title,DisplayOrder,icon)
+values (9,4,'Report Viewer','/report/reportList',0,0,'Report Viewer',235,'pi pi-th-large');
+
+/* Insert setup/opportunity meny*/
+
+/* Get parent menu Id */
+
+SELECT @parentMenuId:=menuid from menu where label='Setup';
+SELECT @groupId:=groupId from menu where label='Setup';
+
+//Check if this menu item already exists
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,Tooltip,Title,DisplayOrder,Display)
+VALUES (@parentMenuId,@groupId,'Opportunities', 'pi pi-fw pi-list','setup/opportunities',0,0,'Opportunities','Opportunities',0,1);
+
+/* Insert Batch Renewal meny*/
+
+/* Get parent menu Id */
+
+
+SELECT @parentMenuId:=menuid from menu where label='Membership' and RouterURL='/membership';
+SELECT @groupId:=groupId from menu where label='Membership' and RouterURL='/membership';
+
+
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,Tooltip,Title,DisplayOrder,Display)
+VALUES (@parentMenuId,@groupId,'Batch Renewal', 'pi pi-fw pi-list','/membership/batchrenewal',0,0,'Batch Renewal','Batch Renewal',0,1);

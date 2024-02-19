@@ -1,0 +1,28 @@
+/* Alter Address table */
+ALTER TABLE `address` 
+DROP FOREIGN KEY `fk_address_person_id`;
+ALTER TABLE `address` 
+ADD COLUMN `CompanyId` INT NULL DEFAULT NULL AFTER `IsPrimary`,
+CHANGE COLUMN `PersonId` `PersonId` INT(11) NULL DEFAULT NULL ;
+ALTER TABLE`address` 
+ADD CONSTRAINT `fk_address_person_id`
+  FOREIGN KEY (`PersonId`)
+  REFERENCES `person` (`PersonId`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `address` 
+ADD INDEX `fk_address_company_id_idx` (`CompanyId` ASC);
+;
+ALTER TABLE `address` 
+ADD CONSTRAINT `fk_address_company_id`
+  FOREIGN KEY (`CompanyId`)
+  REFERENCES `company` (`CompanyId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+/* Import current company address to address table */
+
+INSERT INTO `address` (`AddressType`,`CompanyId`,`Address1`,`City`,`State`,`Zip`,`Country`,`IsPrimary`)
+Select 'Mailing',CompanyId,StreetAddress,City,state,Zip,Country,1 from company where StreetAddress is not null And State is not null and city is not null
+

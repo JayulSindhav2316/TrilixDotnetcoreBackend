@@ -1,0 +1,80 @@
+
+delete from person where entityid=2974;
+delete from entity where entityid=2974;
+
+select * from email where personid=2974
+update email set emailaddress='archbishop.gustavo@archsa.org.test' where  personid=2974
+select * from groupmember where entityid=2974
+delete from groupmember where entityid=2974
+select * from groupmemberrole where groupmemberid=210
+delete from groupmemberrole where groupmemberid=210
+
+select * from relation where Relatedentityid=2974
+
+delete from relation where relationid=2856
+
+
+
+
+delete from person where personid=6777;
+select * from multifactorcode where entityid=9843;
+delete from multifactorcode where entityid=9843;
+select * from userdevice where entityid=9843;
+delete from userdevice where entityid=9843;
+delete from entity where entityid=9843;
+select * from entity where personid=6777
+select * from email where personid=2974
+
+select * from groupmember where entityid=2974
+delete from groupmember where entityid=2974
+select * from groupmemberrole where groupmemberid=210
+delete from groupmemberrole where groupmemberid=210
+
+select * from relation where Relatedentityid=2974
+
+delete from relation where relationid=2856
+
+
+
+
+delete from person where personid=6770;
+select * from multifactorcode where entityid=9836;
+delete from multifactorcode where entityid=9836;
+select * from userdevice where entityid=9836;
+delete from userdevice where entityid=9836;
+
+select * from documentobjectaccesshistory where entityid=9836;
+delete from documentobjectaccesshistory where entityid=9836;
+delete from entity where entityid=9836;
+select * from entity where personid=6770
+select * from email where personid=2974
+
+select * from groupmember where entityid=9836
+delete from groupmember where entityid=9836
+select * from groupmemberrole where groupmemberid=604
+delete from groupmemberrole where groupmemberid=604
+
+select * from person where personid=4666 or firstname='Lee'
+select * from entity where personid=4666
+select * from email where personid=4666
+select * from address where personid=4666
+select * from phone where personid=4666
+select * from groupmember where entityid=4666
+
+
+delete from groupmemberrole where groupmemberid=76
+delete from groupmember where entityid=193
+delete from phone where personid=193
+delete from address where personid=193
+delete from email where personid=193
+delete from person where personid=193
+delete from entity where personid=193
+
+
+delete from groupmemberrole where groupmemberid=298
+delete from groupmember where entityid=4666
+delete from phone where personid=4666
+delete from address where personid=4666
+delete from email where personid=4666
+delete from person where personid=4666
+delete from entity where personid=4666

@@ -1,0 +1,53 @@
+CREATE TABLE IF NOT EXISTS `opportunitypipeline` (
+  `PipelineId` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`PipelineId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `pipelinestage` (
+  `StageId` int(11) NOT NULL AUTO_INCREMENT,
+  `PipelineId` int(11) DEFAULT NULL,
+  `StageName` varchar(100) DEFAULT NULL,
+  `Probability` int(11) DEFAULT NULL,
+  `StageIndex` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`StageId`),
+  KEY `fk_stage_pipilineId_idx` (`PipelineId`),
+  CONSTRAINT `fk_stage_pipilineId` FOREIGN KEY (`PipelineId`) REFERENCES `opportunitypipeline` (`PipelineId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `pipelineproduct` (
+  `ProductId` int(11) NOT NULL AUTO_INCREMENT,
+  `PipelineId` int(11) DEFAULT NULL,
+  `ProductName` varchar(100) DEFAULT NULL,
+  `ProductIndex` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ProductId`),
+  KEY `fk_product_pipelineId_idx` (`PipelineId`),
+  CONSTRAINT `fk_product_pipelineId` FOREIGN KEY (`PipelineId`) REFERENCES `opportunitypipeline` (`PipelineId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `opportunity` (
+  `OpportunityId` int(11) NOT NULL AUTO_INCREMENT,
+  `PipelineId` int(11) DEFAULT NULL,
+  `ProductId` int(11) DEFAULT NULL,
+  `EstimatedCloseDate` datetime DEFAULT NULL,
+  `Potential` decimal(13,2) DEFAULT NULL,
+  `StaffUserId` int(11) DEFAULT NULL,
+  `AccountContactId` int(11) DEFAULT NULL,
+  `StageId` int(11) DEFAULT NULL,
+  `Probability` int(11) DEFAULT NULL,
+  `Notes` varchar(3000) DEFAULT NULL,
+  `CompanyId` int(11) DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`OpportunityId`),
+  KEY `fk_opportunity_pipeline_id_idx` (`PipelineId`),
+  KEY `fk_opportunity_staff_user_id_idx` (`StaffUserId`),
+  KEY `fk_opportunity_contact_id_idx` (`AccountContactId`),
+  KEY `fk_opportunity_company_id_idx` (`CompanyId`),
+  CONSTRAINT `fk_opportunity_company_id` FOREIGN KEY (`CompanyId`) REFERENCES `company` (`CompanyId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_opportunity_contact_id` FOREIGN KEY (`AccountContactId`) REFERENCES `entity` (`EntityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_opportunity_pipeline_id` FOREIGN KEY (`PipelineId`) REFERENCES `opportunitypipeline` (`PipelineId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_opportunity_staff_user_id` FOREIGN KEY (`StaffUserId`) REFERENCES `staffuser` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;

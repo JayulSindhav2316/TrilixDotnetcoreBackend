@@ -1,0 +1,5 @@
+﻿update person set PreferredContact =1 where  PreferredContact is not NULL and personid in (
+SELECT personid  from email where char_length(EmailAddress) > 0)
+update person set PreferredContact =2 where PreferredContact is NULL
+
+update paymenttransaction set transactionType =0 where transactionType is  null

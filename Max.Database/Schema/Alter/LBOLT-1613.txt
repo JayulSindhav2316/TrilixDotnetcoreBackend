@@ -1,0 +1,60 @@
+﻿CREATE TABLE `customfield` (
+  `CustomFieldId` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `ModuleId` int(11),
+  `OrganizationId` int(11),
+  `FieldTypeId` int(11),
+  `Label` varchar(255),
+  `Placeholder` varchar(255),
+  `validations` varchar(255),
+  `CharacterLimit` int,
+  `Required` int,
+  `CountryCode` int,
+  `DateFormat` varchar(255),
+  `DefaultDate` varchar(255),
+  `TimeFormat` varchar(255),
+  `DefaultTime` varchar(255),
+  `MultipleSelection` int
+);
+
+CREATE TABLE `fieldtype` (
+  `FieldTypeId` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `Type` varchar(255)
+);
+
+CREATE TABLE `customfieldoption` (
+  `OptionId` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `CustomFieldId` int,
+  `Option` varchar(255),
+  `code` varchar(255)
+);
+
+ALTER TABLE `customfield` ADD FOREIGN KEY (`FieldTypeId`) REFERENCES `fieldtype` (`FieldTypeId`);
+
+ALTER TABLE `customfieldoption` ADD FOREIGN KEY (`CustomFieldId`) REFERENCES `customfield` (`CustomFieldId`);
+
+
+INSERT INTO 
+	fieldtype(type)
+VALUES
+	('Text'),
+	('Email Address'),
+    ('Phone Number'),
+    ('Date'),
+    ('Time'),
+    ('Number'),
+    ('Short Text'),
+    ('Long Text'),
+    ('Dropdown'),
+    ('Single Choice Field'),
+    ('Multiple Choice Field');
+
+
+    ALTER TABLE customfield
+ADD Status int;
+
+update fieldtype set type='Multiple Choice Field' where fieldtypeid=11
+
+    ALTER TABLE customfield
+ADD Editable int;
+    
+/* Moved the menu script under scripts/insert_menu_script folder */

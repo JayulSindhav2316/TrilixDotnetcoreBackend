@@ -1,0 +1,12 @@
+﻿INSERT INTO `membermax`.`invoicedetail` (`InvoiceId`,`Description`,`Amount`,`Quantity`,`Taxable`,`GlAccount`,`Status`)
+VALUES (1,'Membership  Fee',100.00,1,0,'MEM-01-02-000009',1);
+INSERT INTO `membermax`.`invoicedetail` (`InvoiceId`,`Description`,`Amount`,`Quantity`,`Taxable`,`GlAccount`,`Status`)
+VALUES (2,'Membership  Fee',100.00,1,0,'MEM-01-02-000009',1);
+INSERT INTO `membermax`.`invoicedetail` (`InvoiceId`,`Description`,`Amount`,`Quantity`,`Taxable`,`GlAccount`,`Status`)
+VALUES (3,'Membership  Fee',100.00,1,0,'MEM-01-02-000009',1);
+INSERT INTO `membermax`.`invoicedetail` (`InvoiceId`,`Description`,`Amount`,`Quantity`,`Taxable`,`GlAccount`,`Status`)
+VALUES (4,'Membership  Fee',100.00,1,0,'MEM-01-02-000009',1);
+INSERT INTO `membermax`.`invoicedetail` (`InvoiceId`,`Description`,`Amount`,`Quantity`,`Taxable`,`GlAccount`,`Status`)
+VALUES (5,'Membership  Fee',100.00,1,0,'MEM-01-02-000009',1);
+
+

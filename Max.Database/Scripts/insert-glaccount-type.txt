@@ -1,0 +1,7 @@
+INSERT INTO `membermax`.`glaccounttype`
+(`Name`,`Description`,`Status`)
+VALUES ('Income','Income  Account',1);
+INSERT INTO `membermax`.`glaccounttype`
+(`Name`,`Description`,`Status`)
+VALUES ('Expense','Expense  Account',1);
+

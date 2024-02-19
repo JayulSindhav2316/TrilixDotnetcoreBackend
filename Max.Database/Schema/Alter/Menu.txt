@@ -1,0 +1,34 @@
+﻿DELETE FROM `RoleMenu`;
+DELETE FROM `Menu`;
+DELETE FROM `MenuGroup`;
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE `Menu`;
+DROP TABLE `MenuGroup`;
+
+CREATE TABLE `menu` (
+  `MenuId` int(11) NOT NULL AUTO_INCREMENT,
+  `ParentMenuId` int(11) DEFAULT NULL,
+  `GroupId` int(11) DEFAULT NULL,
+  `Label` varchar(100) DEFAULT NULL,
+  `Icon` varchar(100) DEFAULT NULL,
+  `RouterURL` varchar(255) DEFAULT NULL,
+  `Expanded` int(11) NOT NULL,
+  `Disabled` int(11) NOT NULL,
+  `Tooltip` varchar(250) DEFAULT NULL,
+  `Title` varchar(45) DEFAULT NULL,
+  `DisplayOrder` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`MenuId`),
+  KEY `fk_menu_menugroupId_idx` (`GroupId`),
+  CONSTRAINT `fk_menu_menugroupId` FOREIGN KEY (`GroupId`) REFERENCES `menugroup` (`MenuGroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `menugroup` (
+  `MenuGroupId` int(11) NOT NULL AUTO_INCREMENT,
+  `GroupName` varchar(45) DEFAULT NULL,
+  `Status` int(11) NOT NULL DEFAULT '0',
+  `DisplayOrder` int(11) NOT NULL DEFAULT '0',
+  `MenuName` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`MenuGroupId`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+SET FOREIGN_KEY_CHECKS = 1;

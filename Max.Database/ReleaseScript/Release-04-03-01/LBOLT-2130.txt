@@ -1,0 +1,2 @@
+-- only apply to cara-demo
+INSERT INTO `relationship` (`Relation`, `ReverseRelationMale`, `ReverseRelationFemale`) VALUES ('Unknown', 'Unknown', 'Unknown');

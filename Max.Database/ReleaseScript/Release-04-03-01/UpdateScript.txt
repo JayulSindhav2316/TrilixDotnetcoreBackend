@@ -1,0 +1,486 @@
+
+
+INSERT IGNORE INTO `reportcategory` (`ReportCategoryId`, `Title`, `Description`) VALUES ('2', 'Contacts', 'Contacts');
+INSERT IGNORE INTO `reportcategory` (`ReportCategoryId`, `Title`, `Description`) VALUES ('3', 'Accounts', 'Accounts');
+
+SELECT @parentMenuId:=menuid from menu where label='Reports' and RouterURL='/report';
+SELECT @groupId:=groupId from menu where label='Reports' and RouterURL='/report';
+
+INSERT INTO menu (menu.ParentMenuId, menu.GroupId, menu.Label, menu.Icon, menu.RouterURL, Expanded, Disabled,Tooltip,Title,DisplayOrder,Display)
+SELECT @parentMenuId,@groupId,'Contacts & Accounts', 'pi pi-fw pi-list','/report/contacts&accounts',0,0,'','Contacts & Accounts',101,1
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `menu`
+  WHERE `Label` = 'Contacts & Accounts'
+);
+
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Prefix', 'person', 'Prefix', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Prefix'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'FirstName', 'person', 'First Name', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'FirstName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'MiddleName', 'person', 'Middle Name', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'MiddleName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'LastName', 'person', 'Last Name', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'LastName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'CasualName', 'person', 'Casual Name', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'CasualName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Suffix', 'person', 'Suffix', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Suffix'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'DateOfBirth', 'person', 'Birth Date', 'Date', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'DateOfBirth'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Gender', 'person', 'Gender', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Gender'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'PreferredContact', 'person', 'Primary Contact', 'Int', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'PreferredContact'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Designation', 'person', 'Designation', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Designation'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'PhoneType', 'phone', 'Phone Type', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'PhoneType'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'PhoneNumber', 'phone', 'Phone Number', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'PhoneNumber'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'EmailAddressType', 'email', 'Email Type', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'EmailAddressType'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'EmailAddress', 'email', 'Email', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'EmailAddress'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'AddressType', 'address', 'Address Type', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'AddressType'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Address1', 'address', 'Address', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Address1'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'City', 'address', 'City', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'City'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'State', 'address', 'State', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'State'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Zip', 'address', 'Zip', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Zip'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Country', 'address', 'Country', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Country'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'CompanyName', 'company', 'Company Name', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'CompanyName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Title', 'person', 'Title', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Title'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'FacebookName', 'person', 'Facebook', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'FacebookName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'TwitterName', 'person', 'Twitter', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'TwitterName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'LinkedinName', 'person', 'LinkedIn', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'LinkedinName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '2', 'Website', 'person', 'Website', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '2'
+    AND `FieldName` = 'Website'
+);
+
+
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'CompanyName', 'company', 'Company Name', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'CompanyName'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'Website', 'company', 'Website', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'Website'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'PhoneType', 'phone', 'Phone Type', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'PhoneType'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'PhoneNumber', 'phone', 'Phone Number', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'PhoneNumber'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'EmailAddressType', 'email', 'Email Type', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'EmailAddressType'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'EmailAddress', 'email', 'Email', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'EmailAddress'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'AddressType', 'address', 'Address Type', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'AddressType'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'Address1', 'address', 'Address', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'Address1'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'City', 'address', 'City', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'City'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'State', 'address', 'State', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'State'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'Zip', 'address', 'Zip', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'Zip'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`)
+SELECT '3', 'Country', 'address', 'Country', 'String', '1'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '3'
+    AND `FieldName` = 'Country'
+);
+
+
+
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`, `DisplayOrder`)
+SELECT '1', 'Website', 'company', 'Website', 'String', '0', '2'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '1'
+    AND `FieldName` = 'Website'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`, `DisplayOrder`)
+SELECT '1', 'PrimaryAddress', 'company', 'Primary Address', 'String', '0', '2'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '1'
+    AND `FieldName` = 'PrimaryAddress'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`, `DisplayOrder`)
+SELECT '1', 'PrimaryPhone', 'company', 'Primary Phone', 'String', '0', '2'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '1'
+    AND `FieldName` = 'PrimaryPhone'
+);
+INSERT INTO `reportfield` (`ReportCategoryId`, `FieldName`, `TableName`, `FieldTitle`, `DataType`, `Sortable`, `DisplayOrder`)
+SELECT '1', 'PrimaryEmail', 'company', 'Primary Email', 'String', '0', '2'
+FROM DUAL
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM `reportfield`
+  WHERE `ReportCategoryId` = '1'
+    AND `FieldName` = 'PrimaryEmail'
+);
+
+
+
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`TableName` = 'person' AND `ReportCategoryId` != '3');
+UPDATE `reportfield` SET `DisplayOrder` = '1' WHERE (`TableName` = 'company' AND `ReportCategoryId` = '3');
+UPDATE `reportfield` SET `DisplayOrder` = '2' WHERE (`TableName` = 'company' AND `ReportCategoryId` = '1');
+UPDATE `reportfield` SET `DisplayOrder` = '2' WHERE (`TableName` = 'phone' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `DisplayOrder` = '2' WHERE (`TableName` = 'phone' AND `ReportCategoryId` = '3');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`TableName` = 'membershipcategory');
+UPDATE `reportfield` SET `DisplayOrder` = '3' WHERE (`TableName` = 'email');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`TableName` = 'membershiptype');
+UPDATE `reportfield` SET `DisplayOrder` = '4' WHERE (`TableName` = 'address');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`TableName` = 'membership');
+UPDATE `reportfield` SET `DisplayOrder` = '5' WHERE (`TableName` = 'company' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`TableName` = 'entity');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`TableName` = 'person' AND `FieldName` = 'Title');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`TableName` = 'person' AND `FieldName` = 'FacebookName');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`TableName` = 'person' AND `FieldName` = 'TwitterName');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`TableName` = 'person' AND `FieldName` = 'LinkedinName');
+UPDATE `reportfield` SET `DisplayOrder` = '6' WHERE (`TableName` = 'person' AND `FieldName` = 'Website');
+UPDATE `reportfield` SET `DisplayOrder` = '7' WHERE (`TableName` = 'receipt');
+
+
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'Designation');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'Gender');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'PreferredContact');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'Prefix');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'Status');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'PaymentMode');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'PhoneType');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'EmailAddressType');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'AddressType');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'State');
+UPDATE `reportfield` SET `DisplayType` = 'Dropdown' WHERE (`FieldName` = 'Country');
+
+
+UPDATE `reportfield` SET `DisplayType` = 'Calendar' WHERE (`FieldName` = 'StartDate');
+UPDATE `reportfield` SET `DisplayType` = 'Calendar' WHERE (`FieldName` = 'EndDate');
+UPDATE `reportfield` SET `DisplayType` = 'Calendar' WHERE (`FieldName` = 'NextBillDate');
+UPDATE `reportfield` SET `DisplayType` = 'Calendar' WHERE (`FieldName` = 'RenewDate');
+UPDATE `reportfield` SET `DisplayType` = 'Calendar' WHERE (`FieldName` = 'DOB');
+UPDATE `reportfield` SET `DisplayType` = 'Calendar' WHERE (`FieldName` = 'TerminationDate');
+UPDATE `reportfield` SET `DisplayType` = 'Calendar' WHERE (`FieldName` = 'DateOfBirth');
+
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'FirstName');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'LastName');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'MiddleName');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'CasualName');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'Suffix');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'PhoneNumber');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'EmailAddress');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'Address1');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'City');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'Zip');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'CompanyName');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'Title');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'FacebookName');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'TwitterName');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'LinkedinName');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'Website');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'PrimaryAddress');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'PrimaryPhone');
+UPDATE `reportfield` SET `DisplayType` = 'Text' WHERE (`FieldName` = 'PrimaryEmail');
+
+
+
+UPDATE `reportfield` SET `FieldPathName` = 'CompanyName' WHERE (`FieldName` = 'CompanyName' AND `ReportCategoryId` = '3');
+UPDATE `reportfield` SET `FieldPathName` = 'Website' WHERE (`FieldName` = 'Website' AND `ReportCategoryId` != '1');
+UPDATE `reportfield` SET `FieldPathName` = 'LinkedinName' WHERE (`FieldName` = 'LinkedinName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'TwitterName' WHERE (`FieldName` = 'TwitterName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'FacebookName' WHERE (`FieldName` = 'LinkedinName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'Title' WHERE (`FieldName` = 'LinkedinName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'Prefix' WHERE (`FieldName` = 'Prefix' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'FirstName' WHERE (`FieldName` = 'FirstName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'MiddleName' WHERE (`FieldName` = 'MiddleName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'LastName' WHERE (`FieldName` = 'LastName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'CasualName' WHERE (`FieldName` = 'CasualName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'Suffix' WHERE (`FieldName` = 'Suffix' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'DateOfBirth' WHERE (`FieldName` = 'DateOfBirth' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'Gender' WHERE (`FieldName` = 'Gender' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'PreferredContact' WHERE (`FieldName` = 'PreferredContact' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'Designation' WHERE (`FieldName` = 'CasualName' AND `ReportCategoryId` = '2');
+UPDATE `reportfield` SET `FieldPathName` = 'Company.CompanyName' WHERE (`FieldName` = 'CompanyName' AND `ReportCategoryId` = '2');
+

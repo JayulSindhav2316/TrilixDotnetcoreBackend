@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report Width="6.5in" Name="DepositReport" xmlns="http://schemas.telerik.com/reporting/2023/1.1">
+  <DataSources>
+    <WebServiceDataSource ParameterValues="{&quot;@Url&quot;:&quot;http://localhost:5000/api/Receipt/getDepositReport&quot;,&quot;Authorization&quot;:&quot;Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJuYmYiOjE2Nzc1MTk0NjgsImV4cCI6MTY3NzUyNjY2OCwiaWF0IjoxNjc3NTE5NDY4fQ.GhZoY4n13Ma7ZqPVu0l9y3G_bDpyebj4xnpR7ZnW284&quot;,&quot;paymentType&quot;:&quot;All&quot;,&quot;searchBy&quot;:&quot;Month&quot;,&quot;fromDate&quot;:&quot;02/1/2023&quot;,&quot;toDate&quot;:&quot;02/27/2023&quot;,&quot;summary&quot;:&quot;0&quot;,&quot;portal&quot;:&quot;All&quot;,&quot;X-Tenant-Id&quot;:}" AuthParameterValues="null" ServiceUrl="@Url" Name="webServiceDataSource1">
+      <Parameters>
+        <WebServiceParameter WebServiceParameterType="Inline" Name="@Url">
+          <Value>
+            <String>= Parameters.Url.Value</String>
+          </Value>
+        </WebServiceParameter>
+        <WebServiceParameter WebServiceParameterType="Header" Name="Authorization">
+          <Value>
+            <String>= "Bearer "+Parameters.token.Value</String>
+          </Value>
+        </WebServiceParameter>
+        <WebServiceParameter WebServiceParameterType="Query" Name="paymentType">
+          <Value>
+            <String>= Parameters.paymentType.Value</String>
+          </Value>
+        </WebServiceParameter>
+        <WebServiceParameter WebServiceParameterType="Query" Name="searchBy">
+          <Value>
+            <String>= Parameters.searchBy.Value</String>
+          </Value>
+        </WebServiceParameter>
+        <WebServiceParameter WebServiceParameterType="Query" Name="fromDate">
+          <Value>
+            <String>= Parameters.fromDate.Value</String>
+          </Value>
+        </WebServiceParameter>
+        <WebServiceParameter WebServiceParameterType="Query" Name="toDate">
+          <Value>
+            <String>= Parameters.toDate.Value</String>
+          </Value>
+        </WebServiceParameter>
+        <WebServiceParameter WebServiceParameterType="Query" Name="summary">
+          <Value>
+            <String>= Parameters.summary.Value</String>
+          </Value>
+        </WebServiceParameter>
+        <WebServiceParameter WebServiceParameterType="Query" Name="portal">
+          <Value>
+            <String>= Parameters.portal.Value</String>
+          </Value>
+        </WebServiceParameter>
+        <WebServiceParameter WebServiceParameterType="Header" Name="X-Tenant-Id">
+          <Value>
+            <String>= Parameters.tenantid.Value</String>
+          </Value>
+        </WebServiceParameter>
+      </Parameters>
+    </WebServiceDataSource>
+  </DataSources>
+  <Items>
+    <PageHeaderSection Height="1in" Name="pageHeaderSection1">
+      <Items>
+        <TextBox Width="6.5in" Height="0.2in" Left="0in" Top="0in" Value="Deport Report" CanGrow="True" TextWrap="True" Docking="Top" Name="textBox40">
+          <Style Color="Black" TextAlign="Center">
+            <Font Size="14pt" Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="6.5in" Height="0.2in" Left="0in" Top="0.8in" Value="= &quot;Generated for &quot; + CDate(Parameters.toDate.Value).ToString(&quot;MMMM - yyyy&quot;)" Docking="Bottom" Name="textBox48">
+          <Style TextAlign="Center">
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.1in" Height="0.6in" Left="4.4in" Top="0.2in" Value="= &quot;Date :&quot; + Now()" Docking="Right" Name="textBox47">
+          <Style TextAlign="Right" />
+        </TextBox>
+      </Items>
+    </PageHeaderSection>
+    <DetailSection Height="1.8in" Name="detailSection1">
+      <Items>
+        <Crosstab DataSourceName="webServiceDataSource1" Width="6.501in" Height="0.8in" Left="0in" Top="0in" ColumnHeadersPrintOnEveryPage="True" Docking="Top" Name="crosstab1" StyleName="Corporate.TableNormal">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.803in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.receiptId" Name="textBox10" StyleName="Corporate.TableBody" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.146in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.transactionDate" Name="textBox11" StyleName="Corporate.TableBody" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.892in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.billableName" Name="textBox12" StyleName="Corporate.TableBody" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.404in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.transactionReference" Name="textBox13" StyleName="Corporate.TableBody" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.738in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.portal" Name="textBox14" StyleName="Corporate.TableBody" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.738in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.amount" Name="textBox15" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.803in" Height="0.2in" Left="0in" Top="0in" Name="textBox16" StyleName="Corporate.SubTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.146in" Height="0.2in" Left="0in" Top="0in" Name="textBox17" StyleName="Corporate.SubTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.892in" Height="0.2in" Left="0in" Top="0in" Name="textBox18" StyleName="Corporate.SubTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.404in" Height="0.2in" Left="0in" Top="0in" Name="textBox19" StyleName="Corporate.SubTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.738in" Height="0.2in" Left="0in" Top="0in" Name="textBox20" StyleName="Corporate.SubTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.738in" Height="0.2in" Left="0in" Top="0in" Value="= Sum(Fields.amount)" Name="textBox21" StyleName="Corporate.SubTotal">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.803in" Height="0.2in" Left="0in" Top="0in" Name="textBox22" StyleName="Corporate.GrandTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.146in" Height="0.2in" Left="0in" Top="0in" Name="textBox23" StyleName="Corporate.GrandTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.892in" Height="0.2in" Left="0in" Top="0in" Name="textBox24" StyleName="Corporate.GrandTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.404in" Height="0.2in" Left="0in" Top="0in" Name="textBox25" StyleName="Corporate.GrandTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.738in" Height="0.2in" Left="0in" Top="0in" Name="textBox26" StyleName="Corporate.GrandTotal" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.738in" Height="0.2in" Left="0in" Top="0in" Value="= Sum(Fields.amount)" Name="textBox27" StyleName="Corporate.GrandTotal">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="0.803in" />
+              <Column Width="1.146in" />
+              <Column Width="0.892in" />
+              <Column Width="1.404in" />
+              <Column Width="0.738in" />
+              <Column Width="0.738in" />
+            </Columns>
+            <Rows>
+              <Row Height="0.2in" />
+              <Row Height="0.2in" />
+              <Row Height="0.2in" />
+            </Rows>
+          </Body>
+          <Corner>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.78in" Height="0.2in" Left="0in" Top="0in" Value="Payment Mode" Name="textBox9" StyleName="Corporate.TableHeader" />
+                </ReportItem>
+              </TableCell>
+            </Cells>
+          </Corner>
+          <Style Visible="True" />
+          <RowGroups>
+            <TableGroup Name="paymentMode">
+              <ReportItem>
+                <TextBox Width="0.78in" Height="0.4in" Left="0in" Top="0in" Value="= Fields.paymentMode" Name="textBox7" StyleName="Corporate.TableGroup" />
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="detail">
+                  <Groupings>
+                    <Grouping />
+                  </Groupings>
+                </TableGroup>
+                <TableGroup />
+              </ChildGroups>
+              <Groupings>
+                <Grouping Expression="= Fields.paymentMode" />
+              </Groupings>
+              <Sortings>
+                <Sorting Expression="= Fields.paymentMode" Direction="Asc" />
+              </Sortings>
+            </TableGroup>
+            <TableGroup Name="total">
+              <ReportItem>
+                <TextBox Width="0.78in" Height="0.2in" Left="0in" Top="0in" Value="Total" Name="textBox8" StyleName="Corporate.GrandTotal" />
+              </ReportItem>
+            </TableGroup>
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="receiptId">
+              <ReportItem>
+                <TextBox Width="0.803in" Height="0.2in" Left="0in" Top="0in" Value="Receipt" Name="textBox1" StyleName="Corporate.TableHeader" />
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="transactionDate">
+              <ReportItem>
+                <TextBox Width="1.146in" Height="0.2in" Left="0in" Top="0in" Value="Date" Name="textBox2" StyleName="Corporate.TableHeader" />
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="billableName">
+              <ReportItem>
+                <TextBox Width="0.892in" Height="0.2in" Left="0in" Top="0in" Value="Name" Name="textBox3" StyleName="Corporate.TableHeader" />
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="transactionReference">
+              <ReportItem>
+                <TextBox Width="1.404in" Height="0.2in" Left="0in" Top="0in" Value="Transaction Ref." Name="textBox4" StyleName="Corporate.TableHeader" />
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="portal">
+              <ReportItem>
+                <TextBox Width="0.738in" Height="0.2in" Left="0in" Top="0in" Value="Portal" Name="textBox5" StyleName="Corporate.TableHeader" />
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="amount">
+              <ReportItem>
+                <TextBox Width="0.738in" Height="0.2in" Left="0in" Top="0in" Value="Amount" Name="textBox6" StyleName="Corporate.TableHeader">
+                  <Style TextAlign="Right" />
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+          </ColumnGroups>
+          <ConditionalFormatting>
+            <FormattingRule>
+              <Style Visible="False" />
+              <Filters>
+                <Filter Expression="= Parameters.summary.Value" Operator="Equal" Value="1" />
+              </Filters>
+            </FormattingRule>
+          </ConditionalFormatting>
+        </Crosstab>
+        <Table DataSourceName="webServiceDataSource1" Width="6.499in" Height="0.6in" Left="0in" Top="1.2in" Docking="Bottom" Name="table1" StyleName="Corporate.TableNormal">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.86in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.transactionDate" Name="textBox34" StyleName="Corporate.TableBody" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.047in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.totalCash" Format="{0:C2}" Name="textBox35" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.041in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.totalCheck" Format="{0:C2}" Name="textBox36" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.2in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.totalECheck" Format="{0:C2}" Name="textBox37" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.491in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.totalCreditCard" Format="{0:C2}" Name="textBox38" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.86in" Height="0.2in" Left="0in" Top="0in" Value="= Fields.totalOffline" Format="{0:C2}" Name="textBox39" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.86in" Height="0.2in" Left="3.2in" Top="0.3in" Value="=Sum(Fields.totalOffline)" Format="{0:C2}" Name="textBox46" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.491in" Height="0.2in" Left="3.2in" Top="0.3in" Value="=Sum(Fields.totalCreditCard)" Format="{0:C2}" Name="textBox45" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.2in" Height="0.2in" Left="3.2in" Top="0.3in" Value="=Sum(Fields.totalECheck)" Format="{0:C2}" Name="textBox44" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.041in" Height="0.2in" Left="3.2in" Top="0.3in" Value="=Sum(Fields.totalCheck)" Format="{0:C2}" Name="textBox43" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.047in" Height="0.2in" Left="3.2in" Top="0.3in" Value="=Sum(Fields.totalCash)" Name="textBox42" StyleName="Corporate.TableBody">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.86in" Height="0.2in" Left="3.2in" Top="0.3in" Value="Total:" Name="textBox41" StyleName="Corporate.TableBody" />
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="0.86in" />
+              <Column Width="1.047in" />
+              <Column Width="1.041in" />
+              <Column Width="1.2in" />
+              <Column Width="1.491in" />
+              <Column Width="0.86in" />
+            </Columns>
+            <Rows>
+              <Row Height="0.2in" />
+              <Row Height="0.2in" />
+            </Rows>
+          </Body>
+          <Corner />
+          <RowGroups>
+            <TableGroup Name="detail">
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+            <TableGroup Name="group" />
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="transactionDate1">
+              <ReportItem>
+                <TextBox Width="0.86in" Height="0.2in" Left="0in" Top="0in" Value="Date" Name="textBox28" StyleName="Corporate.TableHeader" />
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="totalCash">
+              <ReportItem>
+                <TextBox Width="1.047in" Height="0.2in" Left="0in" Top="0in" Value="Cash" Name="textBox29" StyleName="Corporate.TableHeader">
+                  <Style TextAlign="Right" />
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="totalCheck">
+              <ReportItem>
+                <TextBox Width="1.041in" Height="0.2in" Left="0in" Top="0in" Value="Check" Name="textBox30" StyleName="Corporate.TableHeader">
+                  <Style TextAlign="Right" />
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="totalECheck">
+              <ReportItem>
+                <TextBox Width="1.2in" Height="0.2in" Left="0in" Top="0in" Value="eCheck" Name="textBox31" StyleName="Corporate.TableHeader">
+                  <Style TextAlign="Right" />
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="totalCreditCard">
+              <ReportItem>
+                <TextBox Width="1.491in" Height="0.2in" Left="0in" Top="0in" Value="Credit Card" Name="textBox32" StyleName="Corporate.TableHeader">
+                  <Style TextAlign="Center" />
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="totalOffline">
+              <ReportItem>
+                <TextBox Width="0.86in" Height="0.2in" Left="0in" Top="0in" Value="Off Line" Name="textBox33" StyleName="Corporate.TableHeader">
+                  <Style TextAlign="Right" />
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+          </ColumnGroups>
+          <ConditionalFormatting>
+            <FormattingRule>
+              <Style Visible="False" />
+              <Filters>
+                <Filter Expression="= Parameters.summary.Value" Operator="Equal" Value="0" />
+              </Filters>
+            </FormattingRule>
+          </ConditionalFormatting>
+        </Table>
+      </Items>
+    </DetailSection>
+    <PageFooterSection Height="1in" Name="pageFooterSection1" />
+  </Items>
+  <PageSettings PaperKind="Letter" Landscape="False" ColumnCount="1" ColumnSpacing="0in" ContinuousPaper="False">
+    <Margins>
+      <MarginsU Left="1in" Right="1in" Top="1in" Bottom="1in" />
+    </Margins>
+  </PageSettings>
+  <StyleSheet>
+    <StyleRule>
+      <Style>
+        <Padding Left="2pt" Right="2pt" />
+      </Style>
+      <Selectors>
+        <TypeSelector Type="TextItemBase" />
+        <TypeSelector Type="HtmlTextBox" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="0, 63, 89">
+        <Font Name="Segoe UI" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="187, 220, 235" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="Table" StyleName="BlueOpal.TableNormal" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="0, 63, 89">
+        <Font Name="Segoe UI" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="187, 220, 235" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="BlueOpal.TableBody" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="233, 244, 249" Color="0, 63, 89" VerticalAlign="Middle">
+        <Font Name="Segoe UI" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="187, 220, 235" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="BlueOpal.TableHeader" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="124, 208, 242" Color="0, 63, 89">
+        <Font Name="Segoe UI" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="187, 220, 235" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="BlueOpal.SubTotal" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="97, 180, 214" Color="0, 63, 89">
+        <Font Name="Segoe UI" Size="10pt" Bold="True" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="187, 220, 235" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="BlueOpal.GrandTotal" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="233, 244, 249" Color="0, 63, 89">
+        <Font Name="Segoe UI" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="187, 220, 235" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="BlueOpal.TableGroup" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="20, 34, 77">
+        <Font Name="Calibri" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="Table" StyleName="Office.TableNormal" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="188, 211, 241" Color="20, 34, 77">
+        <Font Name="Calibri" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.SubTotal" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <Font Name="Calibri" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableBody" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="35, 92, 169" Color="238, 244, 251">
+        <Font Name="Calibri" Size="10pt" Bold="True" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.GrandTotal" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="121, 167, 227" Color="20, 34, 77" VerticalAlign="Middle">
+        <Font Name="Calibri" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableHeader" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="238, 244, 251" Color="20, 34, 77">
+        <Font Name="Calibri" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableGroup" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="Black">
+        <Font Name="Tahoma" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="Table" StyleName="Corporate.TableNormal" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <Font Name="Tahoma" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Corporate.TableBody" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="198, 206, 219">
+        <Font Name="Tahoma" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Corporate.SubTotal" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="141, 156, 183">
+        <Font Name="Tahoma" Size="10pt" Bold="True" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Corporate.GrandTotal" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="28, 58, 112" Color="White" VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Corporate.TableHeader" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="227, 230, 237">
+        <Font Name="Tahoma" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Corporate.TableGroup" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="Black">
+        <Font Name="Tahoma" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="Table" StyleName="Normal.TableNormal" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <Font Name="Tahoma" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Normal.TableBody" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <Font Name="Tahoma" Size="10pt" Bold="True" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Normal.GrandTotal" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <Font Name="Tahoma" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Normal.TableGroup" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Normal.TableHeader" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <ReportParameters>
+    <ReportParameter Name="Url" Text="Url" AutoRefresh="True">
+      <Value>
+        <String>http://localhost:5000/api/Receipt/getDepositReport</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="token" Text="token" AutoRefresh="True">
+      <Value>
+        <String>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJuYmYiOjE2Nzc1Njc4OTUsImV4cCI6MTY3NzU3NTA5NSwiaWF0IjoxNjc3NTY3ODk1fQ.iqbp1lfRgMS-bRZX-jPOxxEK0we-S3frrh--F5jGQ94</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="paymentType" Text="paymentType" AutoRefresh="True">
+      <Value>
+        <String>All</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="searchBy" Text="searchBy" AutoRefresh="True">
+      <Value>
+        <String>Month</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="fromDate" Text="fromDate" AutoRefresh="True">
+      <Value>
+        <String>02/27/2023</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="toDate" Text="toDate" AutoRefresh="True">
+      <Value>
+        <String>02/27/2023</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="summary" Text="summary" AutoRefresh="True">
+      <Value>
+        <String>0</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="portal" Text="portal" AutoRefresh="True">
+      <Value>
+        <String>All</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="tenantid" Text="tenantid" AutoRefresh="True" />
+  </ReportParameters>
+</Report>

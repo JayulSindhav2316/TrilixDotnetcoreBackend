@@ -1,0 +1,13 @@
+ALTER TABLE `invoice` 
+ADD COLUMN `EventId` INT NULL AFTER `InvoiceItemType`,
+ADD INDEX `fk_invoice_event_id_idx` (`EventId` ASC) VISIBLE;
+;
+ALTER TABLE `invoice` 
+ADD CONSTRAINT `fk_invoice_event_id`
+  FOREIGN KEY (`EventId`)
+  REFERENCES `event` (`EventId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+

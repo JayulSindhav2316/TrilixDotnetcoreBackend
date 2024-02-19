@@ -1,0 +1,6 @@
+ALTER TABLE `organization` 
+ADD COLUMN `Title` VARCHAR(100) NULL AFTER `Name`;
+
+
+UPDATE `organization` SET `Title` = '';
+

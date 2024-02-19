@@ -1,0 +1,21 @@
+﻿INSERT INTO `staffuser`
+(
+`UserName`,
+`FirstName`,
+`LastName`,
+`Email`,
+`Password`,
+`DepartmentId`,
+`Status`,
+`Salt`,
+OrganizationId)
+VALUES
+(
+'memberportal',
+'Member',
+'Portal',
+'',
+'2516df16966e3cf625018dbb4b4eb66a436625f4bd89dfa0045a0fab75693b6182308e1172e815533edf131a0e37ec9eb677c85686e572cbfa914531dec9bf54',
+5,
+1,
+'7cef755b52c2f1cd78033c0dffc78d9b5c59bb8c545fefded8bd69caf8f35554d37c11d4634fe8916bbdc14aca2ed961bbdff3e0cb7cf83f99c601a5033686a6',2);

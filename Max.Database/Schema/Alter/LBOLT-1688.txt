@@ -1,0 +1,42 @@
+﻿
+ALTER TABLE `contactactivity` 
+CHANGE COLUMN `Subject` `Subject` VARCHAR(300) NULL DEFAULT NULL ;
+
+
+ALTER TABLE `contactactivity` 
+DROP FOREIGN KEY `fk_activity_interaction_entuity_id`,
+DROP FOREIGN KEY `fk_activity_interaction_Account_id`;
+ALTER TABLE `contactactivity` 
+DROP COLUMN `InteractionEntityId`,
+DROP COLUMN `InteractionAccountId`,
+DROP INDEX `fk_activity_interaction_entuity_id_idx` ,
+DROP INDEX `fk_activity_interaction_Account_id_idx` ;
+;
+
+
+
+
+CREATE TABLE `contactactivityinteraction` (
+  `ContactActivityInteractionId` INT NOT NULL AUTO_INCREMENT,
+  `ContactActivityId` INT NULL,
+  `InteractionAccountId` INT NULL,
+  `InteractionEntityId` INT NULL,
+  PRIMARY KEY (`ContactActivityInteractionId`),
+  INDEX `fk_activityInteraction_interaction_companyId_idx` (`InteractionAccountId` ASC) ,
+  INDEX `fk_activityInteraction_contactActivityId_idx` (`ContactActivityId` ASC),
+  INDEX `fk_activityInteraction_interaction_entityId_idx` (`InteractionEntityId` ASC) ,
+  CONSTRAINT `fk_activityInteraction_interaction_entityId`
+    FOREIGN KEY (`InteractionEntityId`)
+    REFERENCES `entity` (`EntityId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activityInteraction_interaction_companyId`
+    FOREIGN KEY (`InteractionAccountId`)
+    REFERENCES `company` (`CompanyId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activityInteraction_contactActivityId`
+    FOREIGN KEY (`ContactActivityId`)
+    REFERENCES `contactactivity` (`ContactActivityId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

@@ -1,0 +1,65 @@
+﻿/* Clean up script */
+update person set membershipid=0;
+/* Delete billing Fee*/
+
+delete from billingfee;
+/* delete shoppingcart */
+delete from shoppingcartdetail;
+delete from shoppingcart;
+
+/* delete payments */
+delete from autobillingPayment;
+delete from billingemail;
+delete from Paymenttransaction;
+delete from journalentrydetail
+delete from journalentryheader
+delete FROM refunddetail;
+delete FROM credittransaction;
+
+/*delete from receiptdetail*/
+delete from receiptdetail;
+delete from receiptheader;
+
+/* Delete All invoice Details */
+Delete from Invoicedetail;
+Delete from Invoice;
+delete from autobillingdraft;
+delete FROM paperinvoice;
+
+/* Delete all Memberships */
+delete FROM membershiphistory;
+delete from autobillingonhold;
+delete from membership;
+delete from membershiptype;
+
+delete FROM accesslog;
+delete FROM accesstoken;
+delete FROM multifactorcode;
+
+delete FROM autobillingjob;
+delete from billingbatch;
+delete from billingjob;
+delete FROM billingcycle;
+
+delete FROM billingdocument;
+
+delete FROM communication;
+delete FROM userdevice;
+
+
+delete from relation;
+delete from document;
+delete from paymentProfile;
+delete from note;
+delete from person;
+delete from membershipfee;
+delete from accountingsetup;
+delete from glaccount;
+delete from glaccounttype
+delete from staffROle;
+delete from rolemenu;
+delete from role;
+delete from staffuser;
+delete from department;
+delete from paymentProcessor;
+delete from organization;

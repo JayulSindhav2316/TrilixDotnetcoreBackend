@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS `billingcyclenotification` (
+  `NotificationId` int NOT NULL AUTO_INCREMENT,
+  `NotificationText` varchar(5000) DEFAULT NULL,
+  `BillingCycleId` int NOT NULL,
+  `IsRead` int DEFAULT NULL,
+  PRIMARY KEY (`NotificationId`),
+  KEY `BillingCycleId` (`BillingCycleId`),
+  CONSTRAINT `billingcyclenotification_ibfk_1PRIMARY` FOREIGN KEY (`BillingCycleId`) REFERENCES `billingcycle` (`BillingCycleId`)
+);

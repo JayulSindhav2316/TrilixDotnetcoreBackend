@@ -1,0 +1,14 @@
+
+INSERT INTO `max_nbma`.`organization`(`Name`)
+VALUES ('NBMA');
+
+
+INSERT INTO `max_nbma`.`department`(`Name`,`Description`,`CostCenterCode`,`OrganizationId`,`Status`)
+VALUES ('Membership','Membership','MEM',1,1);
+
+INSERT INTO `membermax`.`department`(`Name`,`Description`,`CostCenterCode`,`OrganizationId`,`Status`)
+VALUES ('Accounting','Accounting','ACT',2,1);
+INSERT INTO `membermax`.`department`(`Name`,`Description`,`CostCenterCode`,`OrganizationId`,`Status`)
+VALUES ('Registrations','Registrations','REG',2,1);
+
+

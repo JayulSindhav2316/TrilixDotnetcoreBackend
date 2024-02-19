@@ -1,0 +1,2 @@
+ALTER TABLE paymentprofile
+ADD NickName varchar(255);

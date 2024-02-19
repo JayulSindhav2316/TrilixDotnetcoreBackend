@@ -1,0 +1,2 @@
+﻿ALTER TABLE `invoicedetail` 
+ADD COLUMN `BillableEntityId` INT NULL AFTER `ItemType`;

@@ -1,0 +1,19 @@
+﻿ALTER TABLE `accesstoken` 
+ADD COLUMN `EntityId` INT NULL AFTER `UserId`,
+ADD INDEX `fk_accesstoken_entity_id_idx` (`EntityId` ASC);
+;
+ALTER TABLE `accesstoken` 
+ADD CONSTRAINT `fk_accesstoken_entity_id`
+  FOREIGN KEY (`EntityId`)
+  REFERENCES `entity` (`EntityId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+ALTER TABLE `accesstoken` 
+DROP FOREIGN KEY `fk_accesstoken_user_id`,
+DROP FOREIGN KEY `fk_accesstoken_entity_id`;
+ALTER TABLE `accesstoken` 
+CHANGE COLUMN `UserId` `UserId` INT(11) NULL ,
+DROP INDEX `fk_accesstoken_entity_id_idx` ,
+DROP INDEX `fk_accesstoken_user_id_idx` ;
+;

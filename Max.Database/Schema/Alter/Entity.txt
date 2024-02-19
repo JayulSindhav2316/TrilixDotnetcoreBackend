@@ -1,0 +1,11 @@
+﻿ALTER TABLE `membermax`.`entity` 
+ADD COLUMN `WebLoginName` VARCHAR(255) NULL AFTER `ProfilePictureId`,
+ADD COLUMN `WebPassword` VARCHAR(1000) NULL AFTER `WebLoginName`,
+ADD COLUMN `WebPasswordSalt` VARCHAR(1000) NULL AFTER `WebPassword`;
+
+ALTER TABLE  `entity` 
+ADD COLUMN `SociableUserId` INT(11) NULL AFTER `PortalLastAccessed`,
+ADD COLUMN `SociableProfileId` INT(11) NULL AFTER `SociableUserId`;
+
+ALTER TABLE 
+CHARACTER SET = utf8 , COLLATE = utf8_unicode_ci ;

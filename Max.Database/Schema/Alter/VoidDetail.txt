@@ -1,0 +1,17 @@
+﻿CREATE TABLE `voiddetail` (
+  `VoidId` int(11) NOT NULL AUTO_INCREMENT,
+  `VoidDate` datetime NOT NULL,
+  `VoidMode` varchar(50) NOT NULL,
+  `ReceiptId` int(11) NOT NULL,
+  `Description` varchar(100) DEFAULT NULL,
+  `Amount` decimal(14,3) NOT NULL,
+  `Reason` varchar(500) DEFAULT NULL,
+  `UserId` int(11) NOT NULL,
+  `PaymentTransactionId` int(11) NOT NULL,
+  `EntityId` int(11) NOT NULL,
+  PRIMARY KEY (`VoidId`),
+  KEY `fk_void_usr_id_idx` (`UserId`),
+  KEY `fk_void_receiptid_id_idx` (`ReceiptId`),
+  CONSTRAINT `fk_void_receiptid_id` FOREIGN KEY (`ReceiptId`) REFERENCES `receiptheader` (`Receiptid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_void_usr_id` FOREIGN KEY (`UserId`) REFERENCES `staffuser` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

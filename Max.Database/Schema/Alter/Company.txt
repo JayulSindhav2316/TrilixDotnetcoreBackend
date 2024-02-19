@@ -1,0 +1,19 @@
+﻿ALTER TABLE `company` 
+DROP COLUMN `PrimaryContactEmail`,
+ADD COLUMN `StreetAddress` VARCHAR(100) NULL AFTER `MailingAddress`,
+ADD COLUMN `City` VARCHAR(100) NULL AFTER `StreetAddress`,
+ADD COLUMN `State` VARCHAR(45) NULL AFTER `City`,
+ADD COLUMN `Zip` VARCHAR(10) NULL AFTER `State`,
+CHANGE COLUMN `PrimaryContactPhone` `Phone` VARCHAR(45) NULL DEFAULT NULL AFTER `Email`,
+CHANGE COLUMN `AddressId` `MailingAddress` VARCHAR(100) NULL DEFAULT NULL AFTER `BillableContactId`,
+CHANGE COLUMN `PrimaryContactName` `BillableContactId` INT NULL DEFAULT NULL ;
+
+ALTER TABLE company
+ADD Country varchar(255);
+
+ALTER TABLE `company` 
+DROP COLUMN `Country`,
+DROP COLUMN `Zip`,
+DROP COLUMN `State`,
+DROP COLUMN `City`,
+DROP COLUMN `StreetAddress`;

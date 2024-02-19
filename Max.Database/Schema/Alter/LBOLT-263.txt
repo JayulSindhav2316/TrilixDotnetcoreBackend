@@ -1,0 +1,15 @@
+CREATE TABLE `note` (
+  `NoteId` int(11) NOT NULL  AUTO_INCREMENT,
+  `PersonId` int(11) NOT NULL,
+  `Notes` varchar(500) NOT NULL,
+  `Severity` varchar(20) NOT NULL,
+  `DisplayOnProfile` int(11) NOT NULL,
+  `CreatedOn` datetime NOT NULL,
+  `CreatedBy` varchar(100) NOT NULL,
+  `ModifiedOn` datetime DEFAULT NULL,
+  `ModifiedBy` varchar(100) DEFAULT NULL,
+  `Status` int(11) NOT NULL,
+  PRIMARY KEY (`NoteId`),
+  KEY `fk_note_personid_idx` (`PersonId`),
+  CONSTRAINT `fk_note_personid` FOREIGN KEY (`PersonId`) REFERENCES `person` (`PersonId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

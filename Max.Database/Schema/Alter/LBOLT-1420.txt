@@ -1,0 +1,22 @@
+ALTER TABLE containeraccess   
+CHANGE COLUMN StaffUserId StaffRoleId int null;
+
+ALTER TABLE documentaccess
+ADD StaffRoleId int null;
+
+ALTER TABLE `containeraccess` 
+DROP FOREIGN KEY `fk_containeraccess_staffuser_id`;
+ALTER TABLE `containeraccess` 
+ADD INDEX `fk_containeraccess_staffuser_id_idx` (`StaffRoleId` ASC),
+DROP INDEX `fk_containeraccess_staffuser_id_idx` ;
+;
+ALTER TABLE `containeraccess` 
+ADD CONSTRAINT `fk_containeraccess_staffuser_id`
+  FOREIGN KEY (`StaffRoleId`)
+  REFERENCES `staffrole` (`StaffRoleId`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE containeraccess
+ADD FOREIGN KEY (StaffRoleId) REFERENCES role(RoleId);
+

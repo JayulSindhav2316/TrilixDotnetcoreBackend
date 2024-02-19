@@ -1,0 +1,6 @@
+﻿ 
+ /* add column in confguration table for CARA to display company in search for adding additional member while creating membership*/
+
+ CALL MaxAddColumn( 'configuration', 'DisplayCompanySearchForMembershipAdditionalMember', 'INT NULL DEFAULT 0');
+
+ UPDATE `cara-demo`.`configuration` SET `DisplayCompanySearchForMembershipAdditionalMember` = 1;
